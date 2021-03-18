@@ -11,10 +11,26 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // TO DO: check if user is logged in
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        
+        let isLoggedIn = false
+        
+        if(isLoggedIn == true){
+            window.rootViewController = TabBarViewController()
+        }
+        else{
+            window.rootViewController = UIStoryboard(name: "Welcome", bundle: nil).instantiateViewController(withIdentifier: "welcome")
+        }
+        
+        window.makeKeyAndVisible()
+        self.window = window
+        
         return true
     }
 
