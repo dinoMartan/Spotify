@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let isLoggedIn = AuthManager.shared.isSignedIn
         let isLoggedIn = false
         
+        
         let window = UIWindow(frame: UIScreen.main.bounds)
         
         if(isLoggedIn == true){
