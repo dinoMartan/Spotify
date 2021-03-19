@@ -6,14 +6,13 @@
 //  Copyright © 2021 Dino Martan. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-public class Alerter{
+public class Alerter {
     
-    public static func getAlert(myTitle: String, myMessage: String, myButtonText: String) -> UIAlertController{
+    static func getAlert(myTitle: String, myMessage: String, myButtonText: String) -> UIAlertController {
         let alert = UIAlertController(title: myTitle, message: myMessage, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: myButtonText, style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: myButtonText, style: .default, handler: nil))
         return alert
     }
 }

@@ -11,27 +11,26 @@ import WebKit
 
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
-    @IBOutlet weak var wkWebView: WKWebView!
-    @IBOutlet weak var activityIndicatior: UIActivityIndicatorView!
+    @IBOutlet private weak var wkWebView: WKWebView!
+    @IBOutlet private weak var activityIndicatior: UIActivityIndicatorView!
     
     public var completionHandler: ((Bool) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView() {
         wkWebView.isHidden = true
         activityIndicatior.isHidden = false
     
         wkWebView.configuration.preferences.javaScriptEnabled = true
-        
         wkWebView.navigationDelegate = self
 
-        guard let url = AuthManager.shared.signInURL else{
-            return
-        }
+        guard let url = AuthManager.shared.signInURL else { return }
         
-        print(url.absoluteString)
         wkWebView.load(URLRequest(url: url))
-        // Do any additional setup after loading the view.
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
@@ -40,17 +39,12 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        guard let url = webView.url else{
-            return
-        }
+        guard let url = webView.url else { return }
         
-        guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" })?.value
-        else{
-            return
-        }
+        guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" } )?.value
+        else { return }
         
         webView.isHidden = true
-        //self.dismiss(animated: true, completion: nil)
         AuthManager.shared.exchangeCodeForToken(code: code){ [weak self] success in
             DispatchQueue.main.async {
                 self?.completionHandler?(success)

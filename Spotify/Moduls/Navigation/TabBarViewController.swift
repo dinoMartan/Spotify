@@ -29,7 +29,7 @@ class TabBarViewController: UITabBarController {
         navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
         navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "music.note.list"), tag: 1)
         
-        let viewControllers: [UIViewController]? = [navigationControllerHome,navigationControllerSearch,navigationControllerLibrary]
+        let viewControllers = [navigationControllerHome,navigationControllerSearch,navigationControllerLibrary]
         
         //self.tabBarController?.selectedIndex = 1
         setViewControllers(viewControllers, animated: true)

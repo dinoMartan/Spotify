@@ -9,11 +9,10 @@
 import UIKit
 import WebKit
 
-class WelcomeViewController: UIViewController, WKNavigationDelegate{
+class WelcomeViewController: UIViewController, WKNavigationDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
     }
     
 
@@ -30,8 +29,8 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate{
         present(authenticationViewController, animated: true, completion: nil)
     }
     
-    private func handleSignIn(success: Bool){
-        guard success else{
+    private func handleSignIn(success: Bool) {
+        guard success else {
             let alert = Alerter.getAlert(myTitle: "Ooops", myMessage: "Looks like you didn't sign in", myButtonText: "Shame")
             present(alert, animated: true, completion: nil)
             return

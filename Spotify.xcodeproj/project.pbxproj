@@ -77,6 +77,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3122CFBE26054FAD00836C5C /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				318FBB252603BE0C008B1F7A /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		3122CFBF26054FC300836C5C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				3122CFC026054FD700836C5C /* Alerts */,
+				318FBB382603BE4D008B1F7A /* Models */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		3122CFC026054FD700836C5C /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				31B496A12604BF81005C1EAA /* Alerter.swift */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
+		3122CFC126054FF500836C5C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				31B496942604B347005C1EAA /* Managers */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		318FBB172603BE0B008B1F7A = {
 			isa = PBXGroup;
 			children = (
@@ -96,10 +129,10 @@
 		318FBB222603BE0C008B1F7A /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
-				31B496A02604BF6B005C1EAA /* idkHowToNameThis */,
-				31B496942604B347005C1EAA /* Managers */,
+				3122CFC126054FF500836C5C /* Services */,
+				3122CFBF26054FC300836C5C /* Common */,
+				3122CFBE26054FAD00836C5C /* Application */,
 				318FBB3B2603C09C008B1F7A /* Moduls */,
-				318FBB382603BE4D008B1F7A /* Models */,
 				318FBB372603BE1B008B1F7A /* Resources */,
 				318FBB272603BE0C008B1F7A /* ViewController.swift */,
 				318FBB312603BE10008B1F7A /* Info.plist */,
@@ -112,7 +145,6 @@
 			children = (
 				318FBB2C2603BE10008B1F7A /* Assets.xcassets */,
 				318FBB232603BE0C008B1F7A /* AppDelegate.swift */,
-				318FBB252603BE0C008B1F7A /* SceneDelegate.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -212,14 +244,6 @@
 				31B4969B2604B36E005C1EAA /* HapticsManager.swift */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		31B496A02604BF6B005C1EAA /* idkHowToNameThis */ = {
-			isa = PBXGroup;
-			children = (
-				31B496A12604BF81005C1EAA /* Alerter.swift */,
-			);
-			path = idkHowToNameThis;
 			sourceTree = "<group>";
 		};
 		31B496A52604D789005C1EAA /* Authentication */ = {

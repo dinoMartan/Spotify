@@ -21,10 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         
-        if(isLoggedIn == true){
+        if isLoggedIn {
             window.rootViewController = TabBarViewController()
         }
-        else{
+        else {
             window.rootViewController = UIStoryboard(name: "Welcome", bundle: nil).instantiateViewController(withIdentifier: "welcome")
         }
         

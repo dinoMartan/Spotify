@@ -15,23 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
-        //let isLoggedIn = AuthManager.shared.isSignedIn
-        let isLoggedIn = false
-        
-        
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        
-        if(isLoggedIn == true){
-            window.rootViewController = TabBarViewController()
-        }
-        else{
-            window.rootViewController = UIStoryboard(name: "Welcome", bundle: nil).instantiateViewController(withIdentifier: "welcome")
-        }
-        
-        window.makeKeyAndVisible()
-        self.window = window
-        
         return true
     }
 
