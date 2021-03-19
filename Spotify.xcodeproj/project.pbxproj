@@ -26,8 +26,10 @@
 		318FBB542603CCFE008B1F7A /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB532603CCFD008B1F7A /* UserProfile.swift */; };
 		31B496852603E1FF005C1EAA /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B496842603E1FF005C1EAA /* WelcomeViewController.swift */; };
 		31B496892603E217005C1EAA /* Welcome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B496882603E217005C1EAA /* Welcome.storyboard */; };
-		31B4968D2603E253005C1EAA /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4968C2603E253005C1EAA /* AuthenticationViewController.swift */; };
-		31B496912603E260005C1EAA /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B496902603E260005C1EAA /* Authentication.storyboard */; };
+		31B496962604B356005C1EAA /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B496952604B356005C1EAA /* AuthManager.swift */; };
+		31B496992604B35F005C1EAA /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B496982604B35F005C1EAA /* APICaller.swift */; };
+		31B4969C2604B36E005C1EAA /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4969B2604B36E005C1EAA /* HapticsManager.swift */; };
+		31B496A22604BF81005C1EAA /* Alerter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B496A12604BF81005C1EAA /* Alerter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,8 +54,10 @@
 		318FBB532603CCFD008B1F7A /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		31B496842603E1FF005C1EAA /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		31B496882603E217005C1EAA /* Welcome.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Welcome.storyboard; sourceTree = "<group>"; };
-		31B4968C2603E253005C1EAA /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
-		31B496902603E260005C1EAA /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		31B496952604B356005C1EAA /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		31B496982604B35F005C1EAA /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
+		31B4969B2604B36E005C1EAA /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		31B496A12604BF81005C1EAA /* Alerter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,10 +90,10 @@
 		318FBB222603BE0C008B1F7A /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
+				31B496A02604BF6B005C1EAA /* idkHowToNameThis */,
+				31B496942604B347005C1EAA /* Managers */,
 				318FBB3B2603C09C008B1F7A /* Moduls */,
-				318FBB3A2603BE5E008B1F7A /* Controllers */,
-				318FBB392603BE55008B1F7A /* Views */,
-				318FBB382603BE4D008B1F7A /* Managers */,
+				318FBB382603BE4D008B1F7A /* Models */,
 				318FBB372603BE1B008B1F7A /* Resources */,
 				318FBB272603BE0C008B1F7A /* ViewController.swift */,
 				318FBB312603BE10008B1F7A /* Info.plist */,
@@ -107,7 +111,7 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		318FBB382603BE4D008B1F7A /* Managers */ = {
+		318FBB382603BE4D008B1F7A /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				318FBB4D2603CCE1008B1F7A /* Playlist.swift */,
@@ -115,31 +119,25 @@
 				318FBB512603CCF2008B1F7A /* Artist.swift */,
 				318FBB532603CCFD008B1F7A /* UserProfile.swift */,
 			);
-			path = Managers;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		318FBB392603BE55008B1F7A /* Views */ = {
+		318FBB392603BE55008B1F7A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
 				318FBB4B2603C166008B1F7A /* TabBarViewController.swift */,
 				318FBB292603BE0C008B1F7A /* Main.storyboard */,
 				318FBB2E2603BE10008B1F7A /* LaunchScreen.storyboard */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		318FBB3A2603BE5E008B1F7A /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
+			path = Navigation;
 			sourceTree = "<group>";
 		};
 		318FBB3B2603C09C008B1F7A /* Moduls */ = {
 			isa = PBXGroup;
 			children = (
-				31B496812603D829005C1EAA /* Other */,
 				31B4967F2603D823005C1EAA /* Core */,
+				31B496812603D829005C1EAA /* Other */,
+				318FBB392603BE55008B1F7A /* Navigation */,
 			);
 			path = Moduls;
 			sourceTree = "<group>";
@@ -184,28 +182,36 @@
 		31B496812603D829005C1EAA /* Other */ = {
 			isa = PBXGroup;
 			children = (
-				31B4968B2603E23A005C1EAA /* Authentication */,
-				31B496832603E1E5005C1EAA /* Welcome */,
+				31B496832603E1E5005C1EAA /* Authentication */,
 			);
 			path = Other;
 			sourceTree = "<group>";
 		};
-		31B496832603E1E5005C1EAA /* Welcome */ = {
+		31B496832603E1E5005C1EAA /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
 				31B496842603E1FF005C1EAA /* WelcomeViewController.swift */,
 				31B496882603E217005C1EAA /* Welcome.storyboard */,
 			);
-			path = Welcome;
+			path = Authentication;
 			sourceTree = "<group>";
 		};
-		31B4968B2603E23A005C1EAA /* Authentication */ = {
+		31B496942604B347005C1EAA /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				31B4968C2603E253005C1EAA /* AuthenticationViewController.swift */,
-				31B496902603E260005C1EAA /* Authentication.storyboard */,
+				31B496952604B356005C1EAA /* AuthManager.swift */,
+				31B496982604B35F005C1EAA /* APICaller.swift */,
+				31B4969B2604B36E005C1EAA /* HapticsManager.swift */,
 			);
-			path = Authentication;
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		31B496A02604BF6B005C1EAA /* idkHowToNameThis */ = {
+			isa = PBXGroup;
+			children = (
+				31B496A12604BF81005C1EAA /* Alerter.swift */,
+			);
+			path = idkHowToNameThis;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,7 +272,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31B496912603E260005C1EAA /* Authentication.storyboard in Resources */,
 				318FBB302603BE10008B1F7A /* LaunchScreen.storyboard in Resources */,
 				318FBB2D2603BE10008B1F7A /* Assets.xcassets in Resources */,
 				318FBB482603C117008B1F7A /* Library.storyboard in Resources */,
@@ -285,17 +290,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				318FBB442603C103008B1F7A /* SearchViewController.swift in Sources */,
+				31B496962604B356005C1EAA /* AuthManager.swift in Sources */,
 				318FBB282603BE0C008B1F7A /* ViewController.swift in Sources */,
 				318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */,
 				318FBB4E2603CCE1008B1F7A /* Playlist.swift in Sources */,
 				318FBB262603BE0C008B1F7A /* SceneDelegate.swift in Sources */,
+				31B4969C2604B36E005C1EAA /* HapticsManager.swift in Sources */,
+				31B496A22604BF81005C1EAA /* Alerter.swift in Sources */,
 				318FBB542603CCFE008B1F7A /* UserProfile.swift in Sources */,
 				318FBB4C2603C166008B1F7A /* TabBarViewController.swift in Sources */,
 				318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */,
 				318FBB422603C0D7008B1F7A /* HomeViewController.swift in Sources */,
 				31B496852603E1FF005C1EAA /* WelcomeViewController.swift in Sources */,
-				31B4968D2603E253005C1EAA /* AuthenticationViewController.swift in Sources */,
 				318FBB522603CCF2008B1F7A /* Artist.swift in Sources */,
+				31B496992604B35F005C1EAA /* APICaller.swift in Sources */,
 				318FBB502603CCEA008B1F7A /* AudioTrack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,10 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        // TO DO: check if user is logged in
-        let window = UIWindow(frame: UIScreen.main.bounds)
+        let isLoggedIn = AuthManager.shared.isSignedIn
         
-        let isLoggedIn = false
+        let window = UIWindow(frame: UIScreen.main.bounds)
         
         if(isLoggedIn == true){
             window.rootViewController = TabBarViewController()

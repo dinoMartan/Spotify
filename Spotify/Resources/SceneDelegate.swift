@@ -16,10 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        // TO DO: check if user is logged in
-        let window = UIWindow(windowScene: windowScene)
+        let isLoggedIn = AuthManager.shared.isSignedIn
         
-        let isLoggedIn = false
+        let window = UIWindow(windowScene: windowScene)
         
         if(isLoggedIn == true){
             window.rootViewController = TabBarViewController()
