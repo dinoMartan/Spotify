@@ -20,9 +20,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
         wkWebView.configuration.preferences.javaScriptEnabled = true
         
-        
         wkWebView.navigationDelegate = self
-        view.addSubview(wkWebView)
 
         guard let url = AuthManager.shared.signInURL else{
             return

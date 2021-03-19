@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3122CFBB2604FE6600836C5C /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFBA2604FE6600836C5C /* AuthResponse.swift */; };
 		318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB232603BE0C008B1F7A /* AppDelegate.swift */; };
 		318FBB262603BE0C008B1F7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB252603BE0C008B1F7A /* SceneDelegate.swift */; };
 		318FBB282603BE0C008B1F7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB272603BE0C008B1F7A /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3122CFBA2604FE6600836C5C /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		318FBB202603BE0C008B1F7A /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		318FBB232603BE0C008B1F7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		318FBB252603BE0C008B1F7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				318FBB4F2603CCEA008B1F7A /* AudioTrack.swift */,
 				318FBB512603CCF2008B1F7A /* Artist.swift */,
 				318FBB532603CCFD008B1F7A /* UserProfile.swift */,
+				3122CFBA2604FE6600836C5C /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				31B496962604B356005C1EAA /* AuthManager.swift in Sources */,
 				318FBB282603BE0C008B1F7A /* ViewController.swift in Sources */,
 				318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */,
+				3122CFBB2604FE6600836C5C /* AuthResponse.swift in Sources */,
 				318FBB4E2603CCE1008B1F7A /* Playlist.swift in Sources */,
 				318FBB262603BE0C008B1F7A /* SceneDelegate.swift in Sources */,
 				31B4969C2604B36E005C1EAA /* HapticsManager.swift in Sources */,

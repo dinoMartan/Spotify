@@ -31,7 +31,15 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate{
     }
     
     private func handleSignIn(success: Bool){
-        // login or error
+        guard success else{
+            let alert = Alerter.getAlert(myTitle: "Ooops", myMessage: "Looks like you didn't sign in", myButtonText: "Shame")
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "main")
+        tabBarController.modalPresentationStyle = .fullScreen
+        present(tabBarController, animated: true, completion: nil)
     }
     
     
