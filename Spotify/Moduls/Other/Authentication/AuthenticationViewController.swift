@@ -12,11 +12,14 @@ import WebKit
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var wkWebView: WKWebView!
+    @IBOutlet weak var activityIndicatior: UIActivityIndicatorView!
     
     public var completionHandler: ((Bool) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        wkWebView.isHidden = true
+        activityIndicatior.isHidden = false
     
         wkWebView.configuration.preferences.javaScriptEnabled = true
         
@@ -29,6 +32,11 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         print(url.absoluteString)
         wkWebView.load(URLRequest(url: url))
         // Do any additional setup after loading the view.
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        wkWebView.isHidden = false
+        activityIndicatior.stopAnimating()
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {

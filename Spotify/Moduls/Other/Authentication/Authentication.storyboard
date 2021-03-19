@@ -25,6 +25,11 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="XvH-C6-PAM">
+                                <rect key="frame" x="167" y="391" width="81" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="systemGreenColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vCX-Rt-zUy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -36,6 +41,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatior" destination="XvH-C6-PAM" id="lhw-Kn-S4c"/>
                         <outlet property="wkWebView" destination="bBa-7H-p6R" id="Aha-hq-omM"/>
                     </connections>
                 </viewController>
@@ -47,6 +53,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
