@@ -11,19 +11,21 @@ import WebKit
 
 class WelcomeViewController: UIViewController, WKNavigationDelegate {
     
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+}
 
+//MARK: - Actions -
+
+extension WelcomeViewController {
+    
     @IBAction func didPressSignInButton(_ sender: Any) {
         let authenticationViewController = UIViewController.MyViewControllers.authViewController
-        
-        authenticationViewController.completionHandler = { [unowned self] success in
-            DispatchQueue.main.async {
-                handleSignIn(success: success)
-            }
-        }
+        authenticationViewController.authDelegate = self
         
         //let authNavigationController = UINavigationController(rootViewController: authenticationViewController)
         //let viewControllers = [authenticationViewController]
@@ -33,18 +35,24 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate {
         present(authenticationViewController, animated: true, completion: nil)
     }
     
-    private func handleSignIn(success: Bool) {
-        guard success else {
-            let alert = Alerter.getAlert(myTitle: ConstantsAlerts.AlertTitles.ops, myMessage: ConstantsAlerts.AlertMessages.didntSignIn, myButtonText: ConstantsAlerts.AlertButtonText.shame)
-            present(alert, animated: true, completion: nil)
-            return
-        }
+}
+
+//MARK: - Delegate -
+
+extension WelcomeViewController: AuthenticationDelegate {
     
-        let tabBarController = UIViewController.MyViewControllers.mainViewController
-        
-        tabBarController.modalPresentationStyle = .fullScreen
-        present(tabBarController, animated: true, completion: nil)
+    // if is logged in, show main screen
+    func didCompleteAPICall() {
+        DispatchQueue.main.async {
+            let tabBarController = UIViewController.MyViewControllers.mainViewController
+            tabBarController.modalPresentationStyle = .fullScreen
+            self.present(tabBarController, animated: true, completion: nil)
+        }
     }
     
+    func didNotCompleteAPICall() {
+        let alert = Alerter.getAlert(myTitle: ConstantsAlerts.AlertTitles.ops, myMessage: ConstantsAlerts.AlertMessages.didntSignIn, myButtonText: ConstantsAlerts.AlertButtonText.shame)
+        present(alert, animated: true, completion: nil)
+    }
     
 }

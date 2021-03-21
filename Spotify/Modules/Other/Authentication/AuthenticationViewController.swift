@@ -9,6 +9,11 @@
 import UIKit
 import WebKit
 
+protocol AuthenticationDelegate {
+    func didCompleteAPICall()
+    func didNotCompleteAPICall()
+}
+
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
     //MARK: - IBOutlets
@@ -16,8 +21,9 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     @IBOutlet private weak var wkWebView: WKWebView!
     @IBOutlet private weak var activityIndicatior: UIActivityIndicatorView!
     
+    //MARK: - Publlic properties
     
-    public var completionHandler: ((Bool) -> Void)?
+    var authDelegate: AuthenticationDelegate!
     
     //MARK: - Lifecycle
 
@@ -56,19 +62,19 @@ extension AuthenticationViewController {
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         guard let url = webView.url else { return }
-        
+ 
         guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == "code" } )?.value
         else { return }
         
         webView.isHidden = true
-        AuthManager.shared.exchangeCodeForToken(code: code) { success in
+        AuthManager.shared.exchangeCodeForToken(code: code) { [unowned self] success in
             DispatchQueue.main.async {
-                self.completionHandler?(true)
-                //navigationController?.popToRootViewController(animated: true)
-                self.dismiss(animated: true, completion: nil)
+                authDelegate.didCompleteAPICall()
+                dismiss(animated: true, completion: nil)
             }
-        } failure: { error in
-            print(error?.localizedDescription ?? "Unknowned error")
+        } failure: { [unowned self] error in
+            authDelegate.didNotCompleteAPICall()
+            dismiss(animated: true, completion: nil)
         }
     }
 }

@@ -18,26 +18,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBa-7H-p6R">
-                                <rect key="frame" x="41" y="77" width="332" height="721"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="XvH-C6-PAM">
-                                <rect key="frame" x="167" y="391" width="81" height="92"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="XvH-C6-PAM">
+                                <rect key="frame" x="170" y="394" width="74" height="118"/>
                                 <color key="color" systemColor="systemGreenColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vCX-Rt-zUy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="bBa-7H-p6R" firstAttribute="top" secondItem="vCX-Rt-zUy" secondAttribute="top" constant="33" id="Vru-T5-A2P"/>
-                            <constraint firstItem="bBa-7H-p6R" firstAttribute="leading" secondItem="vCX-Rt-zUy" secondAttribute="leading" constant="41" id="iXM-3F-urL"/>
-                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="bottom" secondItem="bBa-7H-p6R" secondAttribute="bottom" constant="64" id="q1T-7m-Y4e"/>
-                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="trailing" secondItem="bBa-7H-p6R" secondAttribute="trailing" constant="41" id="zNX-NB-cPH"/>
+                            <constraint firstItem="bBa-7H-p6R" firstAttribute="top" secondItem="vCX-Rt-zUy" secondAttribute="top" id="8GF-en-5KY"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="bottom" secondItem="bBa-7H-p6R" secondAttribute="bottom" id="aak-IY-5ol"/>
+                            <constraint firstItem="XvH-C6-PAM" firstAttribute="leading" secondItem="vCX-Rt-zUy" secondAttribute="leading" constant="170" id="bXM-Tb-AJG"/>
+                            <constraint firstItem="XvH-C6-PAM" firstAttribute="top" secondItem="vCX-Rt-zUy" secondAttribute="top" constant="350" id="g0e-co-Rcs"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="bottom" secondItem="XvH-C6-PAM" secondAttribute="bottom" constant="350" id="iHR-O8-ycE"/>
+                            <constraint firstItem="bBa-7H-p6R" firstAttribute="leading" secondItem="vCX-Rt-zUy" secondAttribute="leading" id="itp-d1-bbo"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="trailing" secondItem="XvH-C6-PAM" secondAttribute="trailing" constant="170" id="lGg-84-lJB"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="trailing" secondItem="bBa-7H-p6R" secondAttribute="trailing" id="mh2-6a-ykA"/>
                         </constraints>
                     </view>
                     <connections>
