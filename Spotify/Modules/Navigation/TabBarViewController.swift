@@ -9,13 +9,15 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    
+    typealias myUIViewControllers = UIViewController.MyViewControllers
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let viewControllerHome = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(identifier: "home")
-        let viewControllerSearch = UIStoryboard(name: "Search", bundle: nil).instantiateViewController(identifier: "search")
-        let viewControllerLibrary = UIStoryboard(name: "Library", bundle: nil).instantiateViewController(identifier: "library")
+        let viewControllerHome = myUIViewControllers.homeViewController
+        let viewControllerSearch = myUIViewControllers.searchViewController
+        let viewControllerLibrary = myUIViewControllers.libraryViewController
         
         viewControllerHome.title = "Home"
         viewControllerSearch.title = "Search"
@@ -25,9 +27,9 @@ class TabBarViewController: UITabBarController {
         let navigationControllerSearch = UINavigationController(rootViewController: viewControllerSearch)
         let navigationControllerLibrary = UINavigationController(rootViewController: viewControllerLibrary)
         
-        navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
-        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 2)
-        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "music.note.list"), tag: 3)
+        navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: ConstantsImages.Images.house, tag: 1)
+        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: ConstantsImages.Images.magnifyingGlass, tag: 2)
+        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: ConstantsImages.Images.musicNote, tag: 3)
         
         let viewControllers = [navigationControllerSearch, navigationControllerHome, navigationControllerLibrary]
         

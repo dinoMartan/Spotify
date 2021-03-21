@@ -22,10 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         if isLoggedIn {
-            window.rootViewController = TabBarViewController()
+            window.rootViewController = UIViewController.MyViewControllers.mainViewController
         }
         else {
-            window.rootViewController = UIStoryboard(name: "Welcome", bundle: nil).instantiateViewController(withIdentifier: "welcome")
+            window.rootViewController = UIViewController.MyViewControllers.welcomeViewController
         }
         
         window.makeKeyAndVisible()

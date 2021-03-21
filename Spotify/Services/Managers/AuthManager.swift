@@ -64,7 +64,7 @@ final class AuthManager {
     
     private init() { }
     
-    func exchangeCodeForToken(code:String, completion: @escaping ((Bool) -> Void)) {
+    func exchangeCodeForToken(code:String, success: @escaping ((Bool) -> Void), failure: @escaping ((Error?) -> Void)) {
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
         
         var components = URLComponents()
@@ -81,27 +81,26 @@ final class AuthManager {
         let basicToken = Constants.cliendID + ":" + Constants.clientSecret
         let data = basicToken.data(using: .utf8)
         guard let base64String = data?.base64EncodedString() else {
-            completion(false)
+            failure(nil)
             return
         }
         
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         request.httpBody = components.query?.data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) { [weak self ]data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { [unowned self] data, _, error in
             guard let data = data,
                   error == nil else {
-                completion(false)
+                failure(error)
                 return
             }
             
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                self?.cacheToken(result: result)
-
-                completion(true)
-            } catch {
-                completion(false)
+                cacheToken(result: result)
+                success(true)
+            } catch{
+                failure(error)
             }
         }
         task.resume()
@@ -148,7 +147,7 @@ final class AuthManager {
         request.setValue("Basic \(base64String)", forHTTPHeaderField: "Authorization")
         request.httpBody = components.query?.data(using: .utf8)
         
-        let task = URLSession.shared.dataTask(with: request) { [weak self ]data, _, error in
+        let task = URLSession.shared.dataTask(with: request) { [unowned self ]data, _, error in
             guard let data = data,
                   error == nil else{
                 completion(false)
@@ -157,7 +156,7 @@ final class AuthManager {
             
             do {
                 let result = try JSONDecoder().decode(AuthResponse.self, from: data)
-                self?.cacheToken(result: result)
+                cacheToken(result: result)
                 completion(true)
             } catch {
                 completion(false)

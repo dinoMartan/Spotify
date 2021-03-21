@@ -17,8 +17,7 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate {
     
 
     @IBAction func didPressSignInButton(_ sender: Any) {
-        let authenticationStoryboard = UIStoryboard(name: "Authentication", bundle: nil)
-        let authenticationViewController = authenticationStoryboard.instantiateViewController(identifier: "authentication") as AuthenticationViewController
+        let authenticationViewController = UIViewController.MyViewControllers.authViewController
         
         authenticationViewController.completionHandler = { [unowned self] success in
             DispatchQueue.main.async {
@@ -26,17 +25,23 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate {
             }
         }
         
+        //let authNavigationController = UINavigationController(rootViewController: authenticationViewController)
+        //let viewControllers = [authenticationViewController]
+        //navigationController?.setViewControllers(viewControllers, animated: true)
+        //navigationController?.pushViewController(authenticationViewController, animated: true)
+        
         present(authenticationViewController, animated: true, completion: nil)
     }
     
     private func handleSignIn(success: Bool) {
         guard success else {
-            let alert = Alerter.getAlert(myTitle: "Ooops", myMessage: "Looks like you didn't sign in", myButtonText: "Shame")
+            let alert = Alerter.getAlert(myTitle: ConstantsAlerts.AlertTitles.ops, myMessage: ConstantsAlerts.AlertMessages.didntSignIn, myButtonText: ConstantsAlerts.AlertButtonText.shame)
             present(alert, animated: true, completion: nil)
             return
         }
+    
+        let tabBarController = UIViewController.MyViewControllers.mainViewController
         
-        let tabBarController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "main")
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: true, completion: nil)
     }

@@ -61,13 +61,14 @@ extension AuthenticationViewController {
         else { return }
         
         webView.isHidden = true
-        AuthManager.shared.exchangeCodeForToken(code: code){ [unowned self] success in
+        AuthManager.shared.exchangeCodeForToken(code: code) { success in
             DispatchQueue.main.async {
-                completionHandler?(success)
+                self.completionHandler?(true)
                 //navigationController?.popToRootViewController(animated: true)
-                dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
+        } failure: { error in
+            print(error?.localizedDescription ?? "Unknowned error")
         }
     }
-    
 }
