@@ -20,9 +20,9 @@ class WelcomeViewController: UIViewController, WKNavigationDelegate {
         let authenticationStoryboard = UIStoryboard(name: "Authentication", bundle: nil)
         let authenticationViewController = authenticationStoryboard.instantiateViewController(identifier: "authentication") as AuthenticationViewController
         
-        authenticationViewController.completionHandler = { [weak self] success in
+        authenticationViewController.completionHandler = { [unowned self] success in
             DispatchQueue.main.async {
-                self?.handleSignIn(success: success)
+                handleSignIn(success: success)
             }
         }
         

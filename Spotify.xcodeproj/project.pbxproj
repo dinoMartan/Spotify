@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3122CFBB2604FE6600836C5C /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFBA2604FE6600836C5C /* AuthResponse.swift */; };
+		3122CFC426061D6200836C5C /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFC326061D6200836C5C /* DMViewController.swift */; };
 		318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB232603BE0C008B1F7A /* AppDelegate.swift */; };
 		318FBB262603BE0C008B1F7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB252603BE0C008B1F7A /* SceneDelegate.swift */; };
-		318FBB282603BE0C008B1F7A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB272603BE0C008B1F7A /* ViewController.swift */; };
 		318FBB2B2603BE0C008B1F7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB292603BE0C008B1F7A /* Main.storyboard */; };
 		318FBB2D2603BE10008B1F7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB2C2603BE10008B1F7A /* Assets.xcassets */; };
 		318FBB302603BE10008B1F7A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB2E2603BE10008B1F7A /* LaunchScreen.storyboard */; };
@@ -37,10 +37,10 @@
 
 /* Begin PBXFileReference section */
 		3122CFBA2604FE6600836C5C /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		3122CFC326061D6200836C5C /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		318FBB202603BE0C008B1F7A /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		318FBB232603BE0C008B1F7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		318FBB252603BE0C008B1F7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		318FBB272603BE0C008B1F7A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		318FBB2A2603BE0C008B1F7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		318FBB2C2603BE10008B1F7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		318FBB2F2603BE10008B1F7A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -90,6 +90,7 @@
 			children = (
 				3122CFC026054FD700836C5C /* Alerts */,
 				318FBB382603BE4D008B1F7A /* Models */,
+				3122CFC326061D6200836C5C /* DMViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -129,13 +130,11 @@
 		318FBB222603BE0C008B1F7A /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
-				3122CFC126054FF500836C5C /* Services */,
-				3122CFBF26054FC300836C5C /* Common */,
 				3122CFBE26054FAD00836C5C /* Application */,
-				318FBB3B2603C09C008B1F7A /* Moduls */,
+				3122CFBF26054FC300836C5C /* Common */,
+				3122CFC126054FF500836C5C /* Services */,
+				318FBB3B2603C09C008B1F7A /* Modules */,
 				318FBB372603BE1B008B1F7A /* Resources */,
-				318FBB272603BE0C008B1F7A /* ViewController.swift */,
-				318FBB312603BE10008B1F7A /* Info.plist */,
 			);
 			path = Spotify;
 			sourceTree = "<group>";
@@ -145,6 +144,7 @@
 			children = (
 				318FBB2C2603BE10008B1F7A /* Assets.xcassets */,
 				318FBB232603BE0C008B1F7A /* AppDelegate.swift */,
+				318FBB312603BE10008B1F7A /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -171,14 +171,14 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
-		318FBB3B2603C09C008B1F7A /* Moduls */ = {
+		318FBB3B2603C09C008B1F7A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
 				31B4967F2603D823005C1EAA /* Core */,
 				31B496812603D829005C1EAA /* Other */,
 				318FBB392603BE55008B1F7A /* Navigation */,
 			);
-			path = Moduls;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		318FBB3C2603C0A4008B1F7A /* Home */ = {
@@ -333,7 +333,6 @@
 			files = (
 				318FBB442603C103008B1F7A /* SearchViewController.swift in Sources */,
 				31B496962604B356005C1EAA /* AuthManager.swift in Sources */,
-				318FBB282603BE0C008B1F7A /* ViewController.swift in Sources */,
 				318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */,
 				3122CFBB2604FE6600836C5C /* AuthResponse.swift in Sources */,
 				318FBB4E2603CCE1008B1F7A /* Playlist.swift in Sources */,
@@ -345,6 +344,7 @@
 				318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */,
 				318FBB422603C0D7008B1F7A /* HomeViewController.swift in Sources */,
 				31B496852603E1FF005C1EAA /* WelcomeViewController.swift in Sources */,
+				3122CFC426061D6200836C5C /* DMViewController.swift in Sources */,
 				318FBB522603CCF2008B1F7A /* Artist.swift in Sources */,
 				31B496992604B35F005C1EAA /* APICaller.swift in Sources */,
 				31B496A72604D79B005C1EAA /* AuthenticationViewController.swift in Sources */,
@@ -494,7 +494,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P675Y7Z4V8;
-				INFOPLIST_FILE = Spotify/Info.plist;
+				INFOPLIST_FILE = Spotify/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,7 +512,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P675Y7Z4V8;
-				INFOPLIST_FILE = Spotify/Info.plist;
+				INFOPLIST_FILE = Spotify/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

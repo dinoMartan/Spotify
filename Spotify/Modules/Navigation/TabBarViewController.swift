@@ -26,15 +26,12 @@ class TabBarViewController: UITabBarController {
         let navigationControllerLibrary = UINavigationController(rootViewController: viewControllerLibrary)
         
         navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 1)
-        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 1)
-        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "music.note.list"), tag: 1)
+        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 2)
+        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: UIImage(systemName: "music.note.list"), tag: 3)
         
-        let viewControllers = [navigationControllerHome,navigationControllerSearch,navigationControllerLibrary]
+        let viewControllers = [navigationControllerSearch, navigationControllerHome, navigationControllerLibrary]
         
-        //self.tabBarController?.selectedIndex = 1
         setViewControllers(viewControllers, animated: true)
-        
+        selectedIndex = 1
     }
-    
-
 }

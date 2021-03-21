@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  LibraryViewController.swift
 //  Spotify
 //
 //  Created by Dino Martan on 18/03/2021.
@@ -8,12 +8,10 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class LibraryViewController: DMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
 
 }

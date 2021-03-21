@@ -11,10 +11,15 @@ import WebKit
 
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
+    //MARK: - IBOutlets
+    
     @IBOutlet private weak var wkWebView: WKWebView!
     @IBOutlet private weak var activityIndicatior: UIActivityIndicatorView!
     
+    
     public var completionHandler: ((Bool) -> Void)?
+    
+    //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,16 +27,27 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     }
     
     func setupView() {
-        wkWebView.isHidden = true
-        activityIndicatior.isHidden = false
+        activityIndicatorSetup()
+        webViewSetup()
+    }
     
+    func webViewSetup() {
+        guard let url = AuthManager.shared.signInURL else { return }
+        wkWebView.isHidden = true
         wkWebView.configuration.preferences.javaScriptEnabled = true
         wkWebView.navigationDelegate = self
-
-        guard let url = AuthManager.shared.signInURL else { return }
-        
         wkWebView.load(URLRequest(url: url))
     }
+    
+    func activityIndicatorSetup() {
+        activityIndicatior.isHidden = false
+    }
+    
+}
+
+//MARK: - extensions -
+
+extension AuthenticationViewController {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         wkWebView.isHidden = false
@@ -45,14 +61,13 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
         else { return }
         
         webView.isHidden = true
-        AuthManager.shared.exchangeCodeForToken(code: code){ [weak self] success in
+        AuthManager.shared.exchangeCodeForToken(code: code){ [unowned self] success in
             DispatchQueue.main.async {
-                self?.completionHandler?(success)
-                self?.navigationController?.popToRootViewController(animated: true)
-                self?.dismiss(animated: true, completion: nil)
+                completionHandler?(success)
+                //navigationController?.popToRootViewController(animated: true)
+                dismiss(animated: true, completion: nil)
             }
         }
     }
-
-
+    
 }

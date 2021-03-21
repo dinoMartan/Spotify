@@ -8,18 +8,23 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
-
+class HomeViewController: DMViewController {
+    
+    //MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
+}
 
+//MARK: - Actions -
 
+extension HomeViewController {
+    
     @IBAction func didPressButton(_ sender: Any) {
         let vcTest = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(identifier: "home")
         navigationController?.pushViewController(vcTest, animated: true)
     }
+    
 }

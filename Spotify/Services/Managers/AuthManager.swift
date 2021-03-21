@@ -8,25 +8,27 @@
 
 import Foundation
 
-final class AuthManager{
+final class AuthManager {
     
     //MARK: - Constants
+    
     struct Constants {
         static let cliendID = "a08fd5333ea042eb85262d880d663950"
         static let clientSecret = "81b42dcb4eaa405892fe4b8e512a13fc"
         static let tokenAPIURL = "https://accounts.spotify.com/api/token"
         static let fiveMinutes: TimeInterval = 300
+        static let base = "https://accounts.spotify.com/authorize"
+        static let scope = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"
+        static let redirectURI = "https://www.iosacademy.io"
+        static let headerData = "application/x-www-form-urlencoded"
+        static let currentDate = Date()
     }
     
     //MARK: - IBOutlets
 
     //MARK: - Public properties
+    
     static let shared = AuthManager()
-    
-    //MARK: - Private properties
-    
-    //MARK: - Lifecycle
-    private init() {}
     
     var signInURL: URL? {
         let base = "https://accounts.spotify.com/authorize"
@@ -58,7 +60,11 @@ final class AuthManager{
         return Date().addingTimeInterval(Constants.fiveMinutes) >= expirationDate
     }
     
-    public func exchangeCodeForToken(code:String, completion: @escaping ((Bool) -> Void)) {
+    //MARK: - Lifecycle
+    
+    private init() { }
+    
+    func exchangeCodeForToken(code:String, completion: @escaping ((Bool) -> Void)) {
         guard let url = URL(string: Constants.tokenAPIURL) else { return }
         
         var components = URLComponents()
