@@ -10,11 +10,19 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
+    //MARK: - Typealias
+    
     typealias myUIViewControllers = UIViewController.MyViewControllers
+    
+    //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
 
+    }
+    
+    func setupView() {
         let viewControllerHome = myUIViewControllers.homeViewController
         let viewControllerSearch = myUIViewControllers.searchViewController
         let viewControllerLibrary = myUIViewControllers.libraryViewController

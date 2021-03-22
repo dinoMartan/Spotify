@@ -48,7 +48,7 @@ extension WelcomeViewController: AuthenticationDelegate {
     private func handleSignIn() {
         let tabBarController = UIViewController.MyViewControllers.mainViewController
         tabBarController.modalPresentationStyle = .fullScreen
-        self.present(tabBarController, animated: true, completion: nil)
+        present(tabBarController, animated: true, completion: nil)
     }
     
 }

@@ -65,10 +65,11 @@
                             <constraint firstItem="ejw-CA-vSA" firstAttribute="leading" secondItem="75W-tw-f7Z" secondAttribute="leading" constant="70" id="yqI-Sx-8bV"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="1op-Be-bCs"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mwr-oZ-aiW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140.57971014492756" y="114.50892857142857"/>
+            <point key="canvasLocation" x="1600.0000000000002" y="107.8125"/>
         </scene>
     </scenes>
     <resources>
