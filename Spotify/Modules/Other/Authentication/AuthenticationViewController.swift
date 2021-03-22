@@ -9,9 +9,11 @@
 import UIKit
 import WebKit
 
-protocol AuthenticationDelegate {
+protocol AuthenticationDelegate: AnyObject {
+    
     func didCompleteAPICall()
     func didNotCompleteAPICall()
+    
 }
 
 class AuthenticationViewController: UIViewController, WKNavigationDelegate {
@@ -23,7 +25,7 @@ class AuthenticationViewController: UIViewController, WKNavigationDelegate {
     
     //MARK: - Publlic properties
     
-    var authDelegate: AuthenticationDelegate!
+    weak var authenticationDeleagete: AuthenticationDelegate?
     
     //MARK: - Lifecycle
 
@@ -69,11 +71,11 @@ extension AuthenticationViewController {
         webView.isHidden = true
         AuthManager.shared.exchangeCodeForToken(code: code) { [unowned self] success in
             DispatchQueue.main.async {
-                authDelegate.didCompleteAPICall()
+                authenticationDeleagete?.didCompleteAPICall()
                 dismiss(animated: true, completion: nil)
             }
-        } failure: { [unowned self] error in
-            authDelegate.didNotCompleteAPICall()
+        } failure: { [unowned self] _ in
+            authenticationDeleagete?.didNotCompleteAPICall()
             dismiss(animated: true, completion: nil)
         }
     }

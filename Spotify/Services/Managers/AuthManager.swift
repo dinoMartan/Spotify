@@ -108,19 +108,20 @@ final class AuthManager {
     
     private func cacheToken(result: AuthResponse) {
         UserDefaults.standard.setValue(result.accessToken, forKey: "access_token")
-        if result.refreshToken != nil{
-            UserDefaults.standard.setValue(result.refreshToken, forKey: "refresh_token")
+        
+        guard (result.refreshToken != nil) else {
+            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expiresIn)), forKey: "expirationDate")
+            return
+            
         }
-        UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(result.expiresIn)), forKey: "expirationDate")
+        UserDefaults.standard.setValue(result.refreshToken, forKey: "refresh_token")
     }
     
     public func refreshIfNeeded(completion: @escaping(Bool) -> Void) {
-        
         guard shouldRefreshToken else {
             completion(true)
             return
         }
-        
         
         guard let refreshToken = self.refreshToken else { return }
         
@@ -163,6 +164,6 @@ final class AuthManager {
             }
         }
         task.resume()
-        
     }
+    
 }

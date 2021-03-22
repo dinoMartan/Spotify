@@ -10,9 +10,10 @@ import UIKit
 
 public class Alerter {
     
-    static func getAlert(myTitle: String, myMessage: String, myButtonText: String) -> UIAlertController {
-        let alert = UIAlertController(title: myTitle, message: myMessage, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: myButtonText, style: .default, handler: nil))
+    static func getAlert(myTitle: ConstantsAlerts.Titles, myMessage: ConstantsAlerts.Messages, button: ConstantsAlerts.Button) -> UIAlertController {
+        let alert = UIAlertController(title: myTitle.rawValue, message: myMessage.rawValue, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: button.rawValue, style: .default, handler: nil))
         return alert
     }
+    
 }

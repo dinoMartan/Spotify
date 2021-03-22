@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class WelcomeViewController: UIViewController, WKNavigationDelegate {
+class WelcomeViewController: UIViewController {
     
     //MARK: - Lifecycle
     
@@ -25,13 +25,7 @@ extension WelcomeViewController {
     
     @IBAction func didPressSignInButton(_ sender: Any) {
         let authenticationViewController = UIViewController.MyViewControllers.authViewController
-        authenticationViewController.authDelegate = self
-        
-        //let authNavigationController = UINavigationController(rootViewController: authenticationViewController)
-        //let viewControllers = [authenticationViewController]
-        //navigationController?.setViewControllers(viewControllers, animated: true)
-        //navigationController?.pushViewController(authenticationViewController, animated: true)
-        
+        authenticationViewController.authenticationDeleagete = self
         present(authenticationViewController, animated: true, completion: nil)
     }
     
@@ -43,16 +37,18 @@ extension WelcomeViewController: AuthenticationDelegate {
     
     // if is logged in, show main screen
     func didCompleteAPICall() {
-        DispatchQueue.main.async {
-            let tabBarController = UIViewController.MyViewControllers.mainViewController
-            tabBarController.modalPresentationStyle = .fullScreen
-            self.present(tabBarController, animated: true, completion: nil)
-        }
+        DispatchQueue.main.async { self.handleSignIn() }
     }
     
     func didNotCompleteAPICall() {
-        let alert = Alerter.getAlert(myTitle: ConstantsAlerts.AlertTitles.ops, myMessage: ConstantsAlerts.AlertMessages.didntSignIn, myButtonText: ConstantsAlerts.AlertButtonText.shame)
+        let alert = Alerter.getAlert(myTitle: .ops, myMessage: .didntCompleteAPICall, button: .shame)
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func handleSignIn() {
+        let tabBarController = UIViewController.MyViewControllers.mainViewController
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true, completion: nil)
     }
     
 }
