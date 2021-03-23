@@ -23,6 +23,19 @@ final class AuthManager {
         static let redirectURI = "https://www.iosacademy.io"
         static let headerData = "application/x-www-form-urlencoded"
         static let currentDate = Date()
+        
+        struct Keyes {
+            static let accessToken = "access_token"
+            static let refreshToken = "refresh_token"
+            static let expirationDate = "expirationDate"
+            static let contentType = "Content-Type"
+            static let urlEncoded = "application/x-www-form-urlencoded"
+            static let authorization = "Authorization"
+            static let grantType = "grant_type"
+            static let code = "code"
+            static let authorizationCode = "authorization_code"
+            static let redirectUri = "redirect_uri"
+        }
     }
 
     //MARK: - Public properties
@@ -40,16 +53,19 @@ final class AuthManager {
     
     //MARK: - Private properties
     
+    private var refreshingToken = false
+    private var onRefreshBlocks = [((String) -> Void)]()
+    
     private var accessToken:String? {
-        UserDefaults.standard.string(forKey: "access_token")
+        UserDefaults.standard.string(forKey: Constants.Keyes.accessToken)
     }
     
     private var refreshToken:String? {
-        UserDefaults.standard.string(forKey: "refresh_token")
+        UserDefaults.standard.string(forKey: Constants.Keyes.refreshToken)
     }
     
     private var tokenExpirationDate: Date? {
-        UserDefaults.standard.object(forKey: "expirationDate") as? Date
+        UserDefaults.standard.object(forKey: Constants.Keyes.expirationDate) as? Date
     }
     
     private var shouldRefreshToken: Bool {
@@ -84,14 +100,14 @@ extension AuthManager {
         }
  
         let headers: HTTPHeaders = [
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": "Basic \(authorization!)"
+            Constants.Keyes.contentType: Constants.Keyes.urlEncoded,
+            Constants.Keyes.authorization: "Basic \(authorization!)"
         ]
         
         let paremeters = [
-            "grant_type": "authorization_code",
-            "code": code,
-            "redirect_uri": Constants.redirectURI
+            Constants.Keyes.grantType: Constants.Keyes.authorizationCode,
+            Constants.Keyes.code: code,
+            Constants.Keyes.redirectUri: Constants.redirectURI
         ]
         
         alamofire.request(Constants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
@@ -110,7 +126,17 @@ extension AuthManager {
 
 extension AuthManager {
     
-    public func refreshIfNeeded(completion: @escaping(Bool) -> Void) {
+    func getValidToken(success: @escaping (String) -> Void, failure: @escaping () -> Void) {
+        refreshIfNeeded { completion in
+            guard !completion else {
+                failure()
+                return
+            }
+            success(self.accessToken!)
+        }
+    }
+    
+    func refreshIfNeeded(completion: @escaping(Bool) -> Void) {
         guard shouldRefreshToken else {
             completion(true)
             return
@@ -124,13 +150,13 @@ extension AuthManager {
         }
         
         let headers: HTTPHeaders = [
-            "Content-Type": "application/x-www-form-urlencoded",
-            "Authorization": "Basic \(authorization!)"
+            Constants.Keyes.contentType: Constants.Keyes.urlEncoded,
+            Constants.Keyes.authorization: "Basic \(authorization!)"
         ]
         
         let paremeters = [
-            "grant_type": "refresh_token",
-            "refresh_token": refreshToken
+            Constants.Keyes.grantType: Constants.Keyes.refreshToken,
+            Constants.Keyes.refreshToken: refreshToken
         ]
         
         alamofire.request(Constants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
@@ -143,7 +169,6 @@ extension AuthManager {
                         completion(false)
                     }
             }
-        
     }
     
 }
@@ -153,14 +178,12 @@ extension AuthManager {
 extension AuthManager {
     
     private func cacheToken(authResponse: AuthResponse) {
-        UserDefaults.standard.setValue(authResponse.accessToken, forKey: "access_token")
-        
+        UserDefaults.standard.setValue(authResponse.accessToken, forKey: Constants.Keyes.accessToken)
         guard (authResponse.refreshToken != nil) else {
-            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(authResponse.expiresIn)), forKey: "expirationDate")
+            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(authResponse.expiresIn)), forKey: Constants.Keyes.expirationDate)
             return
-            
         }
-        UserDefaults.standard.setValue(authResponse.refreshToken, forKey: "refresh_token")
+        UserDefaults.standard.setValue(authResponse.refreshToken, forKey: Constants.Keyes.refreshToken)
     }
     
 }
