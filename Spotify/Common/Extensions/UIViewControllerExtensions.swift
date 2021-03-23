@@ -19,6 +19,7 @@ extension UIViewController {
         
         static let authViewController = UIStoryboard.MyBoards.authStoryboard.instantiateViewController(identifier: "authentication") as AuthenticationViewController
         static let welcomeViewController = UIStoryboard.MyBoards.welcomeStoryboard.instantiateViewController(withIdentifier: "welcome")
+        static let profileViewController = UIStoryboard.MyBoards.profileStoryboard.instantiateViewController(withIdentifier: "profile")
     }
     
 }

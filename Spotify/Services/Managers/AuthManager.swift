@@ -51,12 +51,19 @@ final class AuthManager {
         accessToken != nil
     }
     
+    var authorization: String? {
+        let basicToken = Constants.cliendID + ":" + Constants.clientSecret
+        let data = basicToken.data(using: .utf8)
+        guard let base64String = data?.base64EncodedString() else { return nil }
+        return base64String
+    }
+    
     //MARK: - Private properties
     
     private var refreshingToken = false
     private var onRefreshBlocks = [((String) -> Void)]()
     
-    private var accessToken:String? {
+    var accessToken:String? {
         UserDefaults.standard.string(forKey: Constants.Keyes.accessToken)
     }
     
@@ -71,13 +78,6 @@ final class AuthManager {
     private var shouldRefreshToken: Bool {
         guard let expirationDate = tokenExpirationDate else { return false }
         return Date().addingTimeInterval(Constants.fiveMinutes) >= expirationDate
-    }
-    
-    private var authorization: String? {
-        let basicToken = Constants.cliendID + ":" + Constants.clientSecret
-        let data = basicToken.data(using: .utf8)
-        guard let base64String = data?.base64EncodedString() else { return nil }
-        return base64String
     }
     
     private let alamofire = AF

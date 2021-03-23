@@ -9,7 +9,7 @@
 import UIKit
 
 struct ConstantsAlerts {
-    
+
     enum Titles: String {
         case ops = "Oooops!"
         case somethingWentWrong = "Something went wrong!"
@@ -34,5 +34,11 @@ enum ConstantsImages {
         static let magnifyingGlass = UIImage(systemName: "magnifyingglass")
         static let musicNote = UIImage(systemName: "music.note.list")
     }
+    
+}
+
+struct APIUrl {
+    
+    static let currentUsersProfile = "https://api.spotify.com/v1"
     
 }

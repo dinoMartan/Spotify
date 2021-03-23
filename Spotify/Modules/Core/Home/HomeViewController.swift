@@ -23,8 +23,15 @@ class HomeViewController: DMViewController {
 extension HomeViewController {
     
     @IBAction func didPressButton(_ sender: Any) {
-        let vcTest = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(identifier: "home")
-        navigationController?.pushViewController(vcTest, animated: true)
+        APICaller.shared.currentUserProfile { _ in
+            //
+        } failure: { _ in
+            //
+        }
+
+        
+        //let vcTest = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(identifier: "home")
+        //navigationController?.pushViewController(vcTest, animated: true)
     }
     
 }
