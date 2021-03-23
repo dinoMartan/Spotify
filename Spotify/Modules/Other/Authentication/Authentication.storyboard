@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Authentication View Controller-->
+        <scene sceneID="sZY-gC-dyP">
+            <objects>
+                <viewController storyboardIdentifier="authentication" id="ecO-Vn-YPj" customClass="AuthenticationViewController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dBg-dZ-NjD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBa-7H-p6R">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="XvH-C6-PAM">
+                                <rect key="frame" x="170" y="394" width="74" height="118"/>
+                                <color key="color" systemColor="systemGreenColor"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vCX-Rt-zUy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bBa-7H-p6R" firstAttribute="top" secondItem="vCX-Rt-zUy" secondAttribute="top" id="8GF-en-5KY"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="bottom" secondItem="bBa-7H-p6R" secondAttribute="bottom" id="aak-IY-5ol"/>
+                            <constraint firstItem="XvH-C6-PAM" firstAttribute="leading" secondItem="vCX-Rt-zUy" secondAttribute="leading" constant="170" id="bXM-Tb-AJG"/>
+                            <constraint firstItem="XvH-C6-PAM" firstAttribute="top" secondItem="vCX-Rt-zUy" secondAttribute="top" constant="350" id="g0e-co-Rcs"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="bottom" secondItem="XvH-C6-PAM" secondAttribute="bottom" constant="350" id="iHR-O8-ycE"/>
+                            <constraint firstItem="bBa-7H-p6R" firstAttribute="leading" secondItem="vCX-Rt-zUy" secondAttribute="leading" id="itp-d1-bbo"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="trailing" secondItem="XvH-C6-PAM" secondAttribute="trailing" constant="170" id="lGg-84-lJB"/>
+                            <constraint firstItem="vCX-Rt-zUy" firstAttribute="trailing" secondItem="bBa-7H-p6R" secondAttribute="trailing" id="mh2-6a-ykA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicatior" destination="XvH-C6-PAM" id="lhw-Kn-S4c"/>
+                        <outlet property="wkWebView" destination="bBa-7H-p6R" id="Aha-hq-omM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n4p-xh-8U1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-784.05797101449286" y="215.625"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
