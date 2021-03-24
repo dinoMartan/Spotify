@@ -13,6 +13,10 @@
 		3122CFCF260790A600836C5C /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFCE260790A600836C5C /* UIViewControllerExtensions.swift */; };
 		3122CFD3260796E400836C5C /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFD2260796E400836C5C /* Consts.swift */; };
 		3122CFF0260A1C8600836C5C /* AuthenticationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFEF260A1C8600836C5C /* AuthenticationConstants.swift */; };
+		3122CFF8260BCD9000836C5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFF7260BCD9000836C5C /* SettingsViewController.swift */; };
+		3122CFFC260BCDA000836C5C /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3122CFFB260BCDA000836C5C /* Settings.storyboard */; };
+		3122CFFF260BD88100836C5C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFFE260BD88100836C5C /* Settings.swift */; };
+		3122D002260BD9DB00836C5C /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122D001260BD9DB00836C5C /* SettingsCell.swift */; };
 		318FBB242603BE0C008B1F7A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB232603BE0C008B1F7A /* AppDelegate.swift */; };
 		318FBB262603BE0C008B1F7A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB252603BE0C008B1F7A /* SceneDelegate.swift */; };
 		318FBB2B2603BE0C008B1F7A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB292603BE0C008B1F7A /* Main.storyboard */; };
@@ -47,6 +51,10 @@
 		3122CFCE260790A600836C5C /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		3122CFD2260796E400836C5C /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		3122CFEF260A1C8600836C5C /* AuthenticationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationConstants.swift; sourceTree = "<group>"; };
+		3122CFF7260BCD9000836C5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		3122CFFB260BCDA000836C5C /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		3122CFFE260BD88100836C5C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3122D001260BD9DB00836C5C /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		318FBB202603BE0C008B1F7A /* Spotify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		318FBB232603BE0C008B1F7A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		318FBB252603BE0C008B1F7A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +152,16 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		3122CFF6260BCD7300836C5C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3122CFF7260BCD9000836C5C /* SettingsViewController.swift */,
+				3122CFFB260BCDA000836C5C /* Settings.storyboard */,
+				3122D001260BD9DB00836C5C /* SettingsCell.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		318FBB172603BE0B008B1F7A = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +210,7 @@
 				318FBB512603CCF2008B1F7A /* Artist.swift */,
 				318FBB532603CCFD008B1F7A /* UserProfile.swift */,
 				3122CFBA2604FE6600836C5C /* AuthResponse.swift */,
+				3122CFFE260BD88100836C5C /* Settings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -256,6 +275,7 @@
 		31B496812603D829005C1EAA /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				3122CFF6260BCD7300836C5C /* Settings */,
 				31B496A52604D789005C1EAA /* Authentication */,
 				31B496832603E1E5005C1EAA /* Welcome */,
 			);
@@ -373,6 +393,7 @@
 				318FBB482603C117008B1F7A /* Library.storyboard in Resources */,
 				318FBB2B2603BE0C008B1F7A /* Main.storyboard in Resources */,
 				318FBB4A2603C137008B1F7A /* Search.storyboard in Resources */,
+				3122CFFC260BCDA000836C5C /* Settings.storyboard in Resources */,
 				318FBB402603C0C9008B1F7A /* Home.storyboard in Resources */,
 				31B496892603E217005C1EAA /* Welcome.storyboard in Resources */,
 			);
@@ -441,9 +462,12 @@
 				318FBB4C2603C166008B1F7A /* TabBarViewController.swift in Sources */,
 				3122CFD3260796E400836C5C /* Consts.swift in Sources */,
 				318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */,
+				3122D002260BD9DB00836C5C /* SettingsCell.swift in Sources */,
 				3122CFCF260790A600836C5C /* UIViewControllerExtensions.swift in Sources */,
+				3122CFF8260BCD9000836C5C /* SettingsViewController.swift in Sources */,
 				318FBB422603C0D7008B1F7A /* HomeViewController.swift in Sources */,
 				31B496852603E1FF005C1EAA /* WelcomeViewController.swift in Sources */,
+				3122CFFF260BD88100836C5C /* Settings.swift in Sources */,
 				3122CFC426061D6200836C5C /* DMViewController.swift in Sources */,
 				318FBB522603CCF2008B1F7A /* Artist.swift in Sources */,
 				31B496992604B35F005C1EAA /* APICaller.swift in Sources */,

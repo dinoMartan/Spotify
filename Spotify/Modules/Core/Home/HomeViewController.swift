@@ -10,10 +10,18 @@ import UIKit
 
 class HomeViewController: DMViewController {
     
-    //MARK: - Lifecycle
+    @IBAction func didTapSettingsButton(_ sender: Any) {
+        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        navigationController?.pushViewController(settingsViewController, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    private func setupView() {
+        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        navigationController?.setViewControllers([settingsViewController], animated: true)
     }
     
 }
@@ -28,8 +36,8 @@ extension HomeViewController {
         } failure: { _ in
             //
         }
-        //let testViewController = UIViewController.MyViewControllers.homeViewController
-        //navigationController?.pushViewController(testViewController, animated: true)
+        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
 }
