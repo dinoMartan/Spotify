@@ -29,6 +29,7 @@ class SettingsViewController: DMViewController {
         setupSettings()
         tableView.delegate = self
         tableView.dataSource = self
+        title = "Settings"
     }
     
     private func setupSettings() {
@@ -42,18 +43,10 @@ class SettingsViewController: DMViewController {
         })
         sections.append(Section(title: "Account", settings: [signOutOption]))
     }
-    
-    private func viewProfile() {
-        // TO DO: create profile storyboard and display it
-        print("TO DO: create profile storyboard and display it")
-    }
-    
-    private func signOut() {
-        // TO DO: Sign out
-        print("Sign out")
-    }
 
 }
+
+//MARK: - Extensions -
 
 extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
     
