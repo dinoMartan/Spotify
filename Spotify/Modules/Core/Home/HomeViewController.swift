@@ -30,8 +30,8 @@ extension HomeViewController {
         }
 
         
-        //let vcTest = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(identifier: "home")
-        //navigationController?.pushViewController(vcTest, animated: true)
+        //let testViewController = UIViewController.MyViewControllers.homeViewController
+        //navigationController?.pushViewController(testViewController, animated: true)
     }
     
 }

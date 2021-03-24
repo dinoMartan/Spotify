@@ -22,8 +22,6 @@ final class APICaller {
     //MARK: - Lifecycle
     
     private init() { }
-    
-    
      
     func currentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
         alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: getHeaders())
@@ -36,8 +34,6 @@ final class APICaller {
                 }
             }
     }
-    
-    
     
     func testingData(success: @escaping () -> Void) {
         alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: getHeaders())

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class Alerter {
+class Alerter {
     
     static func getAlert(myTitle: ConstantsAlerts.Titles, myMessage: ConstantsAlerts.Messages, button: ConstantsAlerts.Button) -> UIAlertController {
         let alert = UIAlertController(title: myTitle.rawValue, message: myMessage.rawValue, preferredStyle: UIAlertController.Style.alert)

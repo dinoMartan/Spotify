@@ -11,39 +11,20 @@ import Alamofire
 
 final class AuthManager {
     
-    //MARK: - Constants
+    //MARK: - Typealiases
     
-    struct Constants {
-        static let cliendID = "a08fd5333ea042eb85262d880d663950"
-        static let clientSecret = "81b42dcb4eaa405892fe4b8e512a13fc"
-        static let tokenAPIURL = "https://accounts.spotify.com/api/token"
-        static let fiveMinutes: TimeInterval = 300
-        static let base = "https://accounts.spotify.com/authorize"
-        static let scope = "user-read-private%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20user-follow-read%20user-library-modify%20user-library-read%20user-read-email"
-        static let redirectURI = "https://www.iosacademy.io"
-        static let headerData = "application/x-www-form-urlencoded"
-        static let currentDate = Date()
-        
-        struct Keyes {
-            static let accessToken = "access_token"
-            static let refreshToken = "refresh_token"
-            static let expirationDate = "expirationDate"
-            static let contentType = "Content-Type"
-            static let urlEncoded = "application/x-www-form-urlencoded"
-            static let authorization = "Authorization"
-            static let grantType = "grant_type"
-            static let code = "code"
-            static let authorizationCode = "authorization_code"
-            static let redirectUri = "redirect_uri"
-        }
-    }
-
+    typealias closureBool = ((Bool) -> Void)
+    typealias closureString = ((String) -> Void)
+    typealias closureError = ((Error?) -> Void)
+    typealias closureVoid = (() -> Void)
+    
+    
     //MARK: - Public properties
     
     static let shared = AuthManager()
     
     var signInURL: URL? {
-        let stringUrl = "\(Constants.base)?response_type=code&client_id=\(Constants.cliendID)&scope=\(Constants.scope)&redirect_uri=\(Constants.redirectURI)&show_dialog=TRUE"
+        let stringUrl = "\(AuthenticationConstants.base)?response_type=code&client_id=\(AuthenticationConstants.cliendID)&scope=\(AuthenticationConstants.scope)&redirect_uri=\(AuthenticationConstants.redirectURI)&show_dialog=TRUE"
         return URL(string: stringUrl)
     }
     
@@ -52,7 +33,7 @@ final class AuthManager {
     }
     
     var authorization: String? {
-        let basicToken = Constants.cliendID + ":" + Constants.clientSecret
+        let basicToken = AuthenticationConstants.cliendID + ":" + AuthenticationConstants.clientSecret
         let data = basicToken.data(using: .utf8)
         guard let base64String = data?.base64EncodedString() else { return nil }
         return base64String
@@ -60,64 +41,58 @@ final class AuthManager {
     
     //MARK: - Private properties
     
-    private var refreshingToken = false
-    private var onRefreshBlocks = [((String) -> Void)]()
-    
     var accessToken:String? {
-        UserDefaults.standard.string(forKey: Constants.Keyes.accessToken)
+        UserDefaults.standard.string(forKey: AuthenticationConstants.Keyes.accessToken)
     }
     
     private var refreshToken:String? {
-        UserDefaults.standard.string(forKey: Constants.Keyes.refreshToken)
+        UserDefaults.standard.string(forKey: AuthenticationConstants.Keyes.refreshToken)
     }
     
     private var tokenExpirationDate: Date? {
-        UserDefaults.standard.object(forKey: Constants.Keyes.expirationDate) as? Date
+        UserDefaults.standard.object(forKey: AuthenticationConstants.Keyes.expirationDate) as? Date
     }
     
     private var shouldRefreshToken: Bool {
         guard let expirationDate = tokenExpirationDate else { return false }
-        return Date().addingTimeInterval(Constants.fiveMinutes) >= expirationDate
+        return Date().addingTimeInterval(AuthenticationConstants.fiveMinutes) >= expirationDate
     }
     
     private let alamofire = AF
     
-    //MARK: - Lifecycle
-    
     private init() { }
     
-
 }
 
 //MARK: - Public extensions -
 
 extension AuthManager {
     
-    func exchangeCodeForToken(code:String, success: @escaping ((Bool) -> Void), failure: @escaping ((Error?) -> Void)) {
+    func exchangeCodeForToken(code:String, success: @escaping closureBool, failure: @escaping closureError) {
         guard authorization != nil else {
             failure(nil)
             return
         }
  
         let headers: HTTPHeaders = [
-            Constants.Keyes.contentType: Constants.Keyes.urlEncoded,
-            Constants.Keyes.authorization: "Basic \(authorization!)"
+            AuthenticationConstants.Keyes.contentType: AuthenticationConstants.Keyes.urlEncoded,
+            AuthenticationConstants.Keyes.authorization: "Basic \(authorization!)"
         ]
         
         let paremeters = [
-            Constants.Keyes.grantType: Constants.Keyes.authorizationCode,
-            Constants.Keyes.code: code,
-            Constants.Keyes.redirectUri: Constants.redirectURI
+            AuthenticationConstants.Keyes.grantType: AuthenticationConstants.Keyes.authorizationCode,
+            AuthenticationConstants.Keyes.code: code,
+            AuthenticationConstants.Keyes.redirectUri: AuthenticationConstants.redirectURI
         ]
         
-        alamofire.request(Constants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
+        alamofire.request(AuthenticationConstants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
             .responseDecodable(of: AuthResponse.self) { [unowned self] response in
                 switch(response.result) {
                     case .success(let data):
                         cacheToken(authResponse: data)
                         success(true)
-                    case .failure(let errror):
-                        failure(errror)
+                    case .failure(let error):
+                        failure(error)
                     }
             }
     }
@@ -126,23 +101,27 @@ extension AuthManager {
 
 extension AuthManager {
     
-    func getValidToken(success: @escaping (String) -> Void, failure: @escaping () -> Void) {
+    func getValidToken(success: @escaping closureString, failure: @escaping closureVoid) {
         refreshIfNeeded { completion in
-            guard !completion else {
+            guard completion else {
                 failure()
                 return
             }
-            success(self.accessToken!)
+            guard let token = self.accessToken else {
+                failure()
+                return
+            }
+            success(token)
         }
     }
     
-    func refreshIfNeeded(completion: @escaping(Bool) -> Void) {
+    func refreshIfNeeded(completion: @escaping closureBool) {
         guard shouldRefreshToken else {
             completion(true)
             return
         }
         
-        guard let refreshToken = self.refreshToken else { return }
+        guard let refreshToken = refreshToken else { return }
         
         guard authorization != nil else {
             completion(false)
@@ -150,16 +129,16 @@ extension AuthManager {
         }
         
         let headers: HTTPHeaders = [
-            Constants.Keyes.contentType: Constants.Keyes.urlEncoded,
-            Constants.Keyes.authorization: "Basic \(authorization!)"
+            AuthenticationConstants.Keyes.contentType: AuthenticationConstants.Keyes.urlEncoded,
+            AuthenticationConstants.Keyes.authorization: "Basic \(authorization!)"
         ]
         
         let paremeters = [
-            Constants.Keyes.grantType: Constants.Keyes.refreshToken,
-            Constants.Keyes.refreshToken: refreshToken
+            AuthenticationConstants.Keyes.grantType: AuthenticationConstants.Keyes.refreshToken,
+            AuthenticationConstants.Keyes.refreshToken: refreshToken
         ]
         
-        alamofire.request(Constants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
+        alamofire.request(AuthenticationConstants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
             .responseDecodable(of: AuthResponse.self) { [unowned self] response in
                 switch(response.result) {
                     case .success(let authResponse):
@@ -178,12 +157,12 @@ extension AuthManager {
 extension AuthManager {
     
     private func cacheToken(authResponse: AuthResponse) {
-        UserDefaults.standard.setValue(authResponse.accessToken, forKey: Constants.Keyes.accessToken)
+        UserDefaults.standard.setValue(authResponse.accessToken, forKey: AuthenticationConstants.Keyes.accessToken)
         guard (authResponse.refreshToken != nil) else {
-            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(authResponse.expiresIn)), forKey: Constants.Keyes.expirationDate)
+            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(authResponse.expiresIn)), forKey: AuthenticationConstants.Keyes.expirationDate)
             return
         }
-        UserDefaults.standard.setValue(authResponse.refreshToken, forKey: Constants.Keyes.refreshToken)
+        UserDefaults.standard.setValue(authResponse.refreshToken, forKey: AuthenticationConstants.Keyes.refreshToken)
     }
     
 }

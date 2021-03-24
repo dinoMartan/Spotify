@@ -23,4 +23,5 @@ struct AuthResponse: Codable {
         case scope = "scope"
         case tokenType = "token_type"
     }
+    
 }

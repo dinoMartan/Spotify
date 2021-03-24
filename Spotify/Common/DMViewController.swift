@@ -12,6 +12,10 @@ class DMViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    private func setupView() {
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     

@@ -35,14 +35,14 @@ extension WelcomeViewController {
 
 extension WelcomeViewController: AuthenticationDelegate {
     
-    // if is logged in, show main screen
-    func didCompleteAPICall() {
-        DispatchQueue.main.async { self.handleSignIn() }
-    }
-    
-    func didNotCompleteAPICall() {
-        let alert = Alerter.getAlert(myTitle: .ops, myMessage: .didntCompleteAPICall, button: .shame)
-        present(alert, animated: true, completion: nil)
+    func didCompeteAuthentication(with result: MyResult) {
+        switch result {
+            case .success:
+                DispatchQueue.main.async { self.handleSignIn() }
+            case .failure:
+                let alert = Alerter.getAlert(myTitle: .ops, myMessage: .didntCompleteAPICall, button: .shame)
+                present(alert, animated: true, completion: nil)
+        }
     }
     
     private func handleSignIn() {

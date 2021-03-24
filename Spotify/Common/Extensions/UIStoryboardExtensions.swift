@@ -19,7 +19,6 @@ extension UIStoryboard {
         
         static let authStoryboard = UIStoryboard(name: "Authentication", bundle: nil)
         static let welcomeStoryboard = UIStoryboard(name: "Welcome", bundle: nil)
-        static let profileStoryboard = UIStoryboard(name: "Profile", bundle: nil)
     }
     
 }
