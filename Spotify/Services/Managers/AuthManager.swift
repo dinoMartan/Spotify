@@ -29,7 +29,8 @@ final class AuthManager {
     }
     
     var isSignedIn: Bool {
-        accessToken != nil
+        guard let expirationDate = tokenExpirationDate else { return false }
+        return Date() <= expirationDate
     }
     
     var authorization: String? {

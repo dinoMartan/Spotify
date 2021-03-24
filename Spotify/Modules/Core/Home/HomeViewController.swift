@@ -28,8 +28,6 @@ extension HomeViewController {
         } failure: { _ in
             //
         }
-
-        
         //let testViewController = UIViewController.MyViewControllers.homeViewController
         //navigationController?.pushViewController(testViewController, animated: true)
     }
