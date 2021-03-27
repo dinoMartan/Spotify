@@ -6,18 +6,21 @@
 //  Copyright © 2021 Dino Martan. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension SettingsViewController {
     
     func viewProfile() {
-        // TO DO: create profile storyboard and display it
-        print("TO DO: create profile storyboard and display it")
+        let profileViewController = UIStoryboard.instantiateViewController(name: .profile, identifier: .profile)
+        present(profileViewController, animated: true, completion: nil)
     }
     
     func signOut() {
-        // TO DO: Sign out
-        print("Sign out")
+        UserDefaults.resetDefaults()
+        let welcomeViewController = UIStoryboard.instantiateViewController(name: .welcome, identifier: .welcome)
+        welcomeViewController.modalPresentationStyle = .fullScreen
+        welcomeViewController.modalTransitionStyle = .flipHorizontal
+        self.present(welcomeViewController, animated: true, completion: nil)
     }
     
 }

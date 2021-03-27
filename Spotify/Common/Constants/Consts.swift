@@ -13,11 +13,13 @@ struct ConstantsAlerts {
     enum Titles: String {
         case ops = "Oooops!"
         case somethingWentWrong = "Something went wrong!"
+        case error = "Error"
     }
     
     enum Messages: String {
         case didntSignIn = "Looks like you didn't sign in"
         case didntCompleteAPICall = "Didn't complete API call!"
+        case didntFetchUserProfile = "Looks like we couldn't fetch your profile data"
     }
     
     enum Button: String {
@@ -41,4 +43,8 @@ struct APIUrl {
     
     static let currentUsersProfile = "https://api.spotify.com/v1"
     
+}
+
+enum Defaults: String {
+    case a  = "huh"
 }

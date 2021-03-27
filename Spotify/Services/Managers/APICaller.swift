@@ -17,26 +17,30 @@ final class APICaller {
     
     //MARK: - Private properties
     
-    let alamofire = AF
+    private let alamofire = AF
+    private var headers: HTTPHeaders? {
+        guard let _ = AuthManager.shared.accessToken else { return nil }
+        return ["Authorization": "Bearer \(AuthManager.shared.accessToken!)"]
+    }
     
     //MARK: - Lifecycle
     
     private init() { }
      
     func currentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
-        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: getHeaders())
+        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: headers)
             .responseDecodable(of: UserProfile.self) { response in
                 switch(response.result) {
                 case .success(let userProfile):
-                    debugPrint(userProfile)
+                    success(userProfile)
                 case .failure(let error):
-                    debugPrint(error)
+                    failure(error)
                 }
             }
     }
     
     func testingData(success: @escaping () -> Void) {
-        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: getHeaders())
+        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: headers)
             .response { response in
                 debugPrint(response)
             }

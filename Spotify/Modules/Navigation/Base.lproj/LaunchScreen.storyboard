@@ -23,10 +23,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotifyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="s71-2g-9jy">
+                                <rect key="frame" x="139" y="194" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Ycf-gw-bzW"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="s71-2g-9jy" secondAttribute="trailing" constant="139" id="3ex-Nx-tBq"/>
+                            <constraint firstItem="s71-2g-9jy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="139" id="V0Y-5n-IuV"/>
+                            <constraint firstItem="s71-2g-9jy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="bcd-zZ-stW"/>
                             <constraint firstItem="JNf-bl-M4v" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="edP-17-btA"/>
                             <constraint firstItem="JNf-bl-M4v" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="pOR-SJ-laa"/>
                         </constraints>
@@ -38,6 +47,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="spotifyLogo" width="1200" height="630"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

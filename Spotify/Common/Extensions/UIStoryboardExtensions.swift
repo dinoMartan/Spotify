@@ -10,16 +10,38 @@ import UIKit
 
 extension UIStoryboard {
     
-    struct MyBoards {
-        static let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+    struct MyStoryboard {
         
-        static let homeStoryboard = UIStoryboard(name: "Home", bundle: nil)
-        static let searchStoryboard = UIStoryboard(name: "Search", bundle: nil)
-        static let libraryStoryboard = UIStoryboard(name: "Library", bundle: nil)
+        enum Name: String {
+            case main = "Main"
+            case home = "Home"
+            case search = "Search"
+            case library = "Library"
+            case authentication = "Authentication"
+            case welcome = "Welcome"
+            case settings = "Settings"
+            case profile = "Profile"
+        }
         
-        static let authStoryboard = UIStoryboard(name: "Authentication", bundle: nil)
-        static let welcomeStoryboard = UIStoryboard(name: "Welcome", bundle: nil)
-        static let settingsStoryboard = UIStoryboard(name: "Settings", bundle: nil)
+        enum Identifier: String {
+            case main = "main"
+            case home = "home"
+            case search = "search"
+            case library = "library"
+            case authentication = "authentication"
+            case welcome = "welcome"
+            case settings = "settings"
+            case profile = "profile"
+        }
+        
+    }
+    
+    static func instantiateViewController(name: MyStoryboard.Name, identifier: MyStoryboard.Identifier) -> UIViewController {
+        let storyboardName = name.rawValue
+        let viewControllerIdentifier = identifier.rawValue
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let viewController = storyboard.instantiateViewController(identifier: viewControllerIdentifier)
+        return viewController
     }
     
 }

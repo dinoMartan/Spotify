@@ -9,11 +9,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    
-    //MARK: - Typealias
-    
-    typealias myUIViewControllers = UIViewController.MyViewControllers
-    
+        
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -23,9 +19,9 @@ class TabBarViewController: UITabBarController {
     }
     
     func setupView() {
-        let viewControllerHome = myUIViewControllers.homeViewController
-        let viewControllerSearch = myUIViewControllers.searchViewController
-        let viewControllerLibrary = myUIViewControllers.libraryViewController
+        let viewControllerHome = UIStoryboard.instantiateViewController(name: .home, identifier: .home)
+        let viewControllerSearch = UIStoryboard.instantiateViewController(name: .search, identifier: .search)
+        let viewControllerLibrary = UIStoryboard.instantiateViewController(name: .library, identifier: .library)
         
         viewControllerHome.title = "Home"
         viewControllerSearch.title = "Search"

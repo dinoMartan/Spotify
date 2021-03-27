@@ -50,8 +50,9 @@ final class AuthManager {
         UserDefaults.standard.string(forKey: AuthenticationConstants.Keyes.refreshToken)
     }
     
-    private var tokenExpirationDate: Date? {
-        UserDefaults.standard.object(forKey: AuthenticationConstants.Keyes.expirationDate) as? Date
+    var tokenExpirationDate: Date? {
+        let date = UserDefaults.standard.object(forKey: AuthenticationConstants.Keyes.expirationDate) as? Date
+        return date
     }
     
     private var shouldRefreshToken: Bool {
@@ -159,8 +160,9 @@ extension AuthManager {
     
     private func cacheToken(authResponse: AuthResponse) {
         UserDefaults.standard.setValue(authResponse.accessToken, forKey: AuthenticationConstants.Keyes.accessToken)
+        let expirationDate = Date().addingTimeInterval(TimeInterval(authResponse.expiresIn))
+        UserDefaults.standard.setValue(expirationDate, forKey: AuthenticationConstants.Keyes.expirationDate)
         guard (authResponse.refreshToken != nil) else {
-            UserDefaults.standard.setValue(Date().addingTimeInterval(TimeInterval(authResponse.expiresIn)), forKey: AuthenticationConstants.Keyes.expirationDate)
             return
         }
         UserDefaults.standard.setValue(authResponse.refreshToken, forKey: AuthenticationConstants.Keyes.refreshToken)

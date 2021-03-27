@@ -11,7 +11,7 @@ import UIKit
 class HomeViewController: DMViewController {
     
     @IBAction func didTapSettingsButton(_ sender: Any) {
-        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
@@ -20,7 +20,11 @@ class HomeViewController: DMViewController {
     }
     
     private func setupView() {
-        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        setupNavigationController()
+    }
+    
+    private func setupNavigationController() {
+        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
         navigationController?.setViewControllers([settingsViewController], animated: true)
     }
     
@@ -31,12 +35,7 @@ class HomeViewController: DMViewController {
 extension HomeViewController {
     
     @IBAction func didPressButton(_ sender: Any) {
-        APICaller.shared.currentUserProfile { _ in
-            //
-        } failure: { _ in
-            //
-        }
-        let settingsViewController = UIViewController.MyViewControllers.settingsViewController
+        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
     

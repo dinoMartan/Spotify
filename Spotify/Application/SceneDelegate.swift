@@ -12,19 +12,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        //let isLoggedIn = AuthManager.shared.isSignedIn
-        let isLoggedIn = true
+        let isLoggedIn = AuthManager.shared.isSignedIn
+        //let isLoggedIn = true
         let window = UIWindow(windowScene: windowScene)
         
         if isLoggedIn {
-            window.rootViewController = UIViewController.MyViewControllers.mainViewController
+            //window.rootViewController = UIViewController.MyViewControllers.mainViewController
+            window.rootViewController = UIStoryboard.instantiateViewController(name: .main, identifier: .main)
         }
         else {
-            window.rootViewController = UIViewController.MyViewControllers.welcomeViewController
+            window.rootViewController = UIStoryboard.instantiateViewController(name: .welcome, identifier: .welcome)
         }
         
         window.makeKeyAndVisible()

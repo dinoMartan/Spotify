@@ -24,7 +24,7 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController {
     
     @IBAction func didPressSignInButton(_ sender: Any) {
-        let authenticationViewController = UIViewController.MyViewControllers.authViewController
+        let authenticationViewController = UIStoryboard.instantiateViewController(name: .authentication, identifier: .authentication) as! AuthenticationViewController
         authenticationViewController.authenticationDeleagete = self
         present(authenticationViewController, animated: true, completion: nil)
     }
@@ -46,7 +46,7 @@ extension WelcomeViewController: AuthenticationDelegate {
     }
     
     private func handleSignIn() {
-        let tabBarController = UIViewController.MyViewControllers.mainViewController
+        let tabBarController = UIStoryboard.instantiateViewController(name: .main, identifier: .main)
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: true, completion: nil)
     }
