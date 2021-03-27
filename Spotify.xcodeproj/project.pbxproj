@@ -10,7 +10,6 @@
 		3122CFBB2604FE6600836C5C /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFBA2604FE6600836C5C /* AuthResponse.swift */; };
 		3122CFC426061D6200836C5C /* DMViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFC326061D6200836C5C /* DMViewController.swift */; };
 		3122CFCB26078F2700836C5C /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFCA26078F2700836C5C /* UIStoryboardExtensions.swift */; };
-		3122CFCF260790A600836C5C /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFCE260790A600836C5C /* UIViewControllerExtensions.swift */; };
 		3122CFD3260796E400836C5C /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFD2260796E400836C5C /* Consts.swift */; };
 		3122CFF0260A1C8600836C5C /* AuthenticationConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFEF260A1C8600836C5C /* AuthenticationConstants.swift */; };
 		3122CFF8260BCD9000836C5C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CFF7260BCD9000836C5C /* SettingsViewController.swift */; };
@@ -52,7 +51,6 @@
 		3122CFBA2604FE6600836C5C /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		3122CFC326061D6200836C5C /* DMViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMViewController.swift; sourceTree = "<group>"; };
 		3122CFCA26078F2700836C5C /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
-		3122CFCE260790A600836C5C /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		3122CFD2260796E400836C5C /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		3122CFEF260A1C8600836C5C /* AuthenticationConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationConstants.swift; sourceTree = "<group>"; };
 		3122CFF7260BCD9000836C5C /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				3122CFCA26078F2700836C5C /* UIStoryboardExtensions.swift */,
-				3122CFCE260790A600836C5C /* UIViewControllerExtensions.swift */,
 				318CE10A260CF7AC007F3A93 /* UserDefaultsExtension.swift */,
 			);
 			path = Extensions;
@@ -486,7 +483,6 @@
 				3122CFD3260796E400836C5C /* Consts.swift in Sources */,
 				318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */,
 				3122D002260BD9DB00836C5C /* SettingsCell.swift in Sources */,
-				3122CFCF260790A600836C5C /* UIViewControllerExtensions.swift in Sources */,
 				3122CFF8260BCD9000836C5C /* SettingsViewController.swift in Sources */,
 				318FBB422603C0D7008B1F7A /* HomeViewController.swift in Sources */,
 				31B496852603E1FF005C1EAA /* WelcomeViewController.swift in Sources */,
