@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 final class APICaller {
-    
+        
     //MARK: - Public properties
     
     static let shared = APICaller()
@@ -28,7 +28,7 @@ final class APICaller {
     private init() { }
      
     func currentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
-        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: headers)
+        alamofire.request(APIConstants.currentUserProfileUrl, method: .get, headers: headers)
             .responseDecodable(of: UserProfile.self) { response in
                 switch(response.result) {
                 case .success(let userProfile):
@@ -39,10 +39,39 @@ final class APICaller {
             }
     }
     
-    func testingData(success: @escaping () -> Void) {
-        alamofire.request(APIUrl.currentUsersProfile + "/me", method: .get, headers: headers)
-            .response { response in
-                debugPrint(response)
+    func getNewReleases(success: @escaping (NewReleasesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.newReleasesUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
+            .responseDecodable(of: NewReleasesResponse.self) { response in
+                switch(response.result) {
+                case .success(let newRelease):
+                    success(newRelease)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func getFeaturedPlaylists(success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
+            .responseDecodable(of: FeaturedPlaylistsResponse.self) { response in
+                switch(response.result) {
+                case .success(let featuredPlaylists):
+                    success(featuredPlaylists)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func getRecommendations(success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
+            .responseDecodable(of: FeaturedPlaylistsResponse.self) { response in
+                switch(response.result) {
+                case .success(let featuredPlaylists):
+                    success(featuredPlaylists)
+                case .failure(let error):
+                    failure(error)
+                }
             }
     }
 

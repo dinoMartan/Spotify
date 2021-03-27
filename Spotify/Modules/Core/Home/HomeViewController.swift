@@ -17,15 +17,20 @@ class HomeViewController: DMViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
     }
     
     private func setupView() {
-        setupNavigationController()
+        fetchData()
     }
     
-    private func setupNavigationController() {
-        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
-        navigationController?.setViewControllers([settingsViewController], animated: true)
+    private func fetchData() {
+        APICaller.shared.getFeaturedPlaylists {data in
+            debugPrint(data)
+        } failure: { error in
+            debugPrint(error?.localizedDescription)
+        }
+
     }
     
 }

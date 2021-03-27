@@ -38,13 +38,3 @@ enum ConstantsImages {
     }
     
 }
-
-struct APIUrl {
-    
-    static let currentUsersProfile = "https://api.spotify.com/v1"
-    
-}
-
-enum Defaults: String {
-    case a  = "huh"
-}
