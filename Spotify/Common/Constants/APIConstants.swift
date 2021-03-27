@@ -15,7 +15,8 @@ struct APIConstants {
     static let currentUserProfileUrl = "\(apiUrl)/me"
     static let newReleasesUrl = "\(apiUrl)/browse/new-releases"
     static let featuredPlaylistsUrl = "\(apiUrl)/browse/featured-playlists"
-    static let recommendationsUrl = "\(apiUrl)/browse/v1/recommendations"
+    static let recommendationsUrl = "\(apiUrl)/recommendations"
+    static let recommendationGenresUrl = "\(apiUrl)/recommendations/available-genre-seeds"
     
 }
 

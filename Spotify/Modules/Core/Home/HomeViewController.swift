@@ -10,10 +10,7 @@ import UIKit
 
 class HomeViewController: DMViewController {
     
-    @IBAction func didTapSettingsButton(_ sender: Any) {
-        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
-        navigationController?.pushViewController(settingsViewController, animated: true)
-    }
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +22,32 @@ class HomeViewController: DMViewController {
     }
     
     private func fetchData() {
-        APICaller.shared.getFeaturedPlaylists {data in
-            debugPrint(data)
+        APICaller.shared.getFeaturedPlaylists { featuredPlaylistsResponse in
+            // to do - handle data
         } failure: { error in
-            debugPrint(error?.localizedDescription)
+            // to do - handle error
         }
+        
+        // get genres and if successful, get recommendations using genres as seed
+        
+        APICaller.shared.getrecommendationGenres { recommendedGenresResponse in
+            let genres = recommendedGenresResponse.genres
+            var seeds = Set<String>()
+            while seeds.count < 5 {
+                guard let random = genres.randomElement() else { continue }
+                seeds.insert(random)
+            }
+            
+            APICaller.shared.getRecommendations(genres: seeds) { recommendationsResponse in
+                // to do - handle data
+            } failure: { error in
+                // to do - handle error
+            }
+            
+        } failure: { error in
+            // to do - handle error
+        }
+
 
     }
     
@@ -40,6 +58,11 @@ class HomeViewController: DMViewController {
 extension HomeViewController {
     
     @IBAction func didPressButton(_ sender: Any) {
+        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
+        navigationController?.pushViewController(settingsViewController, animated: true)
+    }
+    
+    @IBAction func didTapSettingsButton(_ sender: Any) {
         let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
         navigationController?.pushViewController(settingsViewController, animated: true)
     }

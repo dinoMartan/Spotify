@@ -9,46 +9,42 @@
 import Foundation
 
 // MARK: - User Profile
+
 struct UserProfile: Codable {
     
-    let country, displayName, email: String
+    let country: String
+    let displayName: String
+    let email: String
     let externalUrls: ExternalUrls
     let followers: Followers
     let href: String
     let id: String
     let images: [Image]?
-    let product, type, uri: String
+    let product: String
+    let type: String
+    let uri: String
 
     enum CodingKeys: String, CodingKey {
         case country
         case displayName = "display_name"
         case email
         case externalUrls = "external_urls"
-        case followers, href, id, images, product, type, uri
+        case followers
+        case href
+        case id
+        case images
+        case product
+        case type
+        case uri
     }
     
 }
 
-// MARK: - ExternalUrls
-struct ExternalUrls: Codable {
-    
-    let spotify: String
-    
-}
-
 // MARK: - Followers
+
 struct Followers: Codable {
     
     let href: Int?
     let total: Int
-    
-}
-
-// MARK: - Image
-struct Image: Codable {
-    
-    let height: Int?
-    let url: String
-    let width: Int?
     
 }

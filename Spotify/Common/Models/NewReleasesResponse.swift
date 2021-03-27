@@ -37,10 +37,10 @@ struct NewReleasesItem: Codable {
     let albumType: String?
     let artists: [Artist]?
     let availableMarkets: [String]?
-    let externalUrls: ReleasesExternalUrls?
+    let externalUrls: ExternalUrls?
     let href: String?
     let id: String?
-    let images: [ReleasesImage]?
+    let images: [Image]?
     let name: String?
     let type: String?
     let uri: String?
@@ -57,45 +57,5 @@ struct NewReleasesItem: Codable {
         case type
         case uri
     }
-    
-}
-
-// MARK: - Artist
-
-struct Artist: Codable {
-    
-    let externalUrls: ExternalUrls
-    let href: String
-    let id: String
-    let name: String?
-    let type: String?
-    let uri: String?
-
-    enum CodingKeys: String, CodingKey {
-        case externalUrls = "external_urls"
-        case href
-        case id
-        case name
-        case type
-        case uri
-    }
-    
-}
-
-// MARK: - ExternalUrls
-
-struct ReleasesExternalUrls: Codable {
-    
-    let spotify: String
-    
-}
-
-// MARK: - Image
-
-struct ReleasesImage: Codable {
-    
-    let height: Int
-    let url: String
-    let width: Int
     
 }

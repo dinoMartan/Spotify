@@ -46,7 +46,8 @@ struct PlaylistItem: Codable {
     let itemPublic: Int?
     let snapshotID: String
     let tracks: Tracks
-    let type, uri: String
+    let type: String
+    let uri: String
 
     enum CodingKeys: String, CodingKey {
         
@@ -63,24 +64,6 @@ struct PlaylistItem: Codable {
         case tracks
         case type
         case uri
-        
-    }
-    
-    // MARK: - ExternalUrls
-    
-    struct ExternalUrls: Codable {
-        
-        let spotify: String
-        
-    }
-
-    // MARK: - Image
-    
-    struct Image: Codable {
-        
-        let height: Int?
-        let url: String
-        let width: Int?
         
     }
 

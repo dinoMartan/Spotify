@@ -19,8 +19,8 @@ final class APICaller {
     
     private let alamofire = AF
     private var headers: HTTPHeaders? {
-        guard let _ = AuthManager.shared.accessToken else { return nil }
-        return ["Authorization": "Bearer \(AuthManager.shared.accessToken!)"]
+        guard let token = AuthManager.shared.accessToken else { return nil }
+        return ["Authorization": "Bearer \(token)"]
     }
     
     //MARK: - Lifecycle
@@ -52,7 +52,7 @@ final class APICaller {
     }
     
     func getFeaturedPlaylists(success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
-        alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
+        alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.featuredPlaylists, headers: headers)
             .responseDecodable(of: FeaturedPlaylistsResponse.self) { response in
                 switch(response.result) {
                 case .success(let featuredPlaylists):
@@ -63,17 +63,36 @@ final class APICaller {
             }
     }
     
-    func getRecommendations(success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
-        alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
-            .responseDecodable(of: FeaturedPlaylistsResponse.self) { response in
+    func getrecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.recommendationGenresUrl, method: .get, parameters: APIParameters.featuredPlaylists, headers: headers)
+            .responseDecodable(of: RecommendationGenresResponse.self) { response in
                 switch(response.result) {
-                case .success(let featuredPlaylists):
-                    success(featuredPlaylists)
+                case .success(let recommendationGenresResponse):
+                    success(recommendationGenresResponse)
                 case .failure(let error):
                     failure(error)
                 }
             }
     }
+    
+    // Seeds are needed as parameters - to do
+    
+    func getRecommendations(genres: Set<String>, success: @escaping (RecommendationsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        
+        let seeds = genres.joined(separator: ",")
+        let url = "\(APIConstants.recommendationsUrl)?seed_genres=\(seeds)"
+        
+        alamofire.request(url, method: .get, headers: headers)
+            .responseDecodable(of: RecommendationsResponse.self) { response in
+                switch(response.result) {
+                case .success(let recommendationsRespond):
+                    success(recommendationsRespond)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
 
 }
 
