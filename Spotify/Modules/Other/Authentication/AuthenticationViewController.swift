@@ -10,13 +10,15 @@ import UIKit
 import WebKit
 
 enum MyResult {
+    
     case success
-    case failure
+    case failure(error: Error?)
+    
 }
 
 protocol AuthenticationDelegate: AnyObject {
     
-    func didCompeteAuthentication(with result: MyResult)
+    func didCompleteAuthentication(with result: MyResult)
     
 }
 
@@ -69,18 +71,19 @@ extension AuthenticationViewController {
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         guard let url = webView.url else { return }
  
-        guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == AuthenticationConstants.Keyes.code } )?.value
+        guard let code = URLComponents(string: url.absoluteString)?.queryItems?.first(where: { $0.name == AuthenticationConstants.Keys.code } )?.value
         else { return }
         
         webView.isHidden = true
         AuthManager.shared.exchangeCodeForToken(code: code) { [unowned self] success in
             DispatchQueue.main.async {
-                authenticationDeleagete?.didCompeteAuthentication(with: .success)
+                authenticationDeleagete?.didCompleteAuthentication(with: .success)
                 dismiss(animated: true, completion: nil)
             }
-        } failure: { [unowned self] _ in
-            authenticationDeleagete?.didCompeteAuthentication(with: .failure)
+        } failure: { [unowned self] error in
+            authenticationDeleagete?.didCompleteAuthentication(with: .failure(error: error))
             dismiss(animated: true, completion: nil)
         }
     }
+    
 }

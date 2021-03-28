@@ -245,10 +245,10 @@
 		318FBB382603BE4D008B1F7A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				318CE12A260FCB37007F3A93 /* Common */,
 				3122CFBA2604FE6600836C5C /* AuthResponse.swift */,
 				3122CFFE260BD88100836C5C /* Settings.swift */,
 				318FBB532603CCFD008B1F7A /* UserProfile.swift */,
-				318CE12A260FCB37007F3A93 /* Common */,
 				318CE112260F9DA6007F3A93 /* NewReleasesResponse.swift */,
 				318CE116260FB4FD007F3A93 /* FeaturedPlaylistsResponse.swift */,
 				318CE119260FC5E2007F3A93 /* RecommendationsResponse.swift */,

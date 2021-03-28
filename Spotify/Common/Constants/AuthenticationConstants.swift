@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AuthenticationConstants {
+enum AuthenticationConstants {
     
     static let cliendID = "a08fd5333ea042eb85262d880d663950"
     static let clientSecret = "81b42dcb4eaa405892fe4b8e512a13fc"
@@ -20,7 +20,7 @@ struct AuthenticationConstants {
     static let headerData = "application/x-www-form-urlencoded"
     static let currentDate = Date()
     
-    struct Keyes {
+    enum Keys {
         
         static let accessToken = "access_token"
         static let refreshToken = "refresh_token"

@@ -19,15 +19,15 @@ final class APICaller {
     
     private let alamofire = AF
     private var headers: HTTPHeaders? {
-        guard let token = AuthManager.shared.accessToken else { return nil }
-        return ["Authorization": "Bearer \(token)"]
+        let token = AuthManager.shared.accessToken
+        return ["Authorization": "Bearer \(token ?? "")"]
     }
     
     //MARK: - Lifecycle
     
     private init() { }
      
-    func currentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
+    func getCurrentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
         alamofire.request(APIConstants.currentUserProfileUrl, method: .get, headers: headers)
             .responseDecodable(of: UserProfile.self) { response in
                 switch(response.result) {
@@ -63,7 +63,7 @@ final class APICaller {
             }
     }
     
-    func getrecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getRecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {
         alamofire.request(APIConstants.recommendationGenresUrl, method: .get, parameters: APIParameters.featuredPlaylists, headers: headers)
             .responseDecodable(of: RecommendationGenresResponse.self) { response in
                 switch(response.result) {
@@ -74,8 +74,6 @@ final class APICaller {
                 }
             }
     }
-    
-    // Seeds are needed as parameters - to do
     
     func getRecommendations(genres: Set<String>, success: @escaping (RecommendationsResponse) -> Void, failure: @escaping (Error?) -> Void) {
         
@@ -91,20 +89,6 @@ final class APICaller {
                     failure(error)
                 }
             }
-    }
-    
-
-}
-
-//MARK: - Private extensions -
-
-extension APICaller {
-    
-    private func getHeaders() -> HTTPHeaders {
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(AuthManager.shared.accessToken!)"
-        ]
-        return headers
     }
 
 }

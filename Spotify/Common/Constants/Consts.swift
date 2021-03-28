@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct ConstantsAlerts {
+struct AlertsConstants {
 
     enum Titles: String {
         case ops = "Oooops!"
@@ -35,6 +35,14 @@ enum ConstantsImages {
         static let house = UIImage(systemName: "house")
         static let magnifyingGlass = UIImage(systemName: "magnifyingglass")
         static let musicNote = UIImage(systemName: "music.note.list")
+    }
+    
+}
+
+enum SettingsConstants {
+    
+    struct Keys {
+        static let settingsCell = "settingsCell"
     }
     
 }

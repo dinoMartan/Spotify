@@ -21,6 +21,13 @@ class HomeViewController: DMViewController {
         fetchData()
     }
     
+    
+}
+
+//MARK: - Private extensions -
+
+private extension HomeViewController {
+    
     private func fetchData() {
         APICaller.shared.getFeaturedPlaylists { featuredPlaylistsResponse in
             // to do - handle data
@@ -30,7 +37,7 @@ class HomeViewController: DMViewController {
         
         // get genres and if successful, get recommendations using genres as seed
         
-        APICaller.shared.getrecommendationGenres { recommendedGenresResponse in
+        APICaller.shared.getRecommendationGenres { recommendedGenresResponse in
             let genres = recommendedGenresResponse.genres
             var seeds = Set<String>()
             while seeds.count < 5 {
@@ -47,23 +54,22 @@ class HomeViewController: DMViewController {
         } failure: { error in
             // to do - handle error
         }
-
-
     }
     
 }
+
 
 //MARK: - Actions -
 
 extension HomeViewController {
     
     @IBAction func didPressButton(_ sender: Any) {
-        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
+        let settingsViewController = UIStoryboard.Storyboard.settings.viewController
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
     @IBAction func didTapSettingsButton(_ sender: Any) {
-        let settingsViewController = UIStoryboard.instantiateViewController(name: .settings, identifier: .settings)
+        let settingsViewController = UIStoryboard.Storyboard.settings.viewController
         navigationController?.pushViewController(settingsViewController, animated: true)
     }
     

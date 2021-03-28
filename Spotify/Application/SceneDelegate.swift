@@ -19,10 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         if isLoggedIn {
-            window.rootViewController = UIStoryboard.instantiateViewController(name: .main, identifier: .main)
+            window.rootViewController = UIStoryboard.Storyboard.main.viewController
         }
         else {
-            window.rootViewController = UIStoryboard.instantiateViewController(name: .welcome, identifier: .welcome)
+            window.rootViewController = UIStoryboard.Storyboard.welcome.viewController
         }
         
         window.makeKeyAndVisible()

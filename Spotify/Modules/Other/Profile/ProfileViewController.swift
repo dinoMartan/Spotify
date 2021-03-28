@@ -13,9 +13,11 @@ class ProfileViewController: UIViewController {
     
     //MARK: - IBOutlets
     
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var plan: UILabel!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var planLabel: UILabel!
+    
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,38 +36,39 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController {
     
     private func fetchProfile() {
-        APICaller.shared.currentUserProfile { [unowned self] userProfile in
+        APICaller.shared.getCurrentUserProfile { [unowned self] userProfile in
             DispatchQueue.main.async { updateUI(with: userProfile) }
         } failure: { _ in
             let alert = Alerter.getAlert(myTitle: .error, myMessage: .didntFetchUserProfile, button: .shame)
+            self.dismiss(animated: true, completion: nil)
             self.present(alert, animated: true, completion: nil)
         }
     }
     
     private func updateUI(with userProfile: UserProfile?) {
         showElements()
-        name.text = userProfile?.displayName
-        plan.text = userProfile?.product
+        nameLabel.text = userProfile?.displayName
+        planLabel.text = userProfile?.product
         loadImage(string: userProfile?.images?[0].url)
     }
     
     private func loadImage(string: String?) {
         guard let urlString = string, let url = URL(string: urlString)  else { return }
-        image.sd_setImage(with: url, completed: nil)
-        image.layer.masksToBounds = true
-        image.layer.cornerRadius = (image.frame.size.width)/2
+        imageView.sd_setImage(with: url, completed: nil)
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = (imageView.frame.size.width) / 2
     }
     
     private func hideElements() {
-        name.isHidden = true
-        image.isHidden = true
-        plan.isHidden = true
+        nameLabel.isHidden = true
+        imageView.isHidden = true
+        planLabel.isHidden = true
     }
     
     private func showElements() {
-        name.isHidden = false
-        image.isHidden = false
-        plan.isHidden = false
+        nameLabel.isHidden = false
+        imageView.isHidden = false
+        planLabel.isHidden = false
     }
     
 }

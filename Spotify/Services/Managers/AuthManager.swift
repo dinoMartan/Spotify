@@ -43,16 +43,15 @@ final class AuthManager {
     //MARK: - Private properties
     
     var accessToken:String? {
-        UserDefaults.standard.string(forKey: AuthenticationConstants.Keyes.accessToken)
+        userDefaults.string(forKey: AuthenticationConstants.Keys.accessToken)
     }
     
     private var refreshToken:String? {
-        UserDefaults.standard.string(forKey: AuthenticationConstants.Keyes.refreshToken)
+        userDefaults.string(forKey: AuthenticationConstants.Keys.refreshToken)
     }
     
     var tokenExpirationDate: Date? {
-        let date = UserDefaults.standard.object(forKey: AuthenticationConstants.Keyes.expirationDate) as? Date
-        return date
+        userDefaults.object(forKey: AuthenticationConstants.Keys.expirationDate) as? Date
     }
     
     private var shouldRefreshToken: Bool {
@@ -61,6 +60,8 @@ final class AuthManager {
     }
     
     private let alamofire = AF
+    
+    private let userDefaults = UserDefaults.standard
     
     private init() { }
     
@@ -71,23 +72,23 @@ final class AuthManager {
 extension AuthManager {
     
     func exchangeCodeForToken(code:String, success: @escaping closureBool, failure: @escaping closureError) {
-        guard authorization != nil else {
+        guard let auth = authorization else {
             failure(nil)
             return
         }
  
         let headers: HTTPHeaders = [
-            AuthenticationConstants.Keyes.contentType: AuthenticationConstants.Keyes.urlEncoded,
-            AuthenticationConstants.Keyes.authorization: "Basic \(authorization!)"
+            AuthenticationConstants.Keys.contentType: AuthenticationConstants.Keys.urlEncoded,
+            AuthenticationConstants.Keys.authorization: "Basic \(auth)"
         ]
         
-        let paremeters = [
-            AuthenticationConstants.Keyes.grantType: AuthenticationConstants.Keyes.authorizationCode,
-            AuthenticationConstants.Keyes.code: code,
-            AuthenticationConstants.Keyes.redirectUri: AuthenticationConstants.redirectURI
+        let parameters = [
+            AuthenticationConstants.Keys.grantType: AuthenticationConstants.Keys.authorizationCode,
+            AuthenticationConstants.Keys.code: code,
+            AuthenticationConstants.Keys.redirectUri: AuthenticationConstants.redirectURI
         ]
         
-        alamofire.request(AuthenticationConstants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
+        alamofire.request(AuthenticationConstants.tokenAPIURL, method: .post, parameters: parameters, headers: headers)
             .responseDecodable(of: AuthResponse.self) { [unowned self] response in
                 switch(response.result) {
                     case .success(let data):
@@ -105,11 +106,7 @@ extension AuthManager {
     
     func getValidToken(success: @escaping closureString, failure: @escaping closureVoid) {
         refreshIfNeeded { completion in
-            guard completion else {
-                failure()
-                return
-            }
-            guard let token = self.accessToken else {
+            guard completion, let token = self.accessToken else {
                 failure()
                 return
             }
@@ -131,13 +128,13 @@ extension AuthManager {
         }
         
         let headers: HTTPHeaders = [
-            AuthenticationConstants.Keyes.contentType: AuthenticationConstants.Keyes.urlEncoded,
-            AuthenticationConstants.Keyes.authorization: "Basic \(authorization!)"
+            AuthenticationConstants.Keys.contentType: AuthenticationConstants.Keys.urlEncoded,
+            AuthenticationConstants.Keys.authorization: "Basic \(authorization!)"
         ]
         
         let paremeters = [
-            AuthenticationConstants.Keyes.grantType: AuthenticationConstants.Keyes.refreshToken,
-            AuthenticationConstants.Keyes.refreshToken: refreshToken
+            AuthenticationConstants.Keys.grantType: AuthenticationConstants.Keys.refreshToken,
+            AuthenticationConstants.Keys.refreshToken: refreshToken
         ]
         
         alamofire.request(AuthenticationConstants.tokenAPIURL, method: .post, parameters: paremeters, headers: headers)
@@ -159,13 +156,11 @@ extension AuthManager {
 extension AuthManager {
     
     private func cacheToken(authResponse: AuthResponse) {
-        UserDefaults.standard.setValue(authResponse.accessToken, forKey: AuthenticationConstants.Keyes.accessToken)
+        userDefaults.setValue(authResponse.accessToken, forKey: AuthenticationConstants.Keys.accessToken)
         let expirationDate = Date().addingTimeInterval(TimeInterval(authResponse.expiresIn))
-        UserDefaults.standard.setValue(expirationDate, forKey: AuthenticationConstants.Keyes.expirationDate)
-        guard (authResponse.refreshToken != nil) else {
-            return
-        }
-        UserDefaults.standard.setValue(authResponse.refreshToken, forKey: AuthenticationConstants.Keyes.refreshToken)
+        userDefaults.setValue(expirationDate, forKey: AuthenticationConstants.Keys.expirationDate)
+        guard (authResponse.refreshToken != nil) else { return }
+        userDefaults.setValue(authResponse.refreshToken, forKey: AuthenticationConstants.Keys.refreshToken)
     }
     
 }

@@ -8,16 +8,18 @@
 
 import UIKit
 
+//MARK: - Public extensions -
+
 extension SettingsViewController {
     
     func viewProfile() {
-        let profileViewController = UIStoryboard.instantiateViewController(name: .profile, identifier: .profile)
+        let profileViewController = UIStoryboard.Storyboard.profile.viewController
         present(profileViewController, animated: true, completion: nil)
     }
     
     func signOut() {
         UserDefaults.resetDefaults()
-        let welcomeViewController = UIStoryboard.instantiateViewController(name: .welcome, identifier: .welcome)
+        let welcomeViewController = UIStoryboard.Storyboard.welcome.viewController
         welcomeViewController.modalPresentationStyle = .fullScreen
         welcomeViewController.modalTransitionStyle = .flipHorizontal
         self.present(welcomeViewController, animated: true, completion: nil)

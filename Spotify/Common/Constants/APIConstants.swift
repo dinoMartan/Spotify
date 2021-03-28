@@ -10,7 +10,7 @@ import Foundation
 
 private let apiUrl = "https://api.spotify.com/v1"
 
-struct APIConstants {
+enum APIConstants {
     
     static let currentUserProfileUrl = "\(apiUrl)/me"
     static let newReleasesUrl = "\(apiUrl)/browse/new-releases"

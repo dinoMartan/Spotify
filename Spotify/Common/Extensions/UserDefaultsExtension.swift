@@ -11,7 +11,7 @@ import Foundation
 extension UserDefaults {
 
     static func resetDefaults() {
-        let domain = Bundle.main.bundleIdentifier!
+        guard let domain = Bundle.main.bundleIdentifier else { return }
         UserDefaults.standard.removePersistentDomain(forName: domain)
         UserDefaults.standard.synchronize()
         debugPrint(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)

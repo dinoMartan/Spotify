@@ -12,7 +12,7 @@ class SettingsCell: UITableViewCell {
     
     //MARK: - IBOutlets
 
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet private weak var title: UILabel!
     
     func setSetting(setting: Setting) {
         title.text = setting.title

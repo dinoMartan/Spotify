@@ -12,7 +12,7 @@ class SettingsViewController: DMViewController {
     
     //MARK: - IBOutlets
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     //MARK: - private properties
     
@@ -31,6 +31,46 @@ class SettingsViewController: DMViewController {
         tableView.dataSource = self
         title = "Settings"
     }
+
+}
+
+//MARK: - Public extensions -
+
+extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sections[section].settings.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let setting = sections[indexPath.section].settings[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsConstants.Keys.settingsCell) as? SettingsCell else {
+            // to do - error handling
+            fatalError()
+        }
+        cell.setSetting(setting: setting)
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let setting = sections[indexPath.section].settings[indexPath.row]
+        setting.handler()
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sections[section].title
+    }
+    
+}
+
+//MARK: - Private extensions -
+
+private extension SettingsViewController {
     
     private func setupSettings() {
         let profileOption = Setting(title: "View your profile", handler: { [unowned self] in
@@ -42,39 +82,6 @@ class SettingsViewController: DMViewController {
             DispatchQueue.main.async { signOut() }
         })
         sections.append(Section(title: "Account", settings: [signOutOption]))
-    }
-
-}
-
-//MARK: - Extensions -
-
-extension SettingsViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].settings.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let setting = sections[indexPath.section].settings[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell") as! SettingsCell
-        cell.title.text = setting.title
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        // Call cell handler
-        let setting = sections[indexPath.section].settings[indexPath.row]
-        setting.handler()
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = sections[section]
-        return section.title
     }
     
 }
