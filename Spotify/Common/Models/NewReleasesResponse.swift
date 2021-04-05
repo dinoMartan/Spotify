@@ -40,7 +40,7 @@ struct NewReleasesItem: Codable {
     let externalUrls: ExternalUrls?
     let href: String?
     let id: String?
-    let images: [Image]?
+    let images: [APIImage]?
     let name: String?
     let type: String?
     let uri: String?

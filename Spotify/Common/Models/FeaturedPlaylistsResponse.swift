@@ -40,7 +40,7 @@ struct PlaylistItem: Codable {
     let externalUrls: ExternalUrls
     let href: String
     let id: String
-    let images: [Image]
+    let images: [APIImage]
     let name: String
     let owner: Owner
     let itemPublic: Int?

@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Image
 
-struct Image: Codable {
+struct APIImage: Codable {
     
     let height: Int?
     let url: String
