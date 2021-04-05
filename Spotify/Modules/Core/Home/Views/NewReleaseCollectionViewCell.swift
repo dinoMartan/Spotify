@@ -58,7 +58,7 @@ class NewReleaseCollectionViewCell: UICollectionViewCell {
         artistNameLabel.sizeToFit()
         
         
-        albumCoverImageView.frame = CGRect(x: 5, y: 5, width: 40, height: 40)
+        albumCoverImageView.frame = CGRect(x: 5, y: 5, width: 60, height: 60)
     }
     
     override func prepareForReuse() {
