@@ -102,7 +102,8 @@ struct PlaylistTrack: Codable {
     let externalIDS: PlaylistExternalIDS
     let externalUrls: ExternalUrls
     let href: String
-    let id, name: String
+    let id: String
+    let name: String
     let popularity: Int
     let previewURL: String?
     let trackNumber: Int
@@ -111,7 +112,8 @@ struct PlaylistTrack: Codable {
 
     enum CodingKeys: String, CodingKey {
         
-        case album, artists
+        case album
+        case artists
         case availableMarkets = "available_markets"
         case discNumber = "disc_number"
         case durationMS = "duration_ms"
