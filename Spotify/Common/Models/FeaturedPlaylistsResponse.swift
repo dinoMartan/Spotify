@@ -67,25 +67,6 @@ struct PlaylistItem: Codable {
         
     }
 
-    // MARK: - Owner
-    struct Owner: Codable {
-        
-        let externalUrls: ExternalUrls
-        let href: String
-        let id: String
-        let type: String
-        let uri: String
-
-        enum CodingKeys: String, CodingKey {
-            case externalUrls = "external_urls"
-            case href
-            case id
-            case type
-            case uri
-        }
-        
-    }
-
     // MARK: - Tracks
     struct Tracks: Codable {
         

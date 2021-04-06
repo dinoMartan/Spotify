@@ -20,6 +20,8 @@ extension UIStoryboard {
         case welcome = "Welcome"
         case settings = "Settings"
         case profile = "Profile"
+        case album = "Album"
+        case playlist = "Playlist"
         
     }
     
@@ -33,6 +35,8 @@ extension UIStoryboard {
         case welcome = "welcome"
         case settings = "settings"
         case profile = "profile"
+        case album = "album"
+        case playlist = "playlist"
         
     }
     
@@ -47,6 +51,8 @@ extension UIStoryboard {
         case welcome
         case settings
         case profile
+        case album
+        case playlist
         
         var viewController: UIViewController {
             switch self {
@@ -58,6 +64,8 @@ extension UIStoryboard {
             case .welcome: return instantiateViewController(name: .welcome, identifier: .welcome)
             case .settings: return instantiateViewController(name: .settings, identifier: .settings)
             case .profile: return instantiateViewController(name: .profile, identifier: .profile)
+            case .album: return instantiateViewController(name: .album, identifier: .album)
+            case .playlist: return instantiateViewController(name: .playlist, identifier: .playlist)
             }
         }
         

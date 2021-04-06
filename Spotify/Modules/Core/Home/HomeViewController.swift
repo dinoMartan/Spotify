@@ -16,12 +16,19 @@ enum BrowseSectionType {
     
 }
 
-class HomeViewController: DMViewController {
+class HomeViewController: UIViewController {
+    
+    //MARK: - IBOutlets
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     
     //MARK: - Private properties
     
-    @IBOutlet weak var collectionView: UICollectionView!
     private var sections = [BrowseSectionType]()
+    
+    private var newAlbums: [NewReleasesItem] = []
+    private var tracks: [AudioTrack] = []
+    private var playlists: [PlaylistItem] = []
     
     //MARK: - Lifecycle
     
@@ -31,6 +38,8 @@ class HomeViewController: DMViewController {
     }
     
     private func setupView() {
+        // PR note - if this is enabled
+        //navigationController?.navigationBar.prefersLargeTitles = true
         fetchData()
         setupCollectionView()
     }
@@ -42,6 +51,10 @@ class HomeViewController: DMViewController {
 extension HomeViewController {
     
     func configureModels(newAlbums: [NewReleasesItem], tracks: [AudioTrack], playlists: [PlaylistItem]) {
+        self.newAlbums = newAlbums
+        self.tracks = tracks
+        self.playlists = playlists
+        
         sections.append(.newReleases(viewModels: newAlbums.compactMap({
             return NewRelesesCellViewModel(name: $0.name ?? "-", artworkUrl: URL(string: $0.images?.first?.url ?? ""), artistName: $0.artists?.first?.name ?? "-")
         })))
@@ -129,6 +142,28 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let viewModel = viewModels[indexPath.row]
             cell.configureCell(with: viewModel)
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let section = sections[indexPath.section]
+        switch section {
+        
+        case .newReleases:
+            let album = newAlbums[indexPath.row]
+            guard let albumViewController = UIStoryboard.Storyboard.album.viewController as? AlbumViewController else { return }
+            albumViewController.setAlbum(album: album)
+            navigationController?.pushViewController(albumViewController, animated: true)
+            break
+        case .featuredPlaylists:
+            let playlist = playlists[indexPath.row]
+            guard let playlistViewController = UIStoryboard.Storyboard.playlist.viewController as? PlaylistViewController else { return }
+            playlistViewController.setPlaylist(playlist: playlist)
+            navigationController?.pushViewController(playlistViewController, animated: true)
+            break
+        case .recommendedTracks:
+            break
         }
     }
     

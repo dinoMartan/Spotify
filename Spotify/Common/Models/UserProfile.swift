@@ -39,12 +39,3 @@ struct UserProfile: Codable {
     }
     
 }
-
-// MARK: - Followers
-
-struct Followers: Codable {
-    
-    let href: Int?
-    let total: Int
-    
-}

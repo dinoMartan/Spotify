@@ -19,8 +19,7 @@ class TabBarViewController: UITabBarController {
     }
     
     func setupView() {
-        tabBar.tintColor = .red
-        tabBar.backgroundColor = .systemBackground
+        tabBar.tintColor = .systemGreen
         let viewControllers = [setupSearch(), setupHome(), setupLibrary()]
         setViewControllers(viewControllers, animated: true)
         selectedIndex = 1
@@ -36,6 +35,7 @@ private extension TabBarViewController {
         viewControllerHome.title = "Home"
         let navigationControllerHome = UINavigationController(rootViewController: viewControllerHome)
         navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: ConstantsImages.Images.house, tag: 1)
+        navigationControllerHome.navigationBar.tintColor = .systemGray
         return navigationControllerHome
     }
     

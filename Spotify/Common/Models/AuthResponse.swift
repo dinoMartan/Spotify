@@ -17,11 +17,13 @@ struct AuthResponse: Codable {
     let tokenType: String
     
     private enum CodingKeys : String, CodingKey {
+        
         case accessToken = "access_token"
         case expiresIn = "expires_in"
         case refreshToken = "refresh_token"
         case scope = "scope"
         case tokenType = "token_type"
+        
     }
     
 }
