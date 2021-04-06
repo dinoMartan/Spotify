@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
+    
+    //MARK: - IBOutlets
+    
+    @IBOutlet private weak var playlistCoverImageView: UIImageView!
+    @IBOutlet private weak var playlistNameLable: UILabel!
+    @IBOutlet private weak var typeLable: UILabel!
     
     //MARK: - Public properties
     
@@ -16,20 +23,11 @@ class FeaturedPlaylistCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    func configureCell(data: FeaturedPlaylistsCellViewModel) {
+        playlistNameLable.text = data.name
+        typeLable.text = data.type
+        playlistCoverImageView.sd_setImage(with: data.artworkURL, completed: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
     
 }

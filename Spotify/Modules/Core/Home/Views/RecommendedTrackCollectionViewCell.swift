@@ -10,26 +10,20 @@ import UIKit
 
 class RecommendedTrackCollectionViewCell: UICollectionViewCell {
     
+    //MARK: - IBOutlets
+    
+    @IBOutlet private weak var trackNameLabel: UILabel!
+    @IBOutlet private weak var artistNameLabel: UILabel!
+    
     //MARK: - Public properties
     
     static let identifier = "RecommendedTrackCollectionViewCells"
     
     //MARK: - Lifecycle
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    func configureCell(with data: RecommendedTrackCellViewModel) {
+        trackNameLabel.text = data.name
+        artistNameLabel.text = data.artistName
     }
     
 }

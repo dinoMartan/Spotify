@@ -19,6 +19,8 @@ class TabBarViewController: UITabBarController {
     }
     
     func setupView() {
+        tabBar.tintColor = .red
+        tabBar.backgroundColor = .systemBackground
         let viewControllers = [setupSearch(), setupHome(), setupLibrary()]
         setViewControllers(viewControllers, animated: true)
         selectedIndex = 1

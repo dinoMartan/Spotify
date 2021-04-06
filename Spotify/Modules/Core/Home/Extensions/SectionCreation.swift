@@ -37,7 +37,7 @@ extension HomeViewController {
         let verticalGroupLayoutSize = NSCollectionLayoutSize(widthDimension: .absolute(200), heightDimension: .absolute(400))
         let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupLayoutSize, subitem: item, count: 2)
         
-        let horizontalGroupLayoutSize = NSCollectionLayoutSize(widthDimension: .absolute(200), heightDimension: .absolute(400))
+        let horizontalGroupLayoutSize = NSCollectionLayoutSize(widthDimension: .absolute(170), heightDimension: .absolute(400))
         let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupLayoutSize, subitem: verticalGroup, count: 1)
         // Section
         let section = NSCollectionLayoutSection(group: horizontalGroup)
