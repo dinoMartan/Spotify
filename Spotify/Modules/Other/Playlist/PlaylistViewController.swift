@@ -67,6 +67,7 @@ private extension PlaylistViewController {
     
     private func setupView() {
         title = playlist?.name ?? "Playlist"
+        setShadowOnImageView()
         
         let group = DispatchGroup()
         group.enter()
@@ -87,6 +88,12 @@ private extension PlaylistViewController {
         group.notify(queue: .main) {
             self.configureCollectionView()
         }
+    }
+    
+    private func setShadowOnImageView() {
+        playlistImageView.layer.shadowOpacity = 0.3
+        playlistImageView.layer.shadowOffset = CGSize(width: 10, height: 10)
+        playlistImageView.layer.shadowRadius = 10
     }
     
     private func configureCollectionView() {

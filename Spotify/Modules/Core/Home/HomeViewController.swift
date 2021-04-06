@@ -167,6 +167,21 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
+    // to do - strings to constants
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: TitleHeaderCollectionReusableView.identifier, for: indexPath) as? TitleHeaderCollectionReusableView, kind == UICollectionView.elementKindSectionHeader else { return UICollectionReusableView() }
+        let type = sections[indexPath.section]
+        switch type {
+        case .newReleases:
+            header.configureHeader(title: "New releases albums")
+        case .featuredPlaylists:
+            header.configureHeader(title: "Featured playlists")
+        case .recommendedTracks:
+            header.configureHeader(title: "Recommended tracks")
+        }
+        return header
+    }
+    
 }
 
 //MARK: - Actions -

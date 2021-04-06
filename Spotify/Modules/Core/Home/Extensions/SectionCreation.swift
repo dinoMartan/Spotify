@@ -10,6 +10,14 @@ import UIKit
 
 extension HomeViewController {
     
+    private func getSupplementaryViews() -> [NSCollectionLayoutBoundarySupplementaryItem] {
+        let supplementaryItemLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
+        let supplementaryViews = [
+            NSCollectionLayoutBoundarySupplementaryItem(layoutSize: supplementaryItemLayoutSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        ]
+        return supplementaryViews
+    }
+    
     func createNewReleasesSection() -> NSCollectionLayoutSection {
         // Item
         let itemLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
@@ -24,7 +32,7 @@ extension HomeViewController {
         // Section
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        
+        section.boundarySupplementaryItems = getSupplementaryViews()
         return section
     }
     
@@ -42,6 +50,7 @@ extension HomeViewController {
         // Section
         let section = NSCollectionLayoutSection(group: horizontalGroup)
         section.orthogonalScrollingBehavior = .continuous
+        section.boundarySupplementaryItems = getSupplementaryViews()
         
         return section
     }
@@ -56,6 +65,7 @@ extension HomeViewController {
         let verticalGroup = NSCollectionLayoutGroup.vertical(layoutSize: verticalGroupLayoutSize, subitem: item, count: 1)
         // Section
         let section = NSCollectionLayoutSection(group: verticalGroup)
+        section.boundarySupplementaryItems = getSupplementaryViews()
         
         return section
     }
@@ -70,6 +80,7 @@ extension HomeViewController {
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupLayoutSize, subitem: item, count: 1)
         // Section
         let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = getSupplementaryViews()
         
         return section
     }
