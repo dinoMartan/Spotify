@@ -50,3 +50,12 @@ enum SettingsConstants {
     }
     
 }
+
+enum ColorsConstants {
+    
+    static let colors: [UIColor] = [
+        .systemRed, .systemBlue, .systemPink, .systemTeal, .systemGray,
+        .systemOrange, .systemYellow, .systemPurple, .systemGreen, .systemIndigo
+    ]
+    
+}

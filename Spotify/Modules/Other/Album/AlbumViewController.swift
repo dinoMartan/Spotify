@@ -82,6 +82,8 @@ private extension AlbumViewController {
     
     private func setupView() {
         title = album?.name ?? "Album"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         let group = DispatchGroup()
         group.enter()
         guard let album = self.album else {

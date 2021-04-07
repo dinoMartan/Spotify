@@ -31,7 +31,7 @@ extension HomeViewController {
         let horizontalGroup = NSCollectionLayoutGroup.horizontal(layoutSize: horizontalGroupLayoutSize, subitem: verticalGroup, count: 1)
         // Section
         let section = NSCollectionLayoutSection(group: horizontalGroup)
-        section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        section.orthogonalScrollingBehavior = .continuous
         section.boundarySupplementaryItems = getSupplementaryViews()
         return section
     }

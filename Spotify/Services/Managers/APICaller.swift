@@ -109,6 +109,20 @@ final class APICaller {
             }
     }
     
+    //MARK: - Category
+    
+    func getAllCategories(success: @escaping (AllCategoriesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.allCagetoriesUrl, method: .get, headers: headers)
+            .responseDecodable(of: AllCategoriesResponse.self) { response in
+                switch(response.result) {
+                case .success(let allCategoriesResponse):
+                    success(allCategoriesResponse)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
     //MARK: - Tracks
     
     func getRecommendations(genres: Set<String>, success: @escaping (RecommendationsResponse) -> Void, failure: @escaping (Error?) -> Void) {

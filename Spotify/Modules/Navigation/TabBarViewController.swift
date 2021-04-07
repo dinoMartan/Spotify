@@ -35,7 +35,6 @@ private extension TabBarViewController {
         viewControllerHome.title = "Home"
         let navigationControllerHome = UINavigationController(rootViewController: viewControllerHome)
         navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: ConstantsImages.Images.house, tag: 1)
-        navigationControllerHome.navigationBar.tintColor = .systemGray
         return navigationControllerHome
     }
     

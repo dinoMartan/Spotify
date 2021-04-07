@@ -19,6 +19,7 @@ enum APIConstants {
     static let recommendationGenresUrl = "\(apiUrl)/recommendations/available-genre-seeds"
     static let albumDetailsUrl = "\(apiUrl)/albums/"
     static let playlistUrl = "\(apiUrl)/playlists/"
+    static let allCagetoriesUrl = "\(apiUrl)/browse/categories"
     
 }
 
