@@ -154,14 +154,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             guard let albumViewController = UIStoryboard.Storyboard.album.viewController as? AlbumViewController else { return }
             albumViewController.setAlbum(album: album)
             navigationController?.pushViewController(albumViewController, animated: true)
-            break
         case .featuredPlaylists:
             let playlist = playlists[indexPath.row]
             guard let playlistViewController = UIStoryboard.Storyboard.playlist.viewController as? PlaylistViewController else { return }
             playlistViewController.setPlaylist(playlist: playlist)
             navigationController?.pushViewController(playlistViewController, animated: true)
-            break
         case .recommendedTracks:
+            let track = tracks[indexPath.row]
+            PlaybackPresenter.shared.startTrackPlayback(from: self, track: track, albumImage: "")
             break
         }
     }

@@ -92,7 +92,8 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             let safariViewController = SFSafariViewController(url: url)
             present(safariViewController, animated: true, completion: nil)
         case .tracks:
-            break
+            let track = tracks[indexPath.row]
+            PlaybackPresenter.shared.startTrackPlayback(from: self, track: track)
         case .playlists:
             let playlist = playlists[indexPath.row]
             let playlistItem = PlaylistItem(collaborative: playlist.collaborative, itemDescription: playlist.itemDescription, externalUrls: nil, href: playlist.href, id: playlist.id, images: [APIImage(height: nil, url: playlist.images.first?.url ?? "", width: nil)], name: playlist.name, owner: nil, itemPublic: nil, snapshotID: playlist.snapshotID, tracks: nil, type: playlist.type, uri: playlist.uri)

@@ -63,7 +63,9 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        // to do - did select single track
+        guard let track = albumDetails?.tracks.audioTracks[indexPath.row
+        ] else { return }
+        PlaybackPresenter.shared.startTrackPlayback(from: self, track: track, albumImage: albumDetails?.images.first?.url ?? "")
     }
     
 }
@@ -72,6 +74,8 @@ extension AlbumViewController: AlbumHeaderCollectionReusableViewDelegate {
     
     func didTapPlayAllButton() {
         // to do - play all
+        guard let audioTracks = albumDetails?.tracks.audioTracks else { return }
+        PlaybackPresenter.shared.startMultipleTracksPlayback(from: self, tracks: audioTracks, albumImage: albumDetails?.images.first?.url ?? "")
     }
     
 }
