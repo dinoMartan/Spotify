@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 //MARK: - Collection view delegates
 
@@ -86,7 +87,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             albumViewController.setAlbum(album: newReleasesItem)
             navigationController?.pushViewController(albumViewController, animated: true)
         case .artists:
-            break
+            let artist = artists[indexPath.row]
+            guard let url = URL(string: artist.externalUrls?.spotify ?? "") else { return }
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
         case .tracks:
             break
         case .playlists:

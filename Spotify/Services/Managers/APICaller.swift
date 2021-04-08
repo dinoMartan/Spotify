@@ -157,7 +157,7 @@ final class APICaller {
     //MARK: - Search
     
     func search(with query: String, success: @escaping (SearchResponse) -> Void, failure: @escaping (Error?) -> Void) {
-        let url = APIConstants.searchUrl + "?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&type=album,artist,playlist,track&limit=25"
+        let url = APIConstants.searchUrl + "?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&type=album,artist,playlist,track&limit=12"
         alamofire.request(url, method: .get, parameters: APIParameters.allCategories, headers: headers)
             .responseDecodable(of: SearchResponse.self) { response in
                 switch(response.result) {

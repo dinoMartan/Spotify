@@ -126,7 +126,7 @@ struct SearchArtists: Codable {
 
 struct SearchArtistsItem: Codable {
     
-    let externalUrls: SearchExternalUrls
+    let externalUrls: SearchExternalUrls?
     let followers: SearchFollowers
     let genres: [String]
     let href: String
