@@ -20,6 +20,8 @@ enum APIConstants {
     static let albumDetailsUrl = "\(apiUrl)/albums/"
     static let playlistUrl = "\(apiUrl)/playlists/"
     static let allCagetoriesUrl = "\(apiUrl)/browse/categories"
+    static let categoryPlaylistsUrl = "\(apiUrl)/browse/categories/"
+    static let searchUrl = "\(apiUrl)/search"
     
 }
 
@@ -30,6 +32,10 @@ struct APIParameters {
     ]
     
     static let featuredPlaylists = [
+        "limit": 50
+    ]
+    
+    static let allCategories = [
         "limit": 50
     ]
     

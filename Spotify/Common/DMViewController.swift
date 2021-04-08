@@ -29,6 +29,7 @@ private extension DMViewController {
     
     private func setupNavigationController() {
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.tintColor = .secondaryLabel
     }
     
 }

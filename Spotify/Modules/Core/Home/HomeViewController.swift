@@ -16,7 +16,7 @@ enum BrowseSectionType {
     
 }
 
-class HomeViewController: UIViewController {
+class HomeViewController: DMViewController {
     
     //MARK: - IBOutlets
     
@@ -38,8 +38,6 @@ class HomeViewController: UIViewController {
     }
     
     private func setupView() {
-        // PR note - if this is enabled
-        //navigationController?.navigationBar.prefersLargeTitles = true
         fetchData()
         setupCollectionView()
     }
@@ -60,7 +58,8 @@ extension HomeViewController {
         })))
         
         sections.append(.featuredPlaylists(viewModels: playlists.compactMap({
-            return FeaturedPlaylistsCellViewModel(name: $0.name, artworkURL: URL(string: $0.images.first?.url ?? ""), type: $0.owner.type)
+            guard let ownerType = $0.owner?.type else { fatalError() }
+            return FeaturedPlaylistsCellViewModel(name: $0.name, artworkURL: URL(string: $0.images.first?.url ?? ""), type: ownerType)
         })))
         
         sections.append(.recommendedTracks(viewModels: tracks.compactMap({
@@ -180,22 +179,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             header.configureHeader(title: "Recommended tracks")
         }
         return header
-    }
-    
-}
-
-//MARK: - Actions -
-
-extension HomeViewController {
-    
-    @IBAction func didPressButton(_ sender: Any) {
-        let settingsViewController = UIStoryboard.Storyboard.settings.viewController
-        navigationController?.pushViewController(settingsViewController, animated: true)
-    }
-    
-    @IBAction func didTapSettingsButton(_ sender: Any) {
-        let settingsViewController = UIStoryboard.Storyboard.settings.viewController
-        navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
 }

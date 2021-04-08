@@ -112,11 +112,24 @@ final class APICaller {
     //MARK: - Category
     
     func getAllCategories(success: @escaping (AllCategoriesResponse) -> Void, failure: @escaping (Error?) -> Void) {
-        alamofire.request(APIConstants.allCagetoriesUrl, method: .get, headers: headers)
+        alamofire.request(APIConstants.allCagetoriesUrl, method: .get, parameters: APIParameters.allCategories, headers: headers)
             .responseDecodable(of: AllCategoriesResponse.self) { response in
                 switch(response.result) {
                 case .success(let allCategoriesResponse):
                     success(allCategoriesResponse)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func getCategoryPlaylists(for category: Category, success: @escaping (CategoryPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        let url = APIConstants.categoryPlaylistsUrl + category.id + "/playlists"
+        alamofire.request(url, method: .get, headers: headers)
+            .responseDecodable(of: CategoryPlaylistsResponse.self) { response in
+                switch(response.result) {
+                case .success(let categoryPlaylists):
+                    success(categoryPlaylists)
                 case .failure(let error):
                     failure(error)
                 }
@@ -135,6 +148,21 @@ final class APICaller {
                 switch(response.result) {
                 case .success(let recommendationsRespond):
                     success(recommendationsRespond)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    //MARK: - Search
+    
+    func search(with query: String, success: @escaping (SearchResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        let url = APIConstants.searchUrl + "?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&type=album,artist,playlist,track&limit=25"
+        alamofire.request(url, method: .get, parameters: APIParameters.allCategories, headers: headers)
+            .responseDecodable(of: SearchResponse.self) { response in
+                switch(response.result) {
+                case .success(let searchResponse):
+                    success(searchResponse)
                 case .failure(let error):
                     failure(error)
                 }

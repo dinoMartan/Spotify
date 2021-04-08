@@ -37,6 +37,7 @@ extension UIStoryboard {
         case profile = "profile"
         case album = "album"
         case playlist = "playlist"
+        case categoryPlaylists = "categoryPlaylists"
         
     }
     
@@ -53,6 +54,7 @@ extension UIStoryboard {
         case profile
         case album
         case playlist
+        case categoryPlaylists
         
         var viewController: UIViewController {
             switch self {
@@ -66,6 +68,7 @@ extension UIStoryboard {
             case .profile: return instantiateViewController(name: .profile, identifier: .profile)
             case .album: return instantiateViewController(name: .album, identifier: .album)
             case .playlist: return instantiateViewController(name: .playlist, identifier: .playlist)
+            case .categoryPlaylists: return instantiateViewController(name: .search, identifier: .categoryPlaylists)
             }
         }
         

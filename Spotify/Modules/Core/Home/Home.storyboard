@@ -188,7 +188,7 @@
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="p9K-eL-iWe"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GfG-8a-jYY" firstAttribute="top" secondItem="p9K-eL-iWe" secondAttribute="top" id="0sE-vZ-oj7"/>
                             <constraint firstItem="p9K-eL-iWe" firstAttribute="trailing" secondItem="GfG-8a-jYY" secondAttribute="trailing" id="6Ve-mJ-LAR"/>

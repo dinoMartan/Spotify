@@ -10,6 +10,7 @@ import UIKit
 
 protocol SearchCollectionReusableViewDelegate: AnyObject {
     func searchDidChange(searchText: String)
+    func searchDidEmpty()
 }
 
 class SearchCollectionReusableView: UICollectionReusableView {
@@ -28,13 +29,17 @@ class SearchCollectionReusableView: UICollectionReusableView {
     func configureHeader() {
         searchBar.delegate = self
     }
-    
+
 }
 
 extension SearchCollectionReusableView: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        delegate?.searchDidChange(searchText: searchText)
+        if searchText == "" { delegate?.searchDidEmpty() }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        delegate?.searchDidChange(searchText: searchBar.text ?? "")
     }
     
 }

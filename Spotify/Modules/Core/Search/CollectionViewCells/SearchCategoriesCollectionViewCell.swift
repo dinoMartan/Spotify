@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class SearchCollectionViewCell: UICollectionViewCell {
+class SearchCategoriesCollectionViewCell: UICollectionViewCell {
     
     //MARK: - IBOutlets
     
@@ -19,15 +19,13 @@ class SearchCollectionViewCell: UICollectionViewCell {
     
     //MARK: - Public properties
     
-    static let identifier = "SearchCollectionViewCell"
+    static let identifier = "SearchCategoriesCollectionViewCell"
     
     //MARK: - Lifecycle
     
     func configureCell(category: Category) {
         genreLabel.text = category.name
-        //backgroundColor = ColorsConstants.colors.randomElement()
         categoryIconImageView.sd_setImage(with: URL(string: category.icons?.first?.url ?? ""), completed: nil)
-        
     }
     
 }

@@ -9,14 +9,31 @@
 import UIKit
 
 class SearchViewController: DMViewController {
+    
+    enum SearchSections {
+        
+        case categories // 0
+        case albums // 1
+        case artists // 2
+        case tracks // 3
+        case playlists // 4
+        
+    }
 
     //MARK: - IBOutlets
     
-    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
-    //MARK: - Private properties
+    //MARK: - Public properties
     
-    private var categories: [Category] = []
+    var sections: [SearchSections] = [.categories, .artists, .albums, .playlists, .tracks]
+    
+    var categories: [Category] = []
+    
+    var albums: [SearchAlbumElement] = []
+    var artists: [SearchArtistsItem] = []
+    var tracks: [SearchTracksItem] = []
+    var playlists: [SearchPlaylistsItem] = []
     
     //MARK: - Lifecycle
     
@@ -43,91 +60,25 @@ class SearchViewController: DMViewController {
 
 }
 
-//MARK: - Public extensions -
-
-//MARK: - Collection view delegates
-
-extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCollectionViewCell.identifier, for: indexPath) as? SearchCollectionViewCell else { return UICollectionViewCell() }
-        cell.layer.cornerRadius = 10
-        cell.layer.masksToBounds = true
-        cell.configureCell(category: categories[indexPath.row])
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SearchCollectionReusableView.identifier, for: indexPath) as? SearchCollectionReusableView else { return UICollectionReusableView() }
-        header.configureHeader()
-        header.delegate = self
-        return header
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        // to do - show details of selected genre
-        //let genre = categories[indexPath.row]
-    }
-    
-}
-
-//MARK: - Search deletage
-
-extension SearchViewController: SearchCollectionReusableViewDelegate {
-    
-    func searchDidChange(searchText: String) {
-        // to do - handle search text
-    }
-    
-}
-
 //MARK: - Private extensions -
 
-extension SearchViewController {
+private extension SearchViewController {
     
     private func configureCollectionView() {
-        let layout = UICollectionViewCompositionalLayout(sectionProvider: { ( _ , _ ) -> NSCollectionLayoutSection? in
-            return self.createCategoriesLayout()
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { ( sectionIndex , _ ) -> NSCollectionLayoutSection? in
+            switch sectionIndex {
+            case 0: return self.createCategoriesLayout()
+            case 1: return self.createArtistsLayout()
+            case 2: return self.createAlbumsLayout()
+            case 3: return self.createPlaylistsLayout()
+            case 4: return self.createTracksLayout()
+            default: return self.createCategoriesLayout()
+            }
+            
         })
         collectionView.collectionViewLayout = layout
         collectionView.delegate = self
         collectionView.dataSource = self
-    }
-    
-}
-
-extension SearchViewController {
-    
-    private func createCategoriesLayout() -> NSCollectionLayoutSection {
-        // Item
-        let itemLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemLayoutSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-        // Group
-        let groupLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupLayoutSize, subitem: item, count: 2)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 5, bottom: 7, trailing: 5)
-        // Section
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = createHeaderLayout()
-        
-        return section
-    }
-    
-    private func createHeaderLayout() -> [NSCollectionLayoutBoundarySupplementaryItem] {
-        let supplementaryItemLayoutSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(100))
-        let supplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: supplementaryItemLayoutSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        supplementaryItem.pinToVisibleBounds = true
-        return [supplementaryItem]
     }
     
 }

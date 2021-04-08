@@ -20,6 +20,7 @@ class TabBarViewController: UITabBarController {
     
     func setupView() {
         tabBar.tintColor = .systemGreen
+        tabBar.isTranslucent = true
         let viewControllers = [setupSearch(), setupHome(), setupLibrary()]
         setViewControllers(viewControllers, animated: true)
         selectedIndex = 1
