@@ -59,3 +59,10 @@ enum ColorsConstants {
     ]
     
 }
+
+
+enum PlayerConstants {
+    
+    static let defaultTrackVolume: Float = 0.5
+    
+}

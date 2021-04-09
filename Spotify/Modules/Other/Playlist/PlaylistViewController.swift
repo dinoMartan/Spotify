@@ -58,7 +58,7 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let track = playlistDetails?.tracks.items[indexPath.row] else { return }
-        PlaybackPresenter.shared.startTrackPlayback(from: self, track: track)
+        PlaybackPresenter.shared.songPlayer(modelType: .playlistTrackItem(viewController: self, data: [track]))
     }
     
 }
@@ -139,7 +139,7 @@ extension PlaylistViewController {
             // to do - handle error
             return
         }
-        PlaybackPresenter.shared.startMultipleTracksPlayback(from: self, tracks: tracks)
+        PlaybackPresenter.shared.songPlayer(modelType: .playlistTrackItem(viewController: self, data: tracks))
     }
     
 }

@@ -99,10 +99,14 @@ private extension PlayerViewController {
     
     @IBAction private func didTapPreviousButton(_ sender: Any) {
         delegate?.didTapPreviousButton()
+        startPlaying()
+        configureUI()
     }
     
     @IBAction private func didTapNextButton(_ sender: Any) {
         delegate?.didTapNextButton()
+        startPlaying()
+        configureUI()
     }
     
     @IBAction func didChangeSlider(_ sender: Any) {

@@ -161,7 +161,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             navigationController?.pushViewController(playlistViewController, animated: true)
         case .recommendedTracks:
             let track = tracks[indexPath.row]
-            PlaybackPresenter.shared.startTrackPlayback(from: self, track: track, albumImage: "")
+            //PlaybackPresenter.shared.startTracksPlayback(from: self, tracks: [track], albumImage: "")
+            PlaybackPresenter.shared.songPlayer(modelType: .audioTrack(viewController: self, data: [track], albumImage: ""))
             break
         }
     }

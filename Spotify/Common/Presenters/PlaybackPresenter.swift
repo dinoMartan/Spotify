@@ -9,21 +9,11 @@
 import UIKit
 import AVFoundation
 
-struct PlayerTrack {
+enum PlayerInputData {
     
-    let artist: PlayerTrackArtist
-    let name: String
-    let href: String
-    let id: String
-    let image: String
-    let previewUrl: String?
-    
-}
-
-struct PlayerTrackArtist {
-    
-  let name: String
-  let externalUrl: String
+    case searchTrackItem(viewController: UIViewController, data: [SearchTracksItem])
+    case audioTrack(viewController: UIViewController, data: [AudioTrack], albumImage: String)
+    case playlistTrackItem(viewController: UIViewController, data: [PlaylistTrackItem])
     
 }
 
@@ -43,109 +33,118 @@ final class PlaybackPresenter {
     
     //MARK: - Private properties
     
-    private var singlePlayer: AVPlayer?
+    private var player: AVPlayer?
     
-    private var track: PlayerTrack?
-    
-    private var numberOfTracks: Int { tracks.count }
-    private var currentTrackIndex: Int?
-    
-    private var tracks: [PlayerTrack] = []
-    
-    private let playerViewController = UIStoryboard.Storyboard.player.viewController as? PlayerViewController
-    
-    var currentTrack: PlayerTrack? {
-        if let track = track, tracks.isEmpty {
-            return track
-        }
-        return nil
+    private var currentPlayingItem: PlayingItem? {
+        guard let index = currentTrackIndex else { return nil }
+        return playingItems[index]
     }
     
-    private var singleTrackIsPlaying: Bool {
-        guard let singlePlayer = singlePlayer else { return false }
-        if singlePlayer.timeControlStatus == .playing { return true }
+    private var playingItems: [PlayingItem] = []
+    
+    private var numberOfTracks: Int { playingItems.count }
+    private var currentTrackIndex: Int?
+    
+    private var playerIsPlaying: Bool {
+        guard let trackPlayer = player else { return false }
+        if trackPlayer.timeControlStatus == .playing { return true }
         else { return false }
     }
     
-    private var multipleTracksArePlaying = false
-    
     //MARK: - Lifecycle
     
-    private func playTrack(playerTrack: PlayerTrack) {
-        guard let urlString = playerTrack.previewUrl, let url = URL(string: urlString) else {
-            // to do - handle error
-            debugPrint("URL not found!")
-            return
-        }
-        track = playerTrack
-        singlePlayer = AVPlayer(url: url)
-        singlePlayer?.volume = 0.5
-        singlePlayer?.play()
+    private func playTracks() {
+        guard let currentPlayingItem = currentPlayingItem else { return }
+        player = AVPlayer(playerItem: currentPlayingItem.avPlayerItem)
+        player?.volume = PlayerConstants.defaultTrackVolume
+        player?.play()
     }
     
-    private func playTracks(playerTracks: [PlayerTrack]) {
-        if singleTrackIsPlaying { singlePlayer?.pause() }
-        tracks = playerTracks
+    private func prepareTracks(playerTracks: [PlayerTrack]) -> Bool {
+        if playerIsPlaying { player?.pause() }
+        self.playingItems.removeAll()
         
-        var items: [AVPlayerItem] = []
+        var playingItems: [PlayingItem] = []
         
         for track in playerTracks {
-            guard let urlString = track.previewUrl, let url = URL(string: urlString) else { continue }
+            guard let urlString = track.previewUrl, let url = URL(string: urlString), urlString != "" else { continue }
             let avPlayerItem = AVPlayerItem(url: url)
-            items.append(avPlayerItem)
+            let playingItem = PlayingItem(trackData: track, avPlayerItem: avPlayerItem)
+            playingItems.append(playingItem)
         }
         
-    }
-    
-    private func playSingleTrack(on viewController: UIViewController, with track: PlayerTrack) {
-        guard let playerViewController = playerViewController else {
-            // to do - handle error
-            return
+        self.playingItems = playingItems
+        if self.playingItems.isEmpty {
+            currentTrackIndex = nil
+            return false
         }
-        playerViewController.dataSource = self
-        playerViewController.delegate = self
-        playTrack(playerTrack: track)
-        viewController.present(playerViewController, animated: true)
+        else {
+            currentTrackIndex = 0
+            return true
+        }
     }
     
     private func playMultipleTracks(on viewController: UIViewController, with tracks: [PlayerTrack]) {
-        playTracks(playerTracks: tracks)
-        
-        guard let playerViewController = UIStoryboard.Storyboard.player.viewController as? PlayerViewController else {
-            // to do - handle error
-            return
+        if prepareTracks(playerTracks: tracks) {
+            playTracks()
+            guard let playerViewController = UIStoryboard.Storyboard.player.viewController as? PlayerViewController else {
+                // to do - handle error
+                return
+            }
+            playerViewController.dataSource = self
+            playerViewController.delegate = self
+            viewController.present(playerViewController, animated: true)
         }
-        playerViewController.dataSource = self
-        playerViewController.delegate = self
-        viewController.present(playerViewController, animated: true)
+        else {
+            // to do - handle error
+        }
     }
     
 }
 
 //MARK: - Public extensions -
 
-//MARK: user actions
+//MARK: PlayerViewControllerDelegate
 
 extension PlaybackPresenter: PlayerViewControllerDelegate {
     
     func didChangeSlider(value: Float) {
-        // to do - handle slider change (volume change)
-        guard let singlePlayer = singlePlayer else { return }
-        singlePlayer.volume = value
+        guard let trackPlayer = player else { return }
+        trackPlayer.volume = value
     }
     
     func didTapPlayPauseButton() {
-        guard let singlePlayer = singlePlayer else { return }
-        if singleTrackIsPlaying { singlePlayer.pause() }
-        else { singlePlayer.play() }
+        guard let trackPlayer = player else { return }
+        if playerIsPlaying { trackPlayer.pause() }
+        else { trackPlayer.play() }
     }
     
     func didTapNextButton() {
-        // to do - handle next button
+        if playerIsPlaying { player?.pause() }
+        guard let index = currentTrackIndex else {
+            // to do - handle error
+            return
+        }
+        if index < numberOfTracks - 1 {
+            currentTrackIndex! += 1
+            player?.replaceCurrentItem(with: currentPlayingItem?.avPlayerItem)
+            player?.play()
+        }
+        else { player?.play() }
     }
     
     func didTapPreviousButton() {
-        // to do - handle previous button
+        if playerIsPlaying { player?.pause() }
+        guard let index = currentTrackIndex else {
+            // to do - handle error
+            return
+        }
+        if index > 0 {
+            currentTrackIndex! -= 1 // PR note - how else can I handle this?
+            player?.replaceCurrentItem(with: currentPlayingItem?.avPlayerItem)
+            player?.play()
+        }
+        else { player?.play() }
     }
     
 }
@@ -155,15 +154,15 @@ extension PlaybackPresenter: PlayerViewControllerDelegate {
 extension PlaybackPresenter: PlayerDataSource {
     
     var songName: String? {
-        return currentTrack?.name
+        return currentPlayingItem?.trackData.name
     }
     
     var subtitle: String? {
-        return currentTrack?.artist.name
+        return currentPlayingItem?.trackData.artist.name
     }
     
     var imageUrl: URL? {
-        return URL(string: currentTrack?.image ?? "")
+        return URL(string: currentPlayingItem?.trackData.image ?? "")
     }
     
 }
@@ -172,34 +171,29 @@ extension PlaybackPresenter: PlayerDataSource {
 
 extension PlaybackPresenter {
     
-    func startTrackPlayback(viewController: UIViewController, track: SearchTracksItem) {
-        let playerTrack = searchTrackToPlayerTrack(searchTrackItem: track)
-        playSingleTrack(on: viewController, with: playerTrack)
-    }
-    
-    func startTrackPlayback(from viewController: UIViewController, track: AudioTrack, albumImage: String) {
-        let playerTrack = audioTrackToPlayerTrack(audioTrack: track, albumImage: albumImage)
-        playSingleTrack(on: viewController, with: playerTrack)
-    }
-    
-    func startTrackPlayback(from viewController: UIViewController, track: PlaylistTrackItem) {
-        let playerTrack = playlistTrackItemToPlayerTrack(playlistTrackItem: track)
-        playSingleTrack(on: viewController, with: playerTrack)
-    }
-    
-    func startMultipleTracksPlayback(from viewController: UIViewController, tracks: [AudioTrack], albumImage: String) {
+    func songPlayer(modelType: PlayerInputData) {
         var playerTracks: [PlayerTrack] = []
-        for audioTrack in tracks {
-            playerTracks.append(audioTrackToPlayerTrack(audioTrack: audioTrack,albumImage: albumImage))
+        var onViewController: UIViewController?
+        
+        switch modelType {
+        case .searchTrackItem(let viewController, let data):
+            for searchTrackItem in data {
+                playerTracks.append(searchTrackToPlayerTrack(searchTrackItem: searchTrackItem))
+            }
+            onViewController = viewController
+        case .audioTrack(let viewController, let data, let albumImage):
+            for audioTrack in data {
+                playerTracks.append(audioTrackToPlayerTrack(audioTrack: audioTrack, albumImage: albumImage))
+            }
+            onViewController = viewController
+        case .playlistTrackItem(let viewController, let data):
+            for playlistTrack in data {
+                playerTracks.append(playlistTrackItemToPlayerTrack(playlistTrackItem: playlistTrack))
+            }
+            onViewController = viewController
         }
-        playMultipleTracks(on: viewController, with: playerTracks)
-    }
-    
-    func startMultipleTracksPlayback(from viewController: UIViewController, tracks: [PlaylistTrackItem]) {
-        var playerTracks: [PlayerTrack] = []
-        for playlistTrack in tracks {
-            playerTracks.append(playlistTrackItemToPlayerTrack(playlistTrackItem: playlistTrack))
-        }
+        
+        guard let viewController = onViewController else { return }
         playMultipleTracks(on: viewController, with: playerTracks)
     }
     
@@ -209,7 +203,7 @@ extension PlaybackPresenter {
 
 //MARK: data conversion
 
-extension PlaybackPresenter {
+private extension PlaybackPresenter {
     
     private func searchTrackToPlayerTrack (searchTrackItem: SearchTracksItem) -> PlayerTrack {
         let playerTrackArtist = PlayerTrackArtist(name: searchTrackItem.artists.first?.name ?? "", externalUrl: searchTrackItem.artists.first?.externalUrls.spotify ?? "")
