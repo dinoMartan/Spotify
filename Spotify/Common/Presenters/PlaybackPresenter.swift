@@ -41,56 +41,135 @@ final class PlaybackPresenter {
     
     static let shared = PlaybackPresenter()
     
-    var player: AVPlayer?
-    var playerQueue: AVQueuePlayer?
-    
     //MARK: - Private properties
     
+    private var singlePlayer: AVPlayer?
+    
     private var track: PlayerTrack?
+    
+    private var numberOfTracks: Int { tracks.count }
+    private var currentTrackIndex: Int?
+    
     private var tracks: [PlayerTrack] = []
     
     private let playerViewController = UIStoryboard.Storyboard.player.viewController as? PlayerViewController
     
-    private var currentTrack: PlayerTrack? {
+    var currentTrack: PlayerTrack? {
         if let track = track, tracks.isEmpty {
             return track
         }
         return nil
     }
     
+    private var singleTrackIsPlaying: Bool {
+        guard let singlePlayer = singlePlayer else { return false }
+        if singlePlayer.timeControlStatus == .playing { return true }
+        else { return false }
+    }
+    
+    private var multipleTracksArePlaying = false
+    
     //MARK: - Lifecycle
     
-    private func playSingleTrack(on viewController: UIViewController, with track: PlayerTrack) {
-        // to do - load url and play from url on avplayer
+    private func playTrack(playerTrack: PlayerTrack) {
+        guard let urlString = playerTrack.previewUrl, let url = URL(string: urlString) else {
+            // to do - handle error
+            debugPrint("URL not found!")
+            return
+        }
+        track = playerTrack
+        singlePlayer = AVPlayer(url: url)
+        singlePlayer?.volume = 0.5
+        singlePlayer?.play()
+    }
+    
+    private func playTracks(playerTracks: [PlayerTrack]) {
+        if singleTrackIsPlaying { singlePlayer?.pause() }
+        tracks = playerTracks
         
+        var items: [AVPlayerItem] = []
+        
+        for track in playerTracks {
+            guard let urlString = track.previewUrl, let url = URL(string: urlString) else { continue }
+            let avPlayerItem = AVPlayerItem(url: url)
+            items.append(avPlayerItem)
+        }
+        
+    }
+    
+    private func playSingleTrack(on viewController: UIViewController, with track: PlayerTrack) {
         guard let playerViewController = playerViewController else {
             // to do - handle error
             return
         }
         playerViewController.dataSource = self
-        playerViewController.deletate = self
-        viewController.present(playerViewController, animated: true) { [unowned self] in
-            // to do - handle player
-        }
+        playerViewController.delegate = self
+        playTrack(playerTrack: track)
+        viewController.present(playerViewController, animated: true)
     }
     
     private func playMultipleTracks(on viewController: UIViewController, with tracks: [PlayerTrack]) {
+        playTracks(playerTracks: tracks)
+        
         guard let playerViewController = UIStoryboard.Storyboard.player.viewController as? PlayerViewController else {
             // to do - handle error
             return
         }
         playerViewController.dataSource = self
-        playerViewController.deletate = self
-        viewController.present(playerViewController, animated: true) { [unowned self] in
-            // to do - handle player
-        }
+        playerViewController.delegate = self
+        viewController.present(playerViewController, animated: true)
     }
     
 }
 
 //MARK: - Public extensions -
 
-// getting data from view controllers
+//MARK: user actions
+
+extension PlaybackPresenter: PlayerViewControllerDelegate {
+    
+    func didChangeSlider(value: Float) {
+        // to do - handle slider change (volume change)
+        guard let singlePlayer = singlePlayer else { return }
+        singlePlayer.volume = value
+    }
+    
+    func didTapPlayPauseButton() {
+        guard let singlePlayer = singlePlayer else { return }
+        if singleTrackIsPlaying { singlePlayer.pause() }
+        else { singlePlayer.play() }
+    }
+    
+    func didTapNextButton() {
+        // to do - handle next button
+    }
+    
+    func didTapPreviousButton() {
+        // to do - handle previous button
+    }
+    
+}
+
+// MARK: data source
+
+extension PlaybackPresenter: PlayerDataSource {
+    
+    var songName: String? {
+        return currentTrack?.name
+    }
+    
+    var subtitle: String? {
+        return currentTrack?.artist.name
+    }
+    
+    var imageUrl: URL? {
+        return URL(string: currentTrack?.image ?? "")
+    }
+    
+}
+
+//MARK: getting data from view controllers
+
 extension PlaybackPresenter {
     
     func startTrackPlayback(viewController: UIViewController, track: SearchTracksItem) {
@@ -126,45 +205,9 @@ extension PlaybackPresenter {
     
 }
 
-
-extension PlaybackPresenter: PlayerDataSource {
-    
-    var songName: String? {
-        return currentTrack?.name
-    }
-    
-    var subtitle: String? {
-        return currentTrack?.artist.name
-    }
-    
-    var imageUrl: URL? {
-        return URL(string: currentTrack?.image ?? "")
-    }
-    
-}
-
-extension PlaybackPresenter: PlayerViewControllerDelegate {
-    
-    func didChangeSlider(value: Float) {
-        // to do - handle slider change (volume change)
-    }
-    
-    func didTapPlayPauseButton() {
-        // to do - handle play pause button
-    }
-    
-    func didTapNextButton() {
-        // to do - handle next button
-    }
-    
-    func didTapPreviousButton() {
-        // to do - handle previous button
-    }
-    
-}
-
-
 //MARK: - Private extensions -
+
+//MARK: data conversion
 
 extension PlaybackPresenter {
     

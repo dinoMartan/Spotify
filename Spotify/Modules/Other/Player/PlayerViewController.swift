@@ -31,13 +31,13 @@ class PlayerViewController: UIViewController {
     //MARK: - Public properties
     
     weak var dataSource: PlayerDataSource?
-    weak var deletate: PlayerViewControllerDelegate?
+    weak var delegate: PlayerViewControllerDelegate?
     
     //MARK: - Private properties
     
     private var trackIsPlaying = true
-    private let playImage = UIImage(systemName: "play.fill")
-    private let pauseImage = UIImage(systemName: "pause.fill")
+    private let playImage = UIImage(systemName: "pause.fill")
+    private let pauseImage = UIImage(systemName: "play.fill")
     
     //MARK: - Lifecycle
 
@@ -46,16 +46,21 @@ class PlayerViewController: UIViewController {
         setupView()
     }
     
-    private func setupView() {
+    override func viewWillAppear(_ animated: Bool) {
+        trackIsPlaying = true
         configureUI()
+    }
+    
+    private func setupView() {
+        //configureUI()
     }
     
     func configureUI() {
         guard let image = dataSource?.imageUrl else { return }
         trackImageView.sd_setImage(with: image, completed: nil)
-        playPauseButton.setImage(pauseImage, for: .normal)
         trackNameLabel.text = dataSource?.songName
         artistNameLabel.text = dataSource?.subtitle
+        configurePlayPauseButton()
     }
     
 }
@@ -65,13 +70,16 @@ class PlayerViewController: UIViewController {
 private extension PlayerViewController {
     
     private func stopPlaying() {
-        playPauseButton.setImage(playImage, for: .normal)
         trackIsPlaying = false
     }
     
     private func startPlaying() {
-        playPauseButton.setImage(pauseImage, for: .normal)
         trackIsPlaying = true
+    }
+    
+    private func configurePlayPauseButton() {
+        if trackIsPlaying { playPauseButton.setImage(playImage, for: .normal) }
+        else { playPauseButton.setImage(pauseImage, for: .normal) }
     }
     
 }
@@ -85,19 +93,20 @@ private extension PlayerViewController {
     @IBAction private func didTapPlayPauseButton(_ sender: Any) {
         if trackIsPlaying { stopPlaying() }
         else { startPlaying() }
-        deletate?.didTapPlayPauseButton()
+        configurePlayPauseButton()
+        delegate?.didTapPlayPauseButton()
     }
     
     @IBAction private func didTapPreviousButton(_ sender: Any) {
-        deletate?.didTapPreviousButton()
+        delegate?.didTapPreviousButton()
     }
     
     @IBAction private func didTapNextButton(_ sender: Any) {
-        deletate?.didTapNextButton()
+        delegate?.didTapNextButton()
     }
     
     @IBAction func didChangeSlider(_ sender: Any) {
-        deletate?.didChangeSlider(value: volumeSlider.value)
+        delegate?.didChangeSlider(value: volumeSlider.value)
     }
     
 }
