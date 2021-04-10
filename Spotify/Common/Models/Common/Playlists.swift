@@ -34,7 +34,7 @@ struct PlaylistItem: Codable {
     let images: [APIImage]
     let name: String
     let owner: Owner?
-    let itemPublic: Int?
+    let itemPublic: Bool?
     let snapshotID: String
     let tracks: Tracks?
     let type: String
@@ -59,6 +59,7 @@ struct PlaylistItem: Codable {
     }
 
     // MARK: - Tracks
+    
     struct Tracks: Codable {
         
         let href: String

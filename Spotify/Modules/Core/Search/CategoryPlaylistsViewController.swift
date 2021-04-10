@@ -68,6 +68,10 @@ extension CategoryPlaylistsViewController: UITableViewDelegate, UITableViewDataS
         return configuration
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    
     func deleteRow(indexPath: IndexPath) {
         playlists.remove(at: indexPath.row)
         tableView.reloadData()

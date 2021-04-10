@@ -24,6 +24,7 @@ struct AlertsConstants {
         case didntFetchNewReleases = "Looks like we couldn't fetch new releases"
         case didntFetchRecommendationGenres = "Looks like we couldn't fetch recommendation genres"
         case didntFetchRecommendations = "Looks like we couldn't fetch recommendations"
+        case didntCreatePlaylist = "Looks like we couldn't create your playlist"
     }
     
     enum Button: String {

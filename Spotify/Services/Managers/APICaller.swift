@@ -23,6 +23,14 @@ final class APICaller {
         return ["Authorization": "Bearer \(token ?? "")"]
     }
     
+    private var headersContentType: HTTPHeaders? {
+        let token = AuthManager.shared.accessToken
+        return [
+            "Authorization": "Bearer \(token ?? "")",
+            "Content-Type": "application/json"
+        ]
+    }
+    
     //MARK: - Lifecycle
     
     private init() { }
@@ -82,13 +90,65 @@ final class APICaller {
             }
     }
     
-    func getPlaylist(for playlist: PlaylistItem, success: @escaping (PlaylistResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getPlaylistDetails(for playlist: PlaylistItem, success: @escaping (PlaylistResponse) -> Void, failure: @escaping (Error?) -> Void) {
         let url = APIConstants.playlistUrl + playlist.id
         alamofire.request(url, method: .get, headers: headers)
             .responseDecodable(of: PlaylistResponse.self) { response in
                 switch(response.result) {
                 case .success(let playlistResponse):
                     success(playlistResponse)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func getCurrentUserPlaylists(success: @escaping (Playlists) -> Void, failure: @escaping (Error?) -> Void) {
+        alamofire.request(APIConstants.currentUserPlaylists, method: .get, headers: headers)
+            .responseDecodable(of: Playlists.self) { response in
+                switch(response.result) {
+                case .success(let playlistResponse):
+                    success(playlistResponse)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func createUserPlaylist(name: String, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {
+        // user ID is needed, first get user profile
+        getCurrentUserProfile { [unowned self] userProfile in
+            // isolating user ID
+            guard let userId = userProfile?.id else {
+                failure(nil)
+                return
+            }
+            
+            let url = APIConstants.createPlaylistUrl + userId + "/playlists"
+            let parameters: [String: AnyObject] = ["name": name as AnyObject]
+            
+            alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+                .responseJSON { response in
+                    switch(response.result) {
+                    case .success(_):
+                        success()
+                    case .failure(let error):
+                        failure(error)
+                    }
+                }
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
+    func addTrackToPlaylist(playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        let url = APIConstants.playlistUrl + "\(playlistId)/tracks"
+        let parameters = ["uris": [trackUri]]
+        alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headersContentType)
+            .responseJSON { response in
+                switch(response.result) {
+                case .success(_):
+                    success()
                 case .failure(let error):
                     failure(error)
                 }

@@ -22,6 +22,8 @@ enum APIConstants {
     static let allCagetoriesUrl = "\(apiUrl)/browse/categories"
     static let categoryPlaylistsUrl = "\(apiUrl)/browse/categories/"
     static let searchUrl = "\(apiUrl)/search"
+    static let currentUserPlaylists = "\(apiUrl)/me/playlists"
+    static let createPlaylistUrl = "\(apiUrl)/users/"
     
 }
 

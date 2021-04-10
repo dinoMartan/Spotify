@@ -51,6 +51,7 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as? PlaylistCollectionViewCell else { return PlaylistCollectionViewCell() }
         guard let playlistTrackItem = playlistDetails?.tracks.items[indexPath.row] else { return PlaylistCollectionViewCell() }
+        cell.delegate = self
         cell.configureCell(playlistTrackItem: playlistTrackItem)
         return cell
     }
@@ -59,6 +60,14 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
         collectionView.deselectItem(at: indexPath, animated: true)
         guard let track = playlistDetails?.tracks.items[indexPath.row] else { return }
         PlaybackPresenter.shared.songPlayer(modelType: .playlistTrackItem(viewController: self, data: [track]))
+    }
+    
+}
+
+extension PlaylistViewController: PlaylistCollectionViewCellDelegate {
+    
+    func presentTrack(trackViewController: TrackViewController) {
+        present(trackViewController, animated: true, completion: nil)
     }
     
 }
@@ -78,7 +87,7 @@ private extension PlaylistViewController {
             group.leave()
             return
         }
-        APICaller.shared.getPlaylist(for: playlist) { playlistResponse in
+        APICaller.shared.getPlaylistDetails(for: playlist) { playlistResponse in
             self.playlistDetails = playlistResponse
             group.leave()
             self.updateUI()
@@ -123,7 +132,10 @@ private extension PlaylistViewController {
             // to do - handle error
             return
         }
-        playlistImageView.sd_setImage(with: URL(string: playlistDetails.images.first?.url ?? ""), completed: nil)
+        
+        if let imageUrl = playlistDetails.images.first?.url, imageUrl != "" {
+            playlistImageView.sd_setImage(with: URL(string: imageUrl), completed: nil)
+        }
         playlistNameLabel.text = playlistDetails.name
         
     }

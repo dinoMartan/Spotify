@@ -23,6 +23,8 @@ extension UIStoryboard {
         case album = "Album"
         case playlist = "Playlist"
         case player = "Player"
+        case createPlaylist = "CreatePlaylist"
+        case track = "Track"
         
     }
     
@@ -40,6 +42,8 @@ extension UIStoryboard {
         case playlist = "playlist"
         case categoryPlaylists = "categoryPlaylists"
         case player = "player"
+        case createPlaylist = "createPlaylist"
+        case track = "track"
         
     }
     
@@ -58,7 +62,9 @@ extension UIStoryboard {
         case playlist
         case categoryPlaylists
         case player
-        
+        case createPlaylist
+        case track
+
         var viewController: UIViewController {
             switch self {
             case .home: return instantiateViewController(name: .home, identifier: .home)
@@ -73,6 +79,8 @@ extension UIStoryboard {
             case .playlist: return instantiateViewController(name: .playlist, identifier: .playlist)
             case .categoryPlaylists: return instantiateViewController(name: .search, identifier: .categoryPlaylists)
             case .player: return instantiateViewController(name: .player, identifier: .player)
+            case .createPlaylist: return instantiateViewController(name: .createPlaylist, identifier: .createPlaylist)
+            case .track: return instantiateViewController(name: .track, identifier: .track)
             }
         }
         
