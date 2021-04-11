@@ -172,11 +172,23 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
             playlistViewController.setPlaylist(playlist: playlistItem)
             navigationController?.pushViewController(playlistViewController, animated: true)
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let playlistItems = currentUsersPlaylists?.items else { return }
+            let playlist = playlistItems[indexPath.row]
+            APICaller.shared.deleteUsersPlaylist(playlistId: playlist.id) {
+                self.fetchCurrentUsersPlaylists()
+            } failure: { error in
+                // to do - handle error
+            }
+
+        }
     }
     
 }

@@ -123,7 +123,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6IP-5b-LhU">
-                                <rect key="frame" x="324" y="298" width="60" height="60"/>
+                                <rect key="frame" x="324" y="263" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Jr1-NI-gfn"/>
                                     <constraint firstAttribute="width" constant="60" id="o31-Tp-IcQ"/>
@@ -152,7 +152,7 @@
                             <constraint firstItem="cGv-7p-8T2" firstAttribute="top" secondItem="Hng-2p-cpK" secondAttribute="bottom" constant="30" id="egz-tK-LoE"/>
                             <constraint firstItem="MRh-Xb-1rw" firstAttribute="trailing" secondItem="Hng-2p-cpK" secondAttribute="trailing" constant="100" id="k00-na-BRi"/>
                             <constraint firstItem="MRh-Xb-1rw" firstAttribute="trailing" secondItem="cGv-7p-8T2" secondAttribute="trailing" constant="20" id="niK-G9-tqs"/>
-                            <constraint firstItem="TZB-pA-bTh" firstAttribute="top" secondItem="6IP-5b-LhU" secondAttribute="bottom" constant="25" id="usd-kh-cwO"/>
+                            <constraint firstItem="TZB-pA-bTh" firstAttribute="top" secondItem="6IP-5b-LhU" secondAttribute="bottom" constant="60" id="usd-kh-cwO"/>
                         </constraints>
                     </view>
                     <connections>

@@ -169,6 +169,19 @@ final class APICaller {
             }
     }
     
+    func deleteUsersPlaylist(playlistId: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        let url = APIConstants.playlistUrl + "\(playlistId)/followers"
+        alamofire.request(url, method: .delete, headers: headers)
+            .response { response in
+                switch(response.result) {
+                case .success(_):
+                    success()
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
     //MARK: - Genres
     
     func getRecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {

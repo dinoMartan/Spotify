@@ -90,8 +90,8 @@
                                                 <constraint firstAttribute="height" constant="150" id="uSl-PA-3Kv"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="albumTitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4h-XX-x9d">
-                                            <rect key="frame" x="108" y="218" width="198" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="albumTitle" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="y4h-XX-x9d">
+                                            <rect key="frame" x="108" y="198" width="198" height="84"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
@@ -111,7 +111,8 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="Uth-9A-CZ1" secondAttribute="trailing" constant="100" id="CvZ-u7-36b"/>
-                                        <constraint firstItem="y4h-XX-x9d" firstAttribute="top" secondItem="Uth-9A-CZ1" secondAttribute="bottom" constant="30" id="K0r-1e-cRS"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="y4h-XX-x9d" secondAttribute="bottom" constant="10" id="Hfj-H7-GXn"/>
+                                        <constraint firstItem="y4h-XX-x9d" firstAttribute="top" secondItem="Uth-9A-CZ1" secondAttribute="bottom" constant="10" id="K0r-1e-cRS"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="TOk-F6-pRk" secondAttribute="trailing" constant="40" id="MZw-do-uoG"/>
                                         <constraint firstItem="Uth-9A-CZ1" firstAttribute="top" secondItem="xJE-Ac-lCT" secondAttribute="topMargin" constant="30" id="Wt4-o0-7GP"/>
                                         <constraint firstItem="Uth-9A-CZ1" firstAttribute="leading" secondItem="xJE-Ac-lCT" secondAttribute="leadingMargin" constant="100" id="a3y-sw-4FA"/>
