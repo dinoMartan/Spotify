@@ -22,46 +22,58 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="MBS-Gs-OWK">
-                                    <size key="itemSize" width="414" height="111"/>
+                                    <size key="itemSize" width="414" height="74"/>
                                     <size key="headerReferenceSize" width="50" height="300"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AlbumCollectionViewCell" id="Fe4-Aa-KU5" customClass="AlbumCollectionViewCell" customModule="Spotify" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300" width="414" height="111"/>
+                                        <rect key="frame" x="0.0" y="300" width="414" height="74"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bdX-Cc-x8F">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="111"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uyi-2W-dS5">
-                                                    <rect key="frame" x="20" y="31" width="374" height="49"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uyi-2W-dS5">
+                                                    <rect key="frame" x="5" y="5" width="335" height="64"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artistName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUf-5j-1Nf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artistName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dUf-5j-1Nf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="84" height="28"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="trackName" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="v5K-8D-8OS">
-                                                            <rect key="frame" x="0.0" y="28.5" width="374" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="trackName" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="v5K-8D-8OS">
+                                                            <rect key="frame" x="0.0" y="36" width="83.5" height="28"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V30-9y-39v">
+                                                    <rect key="frame" x="350" y="10" width="59" height="54"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <state key="normal" image="arrowshape.turn.up.right.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="didTapShowTrackDetailsButton:" destination="Fe4-Aa-KU5" eventType="touchUpInside" id="eEk-nO-FU6"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="uyi-2W-dS5" firstAttribute="centerY" secondItem="bdX-Cc-x8F" secondAttribute="centerY" id="7ac-Ju-bKR"/>
-                                                <constraint firstAttribute="trailing" secondItem="uyi-2W-dS5" secondAttribute="trailing" constant="20" id="Q1R-aE-ZaM"/>
-                                                <constraint firstItem="uyi-2W-dS5" firstAttribute="leading" secondItem="bdX-Cc-x8F" secondAttribute="leading" constant="20" id="mLP-mA-iyE"/>
-                                                <constraint firstItem="uyi-2W-dS5" firstAttribute="centerX" secondItem="bdX-Cc-x8F" secondAttribute="centerX" id="ujh-fC-rKy"/>
+                                                <constraint firstItem="V30-9y-39v" firstAttribute="top" secondItem="bdX-Cc-x8F" secondAttribute="top" constant="10" id="4fi-RZ-8G0"/>
+                                                <constraint firstItem="uyi-2W-dS5" firstAttribute="leading" secondItem="bdX-Cc-x8F" secondAttribute="leading" constant="5" id="HF3-zn-nPm"/>
+                                                <constraint firstItem="V30-9y-39v" firstAttribute="leading" secondItem="uyi-2W-dS5" secondAttribute="trailing" constant="10" id="J7f-po-B2U"/>
+                                                <constraint firstAttribute="trailing" secondItem="V30-9y-39v" secondAttribute="trailing" constant="5" id="N8S-Hh-cdb"/>
+                                                <constraint firstAttribute="bottom" secondItem="uyi-2W-dS5" secondAttribute="bottom" constant="5" id="P17-pt-PKn"/>
+                                                <constraint firstItem="V30-9y-39v" firstAttribute="leading" secondItem="bdX-Cc-x8F" secondAttribute="leading" constant="350" id="Qg9-ef-uD9"/>
+                                                <constraint firstAttribute="bottom" secondItem="V30-9y-39v" secondAttribute="bottom" constant="10" id="kwF-Df-pmV"/>
+                                                <constraint firstItem="uyi-2W-dS5" firstAttribute="top" secondItem="bdX-Cc-x8F" secondAttribute="top" constant="5" id="vvE-xG-QVT"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                        <size key="customSize" width="414" height="111"/>
+                                        <size key="customSize" width="414" height="74"/>
                                         <connections>
                                             <outlet property="artistNameLabel" destination="dUf-5j-1Nf" id="HUr-r4-IAF"/>
                                             <outlet property="trackNameLabel" destination="v5K-8D-8OS" id="21W-9c-ahi"/>
@@ -133,6 +145,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="play.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

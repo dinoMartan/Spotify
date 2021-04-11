@@ -44,6 +44,7 @@ extension AlbumViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AlbumCollectionViewCell.identifier, for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
         guard let audioTrack = albumDetails?.tracks.audioTracks[indexPath.row] else { return cell }
+        cell.delegate = self
         cell.configureCell(audioTrack: audioTrack)
         return cell
     }
@@ -135,6 +136,14 @@ private extension AlbumViewController {
             NSCollectionLayoutBoundarySupplementaryItem(layoutSize: supplementaryItemLayoutSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         ]
         return supplementaryViews
+    }
+    
+}
+
+extension AlbumViewController: AlbumCollectionViewCellDelegate {
+    
+    func presentTrack(trackViewController: TrackViewController) {
+        present(trackViewController, animated: true, completion: nil)
     }
     
 }

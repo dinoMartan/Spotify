@@ -51,6 +51,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchTracksCollectionViewCell.identifier, for: indexPath) as? SearchTracksCollectionViewCell else { return UICollectionViewCell() }
             cell.layer.cornerRadius = 10
             cell.layer.masksToBounds = true
+            cell.delegate = self
             cell.configureCell(track: tracks[indexPath.row])
             return cell
         case .playlists:
@@ -105,6 +106,14 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             playlistViewController.setPlaylist(playlist: playlistItem)
             navigationController?.pushViewController(playlistViewController, animated: true)
         }
+    }
+    
+}
+
+extension SearchViewController: SearchTracksCollectionViewCellDelegate {
+    
+    func presentTrack(trackViewController: TrackViewController) {
+        present(trackViewController, animated: true, completion: nil)
     }
     
 }

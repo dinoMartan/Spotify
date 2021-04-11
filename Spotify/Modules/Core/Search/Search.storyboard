@@ -154,48 +154,60 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchTracksCollectionViewCell" id="hbs-3n-u4W" customClass="SearchTracksCollectionViewCell" customModule="Spotify" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="495" width="244" height="51"/>
+                                        <rect key="frame" x="80" y="437" width="254" height="67"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="KD7-NL-1ys">
-                                            <rect key="frame" x="0.0" y="0.0" width="244" height="51"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="254" height="67"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w4H-k3-7NK">
-                                                    <rect key="frame" x="5" y="5" width="41" height="41"/>
+                                                    <rect key="frame" x="5" y="5" width="57" height="57"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="w4H-k3-7NK" secondAttribute="height" multiplier="1:1" id="jPD-SZ-wG3"/>
                                                     </constraints>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="YJJ-dT-qwQ">
-                                                    <rect key="frame" x="49" y="3" width="192" height="45"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="YJJ-dT-qwQ">
+                                                    <rect key="frame" x="67" y="5" width="123" height="57"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artist" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PkM-pK-aBV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="33.5" height="19"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="33.5" height="28"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="trackName" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kk-Bk-PXx">
-                                                            <rect key="frame" x="0.0" y="22" width="90" height="23"/>
+                                                            <rect key="frame" x="0.0" y="29" width="90" height="28"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0G-7s-sq6">
+                                                    <rect key="frame" x="200" y="10" width="49" height="47"/>
+                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                    <state key="normal" image="arrowshape.turn.up.right.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="didTapShowTrackDetails:" destination="hbs-3n-u4W" eventType="touchUpInside" id="lNK-Af-AJr"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="k0G-7s-sq6" firstAttribute="top" secondItem="KD7-NL-1ys" secondAttribute="top" constant="10" id="3Cp-2o-3Nh"/>
                                                 <constraint firstAttribute="bottom" secondItem="w4H-k3-7NK" secondAttribute="bottom" constant="5" id="49d-hZ-4Rc"/>
+                                                <constraint firstItem="k0G-7s-sq6" firstAttribute="leading" secondItem="KD7-NL-1ys" secondAttribute="leading" constant="200" id="8SU-Rs-0BQ"/>
+                                                <constraint firstItem="YJJ-dT-qwQ" firstAttribute="leading" secondItem="w4H-k3-7NK" secondAttribute="trailing" constant="5" id="LjV-dk-kjd"/>
                                                 <constraint firstItem="w4H-k3-7NK" firstAttribute="leading" secondItem="KD7-NL-1ys" secondAttribute="leading" constant="5" id="Mc2-a6-QCf"/>
-                                                <constraint firstAttribute="trailing" secondItem="YJJ-dT-qwQ" secondAttribute="trailing" constant="3" id="Qln-RW-BsH"/>
-                                                <constraint firstAttribute="bottom" secondItem="YJJ-dT-qwQ" secondAttribute="bottom" constant="3" id="hvL-Db-Ndq"/>
-                                                <constraint firstItem="YJJ-dT-qwQ" firstAttribute="leading" secondItem="w4H-k3-7NK" secondAttribute="trailing" constant="3" id="o1K-v5-RfH"/>
-                                                <constraint firstItem="YJJ-dT-qwQ" firstAttribute="top" secondItem="KD7-NL-1ys" secondAttribute="top" constant="3" id="ry9-1a-EG0"/>
+                                                <constraint firstItem="k0G-7s-sq6" firstAttribute="leading" secondItem="YJJ-dT-qwQ" secondAttribute="trailing" constant="10" id="ciS-Lx-Xpz"/>
+                                                <constraint firstAttribute="trailing" secondItem="k0G-7s-sq6" secondAttribute="trailing" constant="5" id="i7K-vO-9pP"/>
+                                                <constraint firstAttribute="bottom" secondItem="YJJ-dT-qwQ" secondAttribute="bottom" constant="5" id="rA9-Kw-zVc"/>
+                                                <constraint firstItem="YJJ-dT-qwQ" firstAttribute="top" secondItem="KD7-NL-1ys" secondAttribute="top" constant="5" id="rir-Vj-S5t"/>
+                                                <constraint firstAttribute="bottom" secondItem="k0G-7s-sq6" secondAttribute="bottom" constant="10" id="sE4-ct-BKY"/>
                                                 <constraint firstItem="w4H-k3-7NK" firstAttribute="top" secondItem="KD7-NL-1ys" secondAttribute="top" constant="5" id="uMP-fr-Xdv"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
-                                        <size key="customSize" width="244" height="51"/>
+                                        <size key="customSize" width="254" height="67"/>
                                         <connections>
                                             <outlet property="albumImageView" destination="w4H-k3-7NK" id="mrP-YC-ijH"/>
                                             <outlet property="artistLabel" destination="PkM-pK-aBV" id="Ntz-OR-1A5"/>
@@ -203,7 +215,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchPlaylistsCollectionViewCell" id="Zki-OU-zFL" customClass="SearchPlaylistsCollectionViewCell" customModule="Spotify" customModuleProvider="target">
-                                        <rect key="frame" x="254" y="437" width="160" height="167"/>
+                                        <rect key="frame" x="0.0" y="514" width="160" height="167"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZJg-p6-fYC">
                                             <rect key="frame" x="0.0" y="0.0" width="160" height="167"/>
@@ -265,7 +277,7 @@
                                     </connections>
                                 </collectionReusableView>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SearchHeaderCollectionReusableView" id="SWv-Te-bJP" customClass="SearchHeaderCollectionReusableView" customModule="Spotify" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="604" width="414" height="50"/>
+                                    <rect key="frame" x="0.0" y="681" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQ0-QO-Sin">
@@ -375,6 +387,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrowshape.turn.up.right.circle.fill" catalog="system" width="128" height="121"/>
         <image name="music.quarternote.3" catalog="system" width="128" height="103"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

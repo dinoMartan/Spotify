@@ -19,14 +19,19 @@ class PlaylistViewController: UIViewController {
     
     //MARK: - Private properties
     
-    var playlist: PlaylistItem? = nil
-    var playlistDetails: PlaylistResponse? = nil
+    private var playlist: PlaylistItem?
+    private var playlistDetails: PlaylistResponse?
+    private var isCurrentUsersPlaylist = false
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+    }
+    
+    func setIsCurrentUsersPlaylist(with isUsersPlaylist: Bool) {
+        isCurrentUsersPlaylist = isUsersPlaylist
     }
     
     func setPlaylist(playlist: PlaylistItem) {
@@ -51,7 +56,9 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PlaylistCollectionViewCell.identifier, for: indexPath) as? PlaylistCollectionViewCell else { return PlaylistCollectionViewCell() }
         guard let playlistTrackItem = playlistDetails?.tracks.items[indexPath.row] else { return PlaylistCollectionViewCell() }
-        cell.delegate = self
+        cell.presentTrackDelegate = self
+        cell.deleteTrackDelegate = self
+        cell.setIsCurrentUsersPlaylist(with: isCurrentUsersPlaylist)
         cell.configureCell(playlistTrackItem: playlistTrackItem)
         return cell
     }
@@ -64,10 +71,35 @@ extension PlaylistViewController: UICollectionViewDelegate, UICollectionViewData
     
 }
 
-extension PlaylistViewController: PlaylistCollectionViewCellDelegate {
+extension PlaylistViewController: PlaylistCollectionViewCellPresentTrackDelegate {
     
     func presentTrack(trackViewController: TrackViewController) {
         present(trackViewController, animated: true, completion: nil)
+    }
+    
+}
+
+extension PlaylistViewController: PlaylistCollectionViewCellDeleteTrackDelegate {
+    
+    func deleteTrackFromPlaylist(trackUri: String) {
+        guard let playlist = playlist else {
+            // to do - handle error
+            return
+        }
+        
+        let alert = UIAlertController(title: "Are you sure you want to delete track from playlist?", message: "This action cannot be undone.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            APICaller.shared.deleteTrackFromPlaylist(playlistId: playlist.id, trackUri: trackUri) {
+                self.fetchPlaylistDetails()
+                self.collectionView.reloadData()
+            } failure: { error in
+                // to do - handle error
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
 }
@@ -79,7 +111,11 @@ private extension PlaylistViewController {
     private func setupView() {
         title = playlist?.name ?? "Playlist"
         setShadowOnImageView()
-        
+        fetchPlaylistDetails()
+        configureCollectionView()
+    }
+    
+    private func fetchPlaylistDetails() {
         let group = DispatchGroup()
         group.enter()
         guard let playlist = self.playlist else {
@@ -87,17 +123,17 @@ private extension PlaylistViewController {
             group.leave()
             return
         }
-        APICaller.shared.getPlaylistDetails(for: playlist) { playlistResponse in
-            self.playlistDetails = playlistResponse
+        APICaller.shared.getPlaylistDetails(for: playlist) { [unowned self] playlistResponse in
+            playlistDetails = playlistResponse
             group.leave()
-            self.updateUI()
+            updateUI()
         } failure: { _ in
             group.leave()
             // to do - handle error
         }
         
         group.notify(queue: .main) {
-            self.configureCollectionView()
+            self.collectionView.reloadData()
         }
     }
     

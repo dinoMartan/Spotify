@@ -155,6 +155,20 @@ final class APICaller {
             }
     }
     
+    func deleteTrackFromPlaylist(playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        let url = APIConstants.playlistUrl + "\(playlistId)/tracks"
+        let parameters = ["uris": [trackUri]]
+        alamofire.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: headersContentType)
+            .responseJSON { response in
+                switch(response.result) {
+                case .success(_):
+                    success()
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
     //MARK: - Genres
     
     func getRecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {

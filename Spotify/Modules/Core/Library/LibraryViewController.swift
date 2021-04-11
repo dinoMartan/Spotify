@@ -103,6 +103,8 @@ private extension LibraryViewController {
     
 }
 
+//MARK: - CreatePlaylist delegate
+
 extension LibraryViewController: CreatePlaylistViewControllerDeletage {
     
     func didCreateNewPlaylist(completion: DidCreateNewPlaylist) {
@@ -117,6 +119,8 @@ extension LibraryViewController: CreatePlaylistViewControllerDeletage {
     }
     
 }
+
+//MARK: - Tableview delegates
 
 extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
     
@@ -164,6 +168,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else {
             guard let playlistViewController = UIStoryboard.Storyboard.playlist.viewController as? PlaylistViewController else { return }
+            playlistViewController.setIsCurrentUsersPlaylist(with: true)
             playlistViewController.setPlaylist(playlist: playlistItem)
             navigationController?.pushViewController(playlistViewController, animated: true)
         }
