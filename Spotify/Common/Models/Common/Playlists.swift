@@ -13,7 +13,7 @@ import Foundation
 struct Playlists: Codable {
     
     let href: String
-    let items: [PlaylistItem]
+    var items: [PlaylistItem]
     let limit: Int
     let next: String?
     let offset: Int

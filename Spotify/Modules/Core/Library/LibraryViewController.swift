@@ -8,16 +8,19 @@
 
 import UIKit
 
-class LibraryViewController: DMViewController {
+class LibraryViewController: UIViewController {
     
     //MARK: - IBOutlets
     
     @IBOutlet private weak var noPlaylistsView: UIView!
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var addNewPlaylistButton: UIButton!
+    @IBOutlet private weak var playlistSearchBar: UISearchBar!
     
     //MARK: - Private properties
     
     private var currentUsersPlaylists: Playlists?
+    private var allCurrentUsersPlaylists: Playlists?
     private var track: TrackInputType?
     
     //MARK: - Lifecycle
@@ -39,7 +42,7 @@ class LibraryViewController: DMViewController {
     func setTrack(track: TrackInputType) {
         self.track = track
     }
-    
+
 }
 
 //MARK: - Private extensions -
@@ -51,11 +54,19 @@ private extension LibraryViewController {
     private func setupView() {
         fetchCurrentUsersPlaylists()
         configureTableView()
+        configureHeader()
     }
     
     private func configureTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    private func configureHeader() {
+        addNewPlaylistButton.layer.cornerRadius = 10
+        addNewPlaylistButton.layer.borderWidth = 2
+        addNewPlaylistButton.layer.borderColor = UIColor.black.cgColor
+        playlistSearchBar.delegate = self
     }
     
     private func configureNoPlaylistView() {
@@ -75,6 +86,7 @@ private extension LibraryViewController {
     private func fetchCurrentUsersPlaylists() {
         APICaller.shared.getCurrentUserPlaylists { [unowned self] playlists in
             currentUsersPlaylists = playlists
+            allCurrentUsersPlaylists = playlists
             tableView.reloadData()
             configureNoPlaylistView()
         } failure: { error in
@@ -87,6 +99,7 @@ private extension LibraryViewController {
 
 private extension LibraryViewController {
     
+    // view behind table view
     @IBAction func didTapCreatePlaylistButton(_ sender: Any) {
         guard let createPlaylistViewController = UIStoryboard.Storyboard.createPlaylist.viewController as? CreatePlaylistViewController else { return }
         createPlaylistViewController.delegate = self
@@ -94,11 +107,41 @@ private extension LibraryViewController {
         present(createPlaylistViewController, animated: true, completion: nil)
     }
     
-    @IBAction func didTapHeaderAddNewPlaylist(_ sender: Any) {
+    @IBAction func didTapAddNewPlaylistButton(_ sender: Any) {
         guard let createPlaylistViewController = UIStoryboard.Storyboard.createPlaylist.viewController as? CreatePlaylistViewController else { return }
         createPlaylistViewController.delegate = self
         createPlaylistViewController.modalPresentationStyle = .fullScreen
         present(createPlaylistViewController, animated: true, completion: nil)
+    }
+    
+}
+
+//MARK: - SearchBar delegate
+
+extension LibraryViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard currentUsersPlaylists != nil, allCurrentUsersPlaylists != nil else { return }
+        let allItems = allCurrentUsersPlaylists?.items
+        
+        if searchText == "" {
+            currentUsersPlaylists?.items = allItems!
+            tableView.reloadData()
+        }
+        else {
+            var filteredPlaylistItems: [PlaylistItem] = []
+            for playlistItem in allItems! {
+                if playlistItem.name.lowercased().contains(searchText.lowercased()) {
+                    filteredPlaylistItems.append(playlistItem)
+                }
+            }
+            currentUsersPlaylists?.items = filteredPlaylistItems
+            tableView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        playlistSearchBar.resignFirstResponder()
     }
     
 }
