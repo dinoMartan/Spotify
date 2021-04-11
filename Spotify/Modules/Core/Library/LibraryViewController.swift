@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LibraryViewController: UIViewController {
+class LibraryViewController: DMViewController {
     
     //MARK: - IBOutlets
     
@@ -28,6 +28,7 @@ class LibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

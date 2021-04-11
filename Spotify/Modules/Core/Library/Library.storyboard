@@ -17,34 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aH9-hv-d3v">
-                                <rect key="frame" x="80" y="294" width="254" height="318"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oOk-Yc-KDV">
-                                        <rect key="frame" x="-17.5" y="129" width="289" height="60"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like you don't have any playlists yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUB-gU-z9d">
-                                                <rect key="frame" x="0.0" y="0.0" width="289" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-Bc-Iu7">
-                                                <rect key="frame" x="121.5" y="30" width="46" height="30"/>
-                                                <state key="normal" title="Create"/>
-                                                <connections>
-                                                    <action selector="didTapCreatePlaylistButton:" destination="7DF-D7-j1K" eventType="touchUpInside" id="iO6-dQ-Q5e"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="oOk-Yc-KDV" firstAttribute="centerY" secondItem="aH9-hv-d3v" secondAttribute="centerY" id="OZ8-CZ-aXx"/>
-                                    <constraint firstItem="oOk-Yc-KDV" firstAttribute="centerX" secondItem="aH9-hv-d3v" secondAttribute="centerX" id="h7a-H9-H7V"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVd-D8-dkU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
@@ -128,6 +100,33 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aH9-hv-d3v">
+                                <rect key="frame" x="80" y="294" width="254" height="318"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oOk-Yc-KDV">
+                                        <rect key="frame" x="-17.5" y="129" width="289" height="60"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looks like you don't have any playlists yet." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iUB-gU-z9d">
+                                                <rect key="frame" x="0.0" y="0.0" width="289" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ahh-Bc-Iu7">
+                                                <rect key="frame" x="121.5" y="30" width="46" height="30"/>
+                                                <state key="normal" title="Create"/>
+                                                <connections>
+                                                    <action selector="didTapCreatePlaylistButton:" destination="7DF-D7-j1K" eventType="touchUpInside" id="iO6-dQ-Q5e"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="oOk-Yc-KDV" firstAttribute="centerY" secondItem="aH9-hv-d3v" secondAttribute="centerY" id="OZ8-CZ-aXx"/>
+                                    <constraint firstItem="oOk-Yc-KDV" firstAttribute="centerX" secondItem="aH9-hv-d3v" secondAttribute="centerX" id="h7a-H9-H7V"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="egi-bC-y36"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
@@ -164,9 +163,6 @@
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
