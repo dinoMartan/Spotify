@@ -226,12 +226,19 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             guard let playlistItems = currentUsersPlaylists?.items else { return }
             let playlist = playlistItems[indexPath.row]
-            APICaller.shared.deleteUsersPlaylist(playlistId: playlist.id) {
-                self.fetchCurrentUsersPlaylists()
-            } failure: { error in
-                // to do - handle error
-            }
-
+            let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                self.deletePlaylist(playlistId: playlist.id)
+            }))
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func deletePlaylist(playlistId: String) {
+        APICaller.shared.deleteUsersPlaylist(playlistId: playlistId) {
+            self.fetchCurrentUsersPlaylists()
+        } failure: { error in
+            // to do - handle error
         }
     }
     

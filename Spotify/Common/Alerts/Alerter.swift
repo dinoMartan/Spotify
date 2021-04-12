@@ -28,4 +28,10 @@ class Alerter {
         return alert
     }
     
+    static func getActionSheet(myTitle: String, message: AlertsConstants.Messages, button: AlertsConstants.Button) -> UIAlertController {
+        let alert = UIAlertController(title: myTitle, message: message.rawValue, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: button.rawValue, style: .default, handler: nil))
+        return alert
+    }
+    
 }

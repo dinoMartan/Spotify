@@ -87,9 +87,9 @@ extension PlaylistViewController: PlaylistCollectionViewCellDeleteTrackDelegate 
             return
         }
         
-        let alert = UIAlertController(title: "Are you sure you want to delete track from playlist?", message: "This action cannot be undone.", preferredStyle: .alert)
+        let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
             APICaller.shared.deleteTrackFromPlaylist(playlistId: playlist.id, trackUri: trackUri) {
                 self.fetchPlaylistDetails()
                 self.collectionView.reloadData()
@@ -97,8 +97,6 @@ extension PlaylistViewController: PlaylistCollectionViewCellDeleteTrackDelegate 
                 // to do - handle error
             }
         }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     

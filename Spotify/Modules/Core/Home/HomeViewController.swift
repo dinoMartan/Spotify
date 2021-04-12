@@ -40,6 +40,7 @@ class HomeViewController: DMViewController {
     private func setupView() {
         fetchData()
         setupCollectionView()
+        setupNavigationBar()
     }
     
 }
@@ -74,6 +75,14 @@ extension HomeViewController {
 //MARK: - Private extensions -
 
 private extension HomeViewController {
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: nil, action: #selector(didTapSettingsButton))
+    }
+    
+    @objc private func didTapSettingsButton() {
+        print("settings button tapped")
+    }
     
     private func setupCollectionView() {
         let layout = UICollectionViewCompositionalLayout { (sectionIndex, _ ) -> NSCollectionLayoutSection? in

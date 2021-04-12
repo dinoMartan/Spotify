@@ -11,12 +11,15 @@ import UIKit
 struct AlertsConstants {
 
     enum Titles: String {
+        
         case ops = "Oooops!"
         case somethingWentWrong = "Something went wrong!"
         case error = "Error"
+        
     }
     
     enum Messages: String {
+        
         case didntSignIn = "Looks like you didn't sign in"
         case didntCompleteAPICall = "Didn't complete API call!"
         case didntFetchUserProfile = "Looks like we couldn't fetch your profile data"
@@ -25,11 +28,16 @@ struct AlertsConstants {
         case didntFetchRecommendationGenres = "Looks like we couldn't fetch recommendation genres"
         case didntFetchRecommendations = "Looks like we couldn't fetch recommendations"
         case didntCreatePlaylist = "Looks like we couldn't create your playlist"
+        case areYouSureYouWantToDeleteThisPlaylist = "Are you sure you want to delete this playlist? This action can't be undone."
+        
     }
     
     enum Button: String {
+        
         case shame = "Shame"
         case ok = "OK"
+        case cancel = "Cancel"
+        
     }
     
 }
@@ -37,9 +45,11 @@ struct AlertsConstants {
 enum ConstantsImages {
     
     struct Images {
+        
         static let house = UIImage(systemName: "house")
         static let magnifyingGlass = UIImage(systemName: "magnifyingglass")
         static let musicNote = UIImage(systemName: "music.note.list")
+        
     }
     
 }
@@ -47,7 +57,9 @@ enum ConstantsImages {
 enum SettingsConstants {
     
     struct Keys {
+        
         static let settingsCell = "settingsCell"
+        
     }
     
 }
