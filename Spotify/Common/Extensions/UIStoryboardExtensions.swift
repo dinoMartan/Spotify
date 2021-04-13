@@ -44,6 +44,7 @@ extension UIStoryboard {
         case player = "player"
         case createPlaylist = "createPlaylist"
         case track = "track"
+        case libraryPage = "libraryPageViewController"
         
     }
     
@@ -64,6 +65,7 @@ extension UIStoryboard {
         case player
         case createPlaylist
         case track
+        case libraryPage
 
         var viewController: UIViewController {
             switch self {
@@ -81,6 +83,7 @@ extension UIStoryboard {
             case .player: return instantiateViewController(name: .player, identifier: .player)
             case .createPlaylist: return instantiateViewController(name: .createPlaylist, identifier: .createPlaylist)
             case .track: return instantiateViewController(name: .track, identifier: .track)
+            case .libraryPage: return instantiateViewController(name: .library, identifier: .libraryPage)
             }
         }
         

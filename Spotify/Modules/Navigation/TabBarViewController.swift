@@ -48,7 +48,8 @@ private extension TabBarViewController {
     }
     
     private func setupLibrary() -> UIViewController {
-        let viewControllerLibrary = UIStoryboard.Storyboard.library.viewController
+        //let viewControllerLibrary = UIStoryboard.Storyboard.library.viewController
+        let viewControllerLibrary = UIStoryboard.Storyboard.libraryPage.viewController
         viewControllerLibrary.title = "Library"
         let navigationControllerLibrary = UINavigationController(rootViewController: viewControllerLibrary)
         navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: ConstantsImages.Images.musicNote, tag: 3)

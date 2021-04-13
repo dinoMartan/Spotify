@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LibraryViewController: DMViewController {
+class LibraryViewController: UIViewController {
     
     //MARK: - IBOutlets
     
@@ -28,7 +28,6 @@ class LibraryViewController: DMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,7 +42,7 @@ class LibraryViewController: DMViewController {
     func setTrack(track: TrackInputType) {
         self.track = track
     }
-
+    
 }
 
 //MARK: - Private extensions -
@@ -76,6 +75,14 @@ private extension LibraryViewController {
             return
         }
         noPlaylistsView.isHidden = true
+    }
+    
+    private func deletePlaylist(playlistId: String) {
+        APICaller.shared.deleteUsersPlaylist(playlistId: playlistId) {
+            self.fetchCurrentUsersPlaylists()
+        } failure: { error in
+            // to do - handle error
+        }
     }
     
 }
@@ -177,6 +184,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LibraryTableViewCell.identifier) as? LibraryTableViewCell else { return UITableViewCell() }
         guard let playlistItem = currentUsersPlaylists?.items[indexPath.row] else { return UITableViewCell() }
         cell.configureCell(playlist: playlistItem)
+        cell.delegate = self
         return cell
     }
     
@@ -222,24 +230,18 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
         return 100
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let playlistItems = currentUsersPlaylists?.items else { return }
-            let playlist = playlistItems[indexPath.row]
-            let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)
-            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-                self.deletePlaylist(playlistId: playlist.id)
-            }))
-            present(alert, animated: true, completion: nil)
-        }
-    }
+}
+
+//MARK: - TableViewCell Delegate
+
+extension LibraryViewController: LibraryTableViewCellDelegate {
     
-    private func deletePlaylist(playlistId: String) {
-        APICaller.shared.deleteUsersPlaylist(playlistId: playlistId) {
-            self.fetchCurrentUsersPlaylists()
-        } failure: { error in
-            // to do - handle error
-        }
+    func didTapDeletePlaylistButton(playlist: PlaylistItem) {
+        let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)
+        alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+            self.deletePlaylist(playlistId: playlist.id)
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
 }

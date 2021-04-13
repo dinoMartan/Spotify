@@ -9,6 +9,12 @@
 import UIKit
 import SDWebImage
 
+protocol LibraryTableViewCellDelegate: AnyObject {
+    
+    func didTapDeletePlaylistButton(playlist: PlaylistItem)
+    
+}
+
 class LibraryTableViewCell: UITableViewCell {
     
     //MARK: - IBOutlets
@@ -19,14 +25,31 @@ class LibraryTableViewCell: UITableViewCell {
     //MARK: - Public properties
     
     static let identifier = "LibraryTableViewCell"
+    weak var delegate: LibraryTableViewCellDelegate?
+    
+    //MARK: - Private properties
+    
+    private var playlist: PlaylistItem?
     
     //MARK: - Lifecycle
     
     func configureCell(playlist: PlaylistItem) {
+        self.playlist = playlist
         if let playlistItem = playlist.images.first?.url, playlistItem != "" {
             playlistImageView.sd_setImage(with: URL(string: playlistItem), completed: nil)
         }
         playlistName.text = playlist.name
     }
+    
+}
 
+//MARK: - IBActions
+
+extension LibraryTableViewCell {
+    
+    @IBAction func didTapDeletePlaylistButton(_ sender: Any) {
+        guard let playlist = playlist else { return }
+        delegate?.didTapDeletePlaylistButton(playlist: playlist)
+    }
+    
 }
