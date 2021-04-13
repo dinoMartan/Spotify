@@ -90,7 +90,7 @@ extension PlaylistViewController: PlaylistCollectionViewCellDeleteTrackDelegate 
         let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-            APICaller.shared.deleteTrackFromPlaylist(playlistId: playlist.id, trackUri: trackUri) {
+            APICaller.shared.deleteTrackFromPlaylist(on: self, playlistId: playlist.id, trackUri: trackUri) {
                 self.fetchPlaylistDetails()
                 self.collectionView.reloadData()
             } failure: { error in
@@ -121,7 +121,7 @@ private extension PlaylistViewController {
             group.leave()
             return
         }
-        APICaller.shared.getPlaylistDetails(for: playlist) { [unowned self] playlistResponse in
+        APICaller.shared.getPlaylistDetails(on: self, for: playlist) { [unowned self] playlistResponse in
             playlistDetails = playlistResponse
             group.leave()
             updateUI()

@@ -15,6 +15,7 @@ struct AlertsConstants {
         case ops = "Oooops!"
         case somethingWentWrong = "Something went wrong!"
         case error = "Error"
+        case sessionExpired = "Session expired"
         
     }
     
@@ -29,6 +30,7 @@ struct AlertsConstants {
         case didntFetchRecommendations = "Looks like we couldn't fetch recommendations"
         case didntCreatePlaylist = "Looks like we couldn't create your playlist"
         case areYouSureYouWantToDeleteThisPlaylist = "Are you sure you want to delete this playlist? This action can't be undone."
+        case sessionExpired = "Looks like your session expired. We're sending you back to login page."
         
     }
     

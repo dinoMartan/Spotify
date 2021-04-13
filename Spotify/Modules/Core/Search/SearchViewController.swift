@@ -45,7 +45,7 @@ class SearchViewController: DMViewController {
     private func setupView() {
         let group = DispatchGroup()
         group.enter()
-        APICaller.shared.getAllCategories { allCategoriesResponse in
+        APICaller.shared.getAllCategories(on: self) { allCategoriesResponse in
             self.categories = allCategoriesResponse.response.categories
             group.leave()
         } failure: { _ in

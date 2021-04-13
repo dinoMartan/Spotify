@@ -96,7 +96,7 @@ private extension AlbumViewController {
             // to do - handle error
             return
         }
-        APICaller.shared.getAlbumDetails(for: album) { albumDetailsResponse in
+        APICaller.shared.getAlbumDetails(on: self, for: album) { albumDetailsResponse in
             self.albumDetails = albumDetailsResponse
             group.leave()
         } failure: { _ in

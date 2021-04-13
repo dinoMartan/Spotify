@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-protocol LibraryTableViewCellDelegate: AnyObject {
+protocol LibraryMyPlaylistsTableViewCellDelegate: AnyObject {
     
     func didTapDeletePlaylistButton(playlist: PlaylistItem)
     
@@ -25,7 +25,7 @@ class LibraryTableViewCell: UITableViewCell {
     //MARK: - Public properties
     
     static let identifier = "LibraryTableViewCell"
-    weak var delegate: LibraryTableViewCellDelegate?
+    weak var delegate: LibraryMyPlaylistsTableViewCellDelegate?
     
     //MARK: - Private properties
     

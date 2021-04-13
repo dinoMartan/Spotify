@@ -49,7 +49,7 @@ private extension CreatePlaylistViewController {
             return
         }
         
-        APICaller.shared.createUserPlaylist(name: playlistName) {
+        APICaller.shared.createUserPlaylist(on: self, name: playlistName) {
             self.delegate?.didCreateNewPlaylist(completion: .success)
             self.dismiss(animated: true, completion: nil)
         } failure: { error in

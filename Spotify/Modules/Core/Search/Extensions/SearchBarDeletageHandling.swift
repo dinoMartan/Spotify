@@ -21,7 +21,7 @@ extension SearchViewController: SearchCollectionReusableViewDelegate {
         }
         
         // if text isn't empty, execute search
-        APICaller.shared.search(with: searchText) {[unowned self] searchResponse in
+        APICaller.shared.search(on: self, with: searchText) {[unowned self] searchResponse in
             albums = searchResponse.albums.items
             artists = searchResponse.artists.items
             tracks = searchResponse.tracks.items
@@ -39,7 +39,7 @@ extension SearchViewController: SearchCollectionReusableViewDelegate {
     }
     
     private func restoreCategories() {
-        APICaller.shared.getAllCategories { [unowned self] allCategoriesResponse in
+        APICaller.shared.getAllCategories(on: self) { [unowned self] allCategoriesResponse in
             albums.removeAll()
             artists.removeAll()
             tracks.removeAll()

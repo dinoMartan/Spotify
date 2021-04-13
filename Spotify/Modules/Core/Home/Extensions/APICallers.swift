@@ -21,7 +21,7 @@ extension HomeViewController {
         var recommendations: RecommendationsResponse?
         
         // new releases
-        APICaller.shared.getNewReleases { newRelesesResponse in
+        APICaller.shared.getNewReleases(on: self) { newRelesesResponse in
             group.leave()
             newReleases = newRelesesResponse
         } failure: { _ in
@@ -31,7 +31,7 @@ extension HomeViewController {
         }
         
         // featured playlists
-        APICaller.shared.getFeaturedPlaylists { featuresPlaylistsResponse in
+        APICaller.shared.getFeaturedPlaylists(on: self) { featuresPlaylistsResponse in
             group.leave()
             featuredPlaylists = featuresPlaylistsResponse
         } failure: { _ in
@@ -41,10 +41,10 @@ extension HomeViewController {
         }
         
         // recommendations
-        APICaller.shared.getRecommendationGenres { recommendedGenresResponse in
+        APICaller.shared.getRecommendationGenres(on: self) { recommendedGenresResponse in
             guard let seeds = self.generateGenreSeeds(genres: recommendedGenresResponse.genres) else { return }
             
-            APICaller.shared.getRecommendations(genres: seeds) { recommendationsResponse in
+            APICaller.shared.getRecommendations(on: self, genres: seeds) { recommendationsResponse in
                 group.leave()
                 recommendations = recommendationsResponse
             } failure: { _ in

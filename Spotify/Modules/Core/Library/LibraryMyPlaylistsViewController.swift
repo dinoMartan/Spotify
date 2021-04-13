@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LibraryViewController: UIViewController {
+class LibraryMyPlaylistsViewController: UIViewController {
     
     //MARK: - IBOutlets
     
@@ -49,7 +49,7 @@ class LibraryViewController: UIViewController {
 
 //MARK: - ViewControllerSetup
 
-private extension LibraryViewController {
+private extension LibraryMyPlaylistsViewController {
     
     private func setupView() {
         fetchCurrentUsersPlaylists()
@@ -78,7 +78,7 @@ private extension LibraryViewController {
     }
     
     private func deletePlaylist(playlistId: String) {
-        APICaller.shared.deleteUsersPlaylist(playlistId: playlistId) {
+        APICaller.shared.deleteUsersPlaylist(on: self, playlistId: playlistId) {
             self.fetchCurrentUsersPlaylists()
         } failure: { error in
             // to do - handle error
@@ -89,14 +89,14 @@ private extension LibraryViewController {
 
 //MARK: - Data handling
 
-private extension LibraryViewController {
+private extension LibraryMyPlaylistsViewController {
 
     private func fetchCurrentUsersPlaylists() {
-        APICaller.shared.getCurrentUserPlaylists { [unowned self] playlists in
-            currentUsersPlaylists = playlists
-            allCurrentUsersPlaylists = playlists
-            tableView.reloadData()
-            configureNoPlaylistView()
+        APICaller.shared.getCurrentUserPlaylists(on: self) { [weak self] playlists in
+            self?.currentUsersPlaylists = playlists
+            self?.allCurrentUsersPlaylists = playlists
+            self?.tableView.reloadData()
+            self?.configureNoPlaylistView()
         } failure: { error in
             // to do - handle error
         }
@@ -105,7 +105,7 @@ private extension LibraryViewController {
 }
 //MARK: - IBActions -
 
-private extension LibraryViewController {
+private extension LibraryMyPlaylistsViewController {
     
     // view behind table view
     @IBAction func didTapCreatePlaylistButton(_ sender: Any) {
@@ -126,7 +126,7 @@ private extension LibraryViewController {
 
 //MARK: - SearchBar delegate
 
-extension LibraryViewController: UISearchBarDelegate {
+extension LibraryMyPlaylistsViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard currentUsersPlaylists != nil, allCurrentUsersPlaylists != nil else { return }
@@ -156,7 +156,7 @@ extension LibraryViewController: UISearchBarDelegate {
 
 //MARK: - CreatePlaylist delegate
 
-extension LibraryViewController: CreatePlaylistViewControllerDeletage {
+extension LibraryMyPlaylistsViewController: CreatePlaylistViewControllerDeletage {
     
     func didCreateNewPlaylist(completion: DidCreateNewPlaylist) {
         switch completion {
@@ -173,7 +173,7 @@ extension LibraryViewController: CreatePlaylistViewControllerDeletage {
 
 //MARK: - Tableview delegates
 
-extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
+extension LibraryMyPlaylistsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let playlists = currentUsersPlaylists else { return 0 }
@@ -207,7 +207,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
                 newTrackUri = song.track.uri
             }
             
-            APICaller.shared.addTrackToPlaylist(playlistId: playlistItem.id, trackUri: newTrackUri) {
+            APICaller.shared.addTrackToPlaylist(on: self, playlistId: playlistItem.id, trackUri: newTrackUri) {
                 self.fetchCurrentUsersPlaylists()
                 let alert = Alerter.getAlert(myTitle: "Adding successful", error: "Added to playlist!", button: "OK")
                 self.present(alert, animated: true, completion: nil)
@@ -234,7 +234,7 @@ extension LibraryViewController: UITableViewDelegate, UITableViewDataSource {
 
 //MARK: - TableViewCell Delegate
 
-extension LibraryViewController: LibraryTableViewCellDelegate {
+extension LibraryMyPlaylistsViewController: LibraryMyPlaylistsTableViewCellDelegate {
     
     func didTapDeletePlaylistButton(playlist: PlaylistItem) {
         let alert = Alerter.getActionSheet(myTitle: playlist.name, message: .areYouSureYouWantToDeleteThisPlaylist, button: .cancel)

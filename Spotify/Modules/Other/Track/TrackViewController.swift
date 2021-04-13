@@ -78,7 +78,7 @@ private extension TrackViewController {
 extension TrackViewController {
     
     @IBAction func didTapAddToPlaylistButton(_ sender: Any) {
-        guard let libraryViewController = UIStoryboard.Storyboard.library.viewController as? LibraryViewController else { return }
+        guard let libraryViewController = UIStoryboard.Storyboard.library.viewController as? LibraryMyPlaylistsViewController else { return }
         guard let track = track else { return }
         libraryViewController.setTrack(track: track)
         present(libraryViewController, animated: true, completion: nil)

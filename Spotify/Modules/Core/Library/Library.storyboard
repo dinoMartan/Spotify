@@ -20,7 +20,7 @@
         <!--My Playlists-->
         <scene sceneID="9yd-bj-wVt">
             <objects>
-                <viewController storyboardIdentifier="library" title="My Playlists" id="7DF-D7-j1K" customClass="LibraryViewController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="library" title="My Playlists" id="7DF-D7-j1K" customClass="LibraryMyPlaylistsViewController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z06-zm-jYz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

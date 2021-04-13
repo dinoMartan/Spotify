@@ -50,7 +50,7 @@
 		318FBB402603C0C9008B1F7A /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB3F2603C0C9008B1F7A /* Home.storyboard */; };
 		318FBB422603C0D7008B1F7A /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB412603C0D7008B1F7A /* HomeViewController.swift */; };
 		318FBB442603C103008B1F7A /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB432603C103008B1F7A /* SearchViewController.swift */; };
-		318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB452603C10E008B1F7A /* LibraryViewController.swift */; };
+		318FBB462603C10E008B1F7A /* LibraryMyPlaylistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB452603C10E008B1F7A /* LibraryMyPlaylistsViewController.swift */; };
 		318FBB482603C117008B1F7A /* Library.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB472603C117008B1F7A /* Library.storyboard */; };
 		318FBB4A2603C137008B1F7A /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 318FBB492603C137008B1F7A /* Search.storyboard */; };
 		318FBB4C2603C166008B1F7A /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318FBB4B2603C166008B1F7A /* TabBarViewController.swift */; };
@@ -149,7 +149,7 @@
 		318FBB3F2603C0C9008B1F7A /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		318FBB412603C0D7008B1F7A /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		318FBB432603C103008B1F7A /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		318FBB452603C10E008B1F7A /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
+		318FBB452603C10E008B1F7A /* LibraryMyPlaylistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryMyPlaylistsViewController.swift; sourceTree = "<group>"; };
 		318FBB472603C117008B1F7A /* Library.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Library.storyboard; sourceTree = "<group>"; };
 		318FBB492603C137008B1F7A /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		318FBB4B2603C166008B1F7A /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -468,7 +468,7 @@
 		318FBB3E2603C0AF008B1F7A /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				318FBB452603C10E008B1F7A /* LibraryViewController.swift */,
+				318FBB452603C10E008B1F7A /* LibraryMyPlaylistsViewController.swift */,
 				318FBB472603C117008B1F7A /* Library.storyboard */,
 				313B334B2622265700E37E18 /* LibraryTableViewDataCell.swift */,
 				3113EFED2625E50E004E9508 /* LibraryPageViewController.swift */,
@@ -774,7 +774,7 @@
 				3122CFD3260796E400836C5C /* Consts.swift in Sources */,
 				319B939F261E81CF008A022F /* SearchBarDeletageHandling.swift in Sources */,
 				319B937F261E5868008A022F /* SearchPlaylistsCollectionViewCell.swift in Sources */,
-				318FBB462603C10E008B1F7A /* LibraryViewController.swift in Sources */,
+				318FBB462603C10E008B1F7A /* LibraryMyPlaylistsViewController.swift in Sources */,
 				31F4BBC7261B96D80033C5F8 /* FeaturedPlaylistsCellViewModel.swift in Sources */,
 				319B9376261E542D008A022F /* SearchAlbumsCollectionViewCell.swift in Sources */,
 				31F4BC19261C9A9C0033C5F8 /* Tracks.swift in Sources */,

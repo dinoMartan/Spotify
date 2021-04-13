@@ -9,11 +9,18 @@
 import Foundation
 import Alamofire
 
+protocol APICallerDelegate: AnyObject {
+    
+    func isNotSignedIn()
+    
+}
+
 final class APICaller {
         
     //MARK: - Public properties
     
     static let shared = APICaller()
+    weak var delegate: APICallerDelegate? // if used, app crashes
     
     //MARK: - Private properties
     
@@ -35,9 +42,21 @@ final class APICaller {
     
     private init() { }
     
+    private func checkIfSignedIn(on viewController: UIViewController) {
+        let userSignedIn = AuthManager.shared.isSignedIn
+        if !userSignedIn {
+            let alert = UIAlertController(title: AlertsConstants.Titles.sessionExpired.rawValue, message: AlertsConstants.Messages.sessionExpired.rawValue, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: AlertsConstants.Button.ok.rawValue, style: .default, handler: { _ in
+                self.delegate?.isNotSignedIn()
+            }))
+            viewController.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     //MARK: - Profile
      
-    func getCurrentUserProfile(success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
+    func getCurrentUserProfile(on viewController: UIViewController, success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.currentUserProfileUrl, method: .get, headers: headers)
             .responseDecodable(of: UserProfile.self) { response in
                 switch(response.result) {
@@ -51,7 +70,8 @@ final class APICaller {
     
     //MARK: - Albums
     
-    func getNewReleases(success: @escaping (NewReleasesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getNewReleases(on viewController: UIViewController, success: @escaping (NewReleasesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.newReleasesUrl, method: .get, parameters: APIParameters.newReleases, headers: headers)
             .responseDecodable(of: NewReleasesResponse.self) { response in
                 switch(response.result) {
@@ -63,7 +83,8 @@ final class APICaller {
             }
     }
     
-    func getAlbumDetails(for album: NewReleasesItem, success: @escaping (AlbumDetailsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getAlbumDetails(on viewController: UIViewController, for album: NewReleasesItem, success: @escaping (AlbumDetailsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.albumDetailsUrl + (album.id ?? "")
         alamofire.request(url, method: .get, headers: headers)
             .responseDecodable(of: AlbumDetailsResponse.self) { response in
@@ -78,7 +99,8 @@ final class APICaller {
     
     //MARK: - Playlists
     
-    func getFeaturedPlaylists(success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getFeaturedPlaylists(on viewController: UIViewController, success: @escaping (FeaturedPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.featuredPlaylistsUrl, method: .get, parameters: APIParameters.featuredPlaylists, headers: headers)
             .responseDecodable(of: FeaturedPlaylistsResponse.self) { response in
                 switch(response.result) {
@@ -90,7 +112,8 @@ final class APICaller {
             }
     }
     
-    func getPlaylistDetails(for playlist: PlaylistItem, success: @escaping (PlaylistResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getPlaylistDetails(on viewController: UIViewController, for playlist: PlaylistItem, success: @escaping (PlaylistResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.playlistUrl + playlist.id
         alamofire.request(url, method: .get, headers: headers)
             .responseDecodable(of: PlaylistResponse.self) { response in
@@ -103,7 +126,8 @@ final class APICaller {
             }
     }
     
-    func getCurrentUserPlaylists(success: @escaping (Playlists) -> Void, failure: @escaping (Error?) -> Void) {
+    func getCurrentUserPlaylists(on viewController: UIViewController, success: @escaping (Playlists) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.currentUserPlaylists, method: .get, headers: headers)
             .responseDecodable(of: Playlists.self) { response in
                 switch(response.result) {
@@ -115,9 +139,10 @@ final class APICaller {
             }
     }
     
-    func createUserPlaylist(name: String, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {
+    func createUserPlaylist(on viewController: UIViewController, name: String, success: @escaping () -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         // user ID is needed, first get user profile
-        getCurrentUserProfile { [unowned self] userProfile in
+        getCurrentUserProfile(on: viewController) { [unowned self] userProfile in
             // isolating user ID
             guard let userId = userProfile?.id else {
                 failure(nil)
@@ -141,7 +166,8 @@ final class APICaller {
         }
     }
     
-    func addTrackToPlaylist(playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func addTrackToPlaylist(on viewController: UIViewController, playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.playlistUrl + "\(playlistId)/tracks"
         let parameters = ["uris": [trackUri]]
         alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headersContentType)
@@ -155,7 +181,8 @@ final class APICaller {
             }
     }
     
-    func deleteTrackFromPlaylist(playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func deleteTrackFromPlaylist(on viewController: UIViewController, playlistId: String, trackUri: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.playlistUrl + "\(playlistId)/tracks"
         let parameters = ["uris": [trackUri]]
         alamofire.request(url, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: headersContentType)
@@ -169,7 +196,8 @@ final class APICaller {
             }
     }
     
-    func deleteUsersPlaylist(playlistId: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+    func deleteUsersPlaylist(on viewController: UIViewController, playlistId: String, success: @escaping () -> Void, failure: @escaping (Error) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.playlistUrl + "\(playlistId)/followers"
         alamofire.request(url, method: .delete, headers: headers)
             .response { response in
@@ -184,7 +212,8 @@ final class APICaller {
     
     //MARK: - Genres
     
-    func getRecommendationGenres(success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getRecommendationGenres(on viewController: UIViewController, success: @escaping (RecommendationGenresResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.recommendationGenresUrl, method: .get, parameters: APIParameters.featuredPlaylists, headers: headers)
             .responseDecodable(of: RecommendationGenresResponse.self) { response in
                 switch(response.result) {
@@ -198,7 +227,8 @@ final class APICaller {
     
     //MARK: - Category
     
-    func getAllCategories(success: @escaping (AllCategoriesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getAllCategories(on viewController: UIViewController, success: @escaping (AllCategoriesResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         alamofire.request(APIConstants.allCagetoriesUrl, method: .get, parameters: APIParameters.allCategories, headers: headers)
             .responseDecodable(of: AllCategoriesResponse.self) { response in
                 switch(response.result) {
@@ -210,7 +240,8 @@ final class APICaller {
             }
     }
     
-    func getCategoryPlaylists(for category: Category, success: @escaping (CategoryPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getCategoryPlaylists(on viewController: UIViewController, for category: Category, success: @escaping (CategoryPlaylistsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.categoryPlaylistsUrl + category.id + "/playlists"
         alamofire.request(url, method: .get, headers: headers)
             .responseDecodable(of: CategoryPlaylistsResponse.self) { response in
@@ -225,7 +256,8 @@ final class APICaller {
     
     //MARK: - Tracks
     
-    func getRecommendations(genres: Set<String>, success: @escaping (RecommendationsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func getRecommendations(on viewController: UIViewController, genres: Set<String>, success: @escaping (RecommendationsResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         
         let seeds = genres.joined(separator: ",")
         let url = "\(APIConstants.recommendationsUrl)?seed_genres=\(seeds)"
@@ -243,7 +275,8 @@ final class APICaller {
     
     //MARK: - Search
     
-    func search(with query: String, success: @escaping (SearchResponse) -> Void, failure: @escaping (Error?) -> Void) {
+    func search(on viewController: UIViewController, with query: String, success: @escaping (SearchResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
         let url = APIConstants.searchUrl + "?q=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&type=album,artist,playlist,track&limit=12"
         alamofire.request(url, method: .get, parameters: APIParameters.allCategories, headers: headers)
             .responseDecodable(of: SearchResponse.self) { response in

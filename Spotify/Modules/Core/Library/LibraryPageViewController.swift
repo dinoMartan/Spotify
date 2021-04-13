@@ -13,7 +13,7 @@ class LibraryPageViewController: UIPageViewController {
     //MARK: - Private properties
     
     private var myViewControllers: [UIViewController]? = {
-        guard let libraryViewController = UIStoryboard.Storyboard.library.viewController as? LibraryViewController else { return nil }
+        guard let libraryViewController = UIStoryboard.Storyboard.library.viewController as? LibraryMyPlaylistsViewController else { return nil }
         guard let profileViewController = UIStoryboard.Storyboard.profile.viewController as? ProfileViewController else { return nil }
         return [libraryViewController, profileViewController]
     }()

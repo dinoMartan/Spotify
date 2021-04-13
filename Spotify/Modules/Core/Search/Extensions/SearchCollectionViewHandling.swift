@@ -74,7 +74,7 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
         switch type {
         case .categories:
             let category = categories[indexPath.row]
-            APICaller.shared.getCategoryPlaylists(for: category) { categoryPlaylistsResponse in
+            APICaller.shared.getCategoryPlaylists(on: self, for: category) { categoryPlaylistsResponse in
                 guard let categoryPlaylistsViewController = UIStoryboard.Storyboard.categoryPlaylists.viewController as? CategoryPlaylistsViewController else { return }
                 categoryPlaylistsViewController.setPlaylists(categoryName: category.name, playlists: categoryPlaylistsResponse.playlists.items)
                 self.navigationController?.pushViewController(categoryPlaylistsViewController, animated: true)

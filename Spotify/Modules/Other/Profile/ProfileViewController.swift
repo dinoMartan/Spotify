@@ -36,8 +36,8 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController {
     
     private func fetchProfile() {
-        APICaller.shared.getCurrentUserProfile { [unowned self] userProfile in
-            DispatchQueue.main.async { updateUI(with: userProfile) }
+        APICaller.shared.getCurrentUserProfile(on: self) { [unowned self] userProfile in
+            updateUI(with: userProfile)
         } failure: { _ in
             let alert = Alerter.getAlert(myTitle: .error, myMessage: .didntFetchUserProfile, button: .shame)
             self.dismiss(animated: true, completion: nil)
