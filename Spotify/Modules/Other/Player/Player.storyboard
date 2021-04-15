@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vLb-OF-X4B">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Player-->
+        <scene sceneID="hHh-xv-p34">
+            <objects>
+                <viewController storyboardIdentifier="player" id="kHI-Ti-ymr" customClass="PlayerViewController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JtN-pq-WX4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music.note" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kl8-wJ-e7I">
+                                <rect key="frame" x="50" y="118.5" width="314" height="273"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="274" id="ZAU-PU-5iq"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="x12-Dl-E42">
+                                <rect key="frame" x="20" y="422" width="374" height="84"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="trackName" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNA-lJ-nT2">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="47"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="39"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artistName" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EqN-or-b8M">
+                                        <rect key="frame" x="0.0" y="55" width="374" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JhG-jZ-Uyi" userLabel="playPauseButton">
+                                <rect key="frame" x="173" y="560" width="68" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                <state key="normal" image="play.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapPlayPauseButton:" destination="kHI-Ti-ymr" eventType="touchUpInside" id="MQr-3k-qC4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHv-7p-8Hf" userLabel="nextButton">
+                                <rect key="frame" x="268" y="588" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <state key="normal" image="forward" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapNextButton:" destination="kHI-Ti-ymr" eventType="touchUpInside" id="Ube-X8-lWd"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="JgK-Ic-vqx">
+                                <rect key="frame" x="108" y="772" width="198" height="31"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <connections>
+                                    <action selector="didChangeSlider:" destination="kHI-Ti-ymr" eventType="valueChanged" id="sw3-vA-DYe"/>
+                                </connections>
+                            </slider>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xf-ot-dFO" userLabel="previousButton">
+                                <rect key="frame" x="96" y="588" width="50" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.90000000000000002" height="1"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <state key="normal" image="backward" catalog="system"/>
+                                <connections>
+                                    <action selector="didTapPreviousButton:" destination="kHI-Ti-ymr" eventType="touchUpInside" id="y5b-GK-dfh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="sq3-KP-YuZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sq3-KP-YuZ" firstAttribute="trailing" secondItem="kl8-wJ-e7I" secondAttribute="trailing" constant="50" id="6gv-RB-mx0"/>
+                            <constraint firstItem="x12-Dl-E42" firstAttribute="top" secondItem="kl8-wJ-e7I" secondAttribute="bottom" constant="30" id="Ffx-oC-QcO"/>
+                            <constraint firstItem="x12-Dl-E42" firstAttribute="leading" secondItem="sq3-KP-YuZ" secondAttribute="leading" constant="20" id="KVa-Fw-Rv1"/>
+                            <constraint firstItem="kl8-wJ-e7I" firstAttribute="leading" secondItem="sq3-KP-YuZ" secondAttribute="leading" constant="50" id="LCd-sb-fjh"/>
+                            <constraint firstItem="JgK-Ic-vqx" firstAttribute="leading" secondItem="sq3-KP-YuZ" secondAttribute="leading" constant="110" id="UfF-07-YUG"/>
+                            <constraint firstItem="sq3-KP-YuZ" firstAttribute="trailing" secondItem="x12-Dl-E42" secondAttribute="trailing" constant="20" id="VDd-dX-CLw"/>
+                            <constraint firstItem="sq3-KP-YuZ" firstAttribute="bottom" secondItem="JgK-Ic-vqx" secondAttribute="bottom" constant="60" id="W8b-RO-TaM"/>
+                            <constraint firstItem="sq3-KP-YuZ" firstAttribute="trailing" secondItem="JgK-Ic-vqx" secondAttribute="trailing" constant="110" id="nCd-bB-NuZ"/>
+                            <constraint firstItem="kl8-wJ-e7I" firstAttribute="top" secondItem="sq3-KP-YuZ" secondAttribute="top" constant="30" id="xke-Oj-eAS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Player" id="CDS-tb-IHC">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="xmark.circle.fill" catalog="system" id="PU3-lf-oa1">
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                            <connections>
+                                <action selector="didTapExitButton:" destination="kHI-Ti-ymr" id="2lm-s5-FAj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrowshape.turn.up.right.fill" catalog="system" id="j47-NO-Jeg">
+                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                            <connections>
+                                <action selector="didTapShareButton:" destination="kHI-Ti-ymr" id="U0c-1v-QC5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="artistNameLabel" destination="EqN-or-b8M" id="FXf-AA-rIm"/>
+                        <outlet property="playPauseButton" destination="JhG-jZ-Uyi" id="K0m-6V-b34"/>
+                        <outlet property="trackImageView" destination="kl8-wJ-e7I" id="tOG-IZ-Uex"/>
+                        <outlet property="trackNameLabel" destination="vNA-lJ-nT2" id="Znu-X8-4gg"/>
+                        <outlet property="volumeSlider" destination="JgK-Ic-vqx" id="YmG-K5-kWZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="95X-tL-N45" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2915.9420289855075" y="50.892857142857139"/>
+        </scene>
+        <!--Player Navigation Controller-->
+        <scene sceneID="iIm-GN-lHq">
+            <objects>
+                <navigationController storyboardIdentifier="playerNavigation" automaticallyAdjustsScrollViewInsets="NO" id="vLb-OF-X4B" customClass="PlayerNavigationController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3EQ-22-CrO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <color key="barTintColor" systemColor="secondarySystemBackgroundColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="secondaryLabelColor"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Bp2-ah-Ebb">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="kHI-Ti-ymr" kind="relationship" relationship="rootViewController" id="WgK-b3-ubw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="luc-kQ-Ttr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2005.7971014492755" y="50.892857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="106"/>
+        <image name="backward" catalog="system" width="128" height="79"/>
+        <image name="forward" catalog="system" width="128" height="79"/>
+        <image name="music.note" catalog="system" width="97" height="128"/>
+        <image name="play.fill" catalog="system" width="116" height="128"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

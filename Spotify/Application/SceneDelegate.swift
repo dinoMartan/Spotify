@@ -12,20 +12,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        //let isLoggedIn = AuthManager.shared.isSignedIn
-        let isLoggedIn = false
-        
+        APICaller.shared.delegate = self
+        let isLoggedIn = AuthManager.shared.isSignedIn
         let window = UIWindow(windowScene: windowScene)
         
         if isLoggedIn {
-            window.rootViewController = UIViewController.MyViewControllers.mainViewController
+            window.rootViewController = UIStoryboard.Storyboard.main.viewController
         }
         else {
-            window.rootViewController = UIViewController.MyViewControllers.welcomeViewController
+            window.rootViewController = UIStoryboard.Storyboard.welcome.viewController
         }
         
         window.makeKeyAndVisible()
@@ -60,6 +58,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+}
 
+extension SceneDelegate: APICallerDelegate {
+    
+    func isNotSignedIn() {
+        DispatchQueue.main.async {
+            self.window!.rootViewController = UIStoryboard.Storyboard.welcome.viewController
+        }
+    }
+    
 }
 

@@ -24,7 +24,7 @@ class WelcomeViewController: UIViewController {
 extension WelcomeViewController {
     
     @IBAction func didPressSignInButton(_ sender: Any) {
-        let authenticationViewController = UIViewController.MyViewControllers.authViewController
+        guard let authenticationViewController = UIStoryboard.Storyboard.authentication.viewController as? AuthenticationViewController else { return }
         authenticationViewController.authenticationDeleagete = self
         present(authenticationViewController, animated: true, completion: nil)
     }
@@ -35,18 +35,24 @@ extension WelcomeViewController {
 
 extension WelcomeViewController: AuthenticationDelegate {
     
-    // if is logged in, show main screen
-    func didCompleteAPICall() {
-        DispatchQueue.main.async { self.handleSignIn() }
+    func didCompleteAuthentication(with result: MyResult) {
+        switch result {
+            case .success:
+                DispatchQueue.main.async { self.handleSignIn() }
+            case .failure:
+                let alert = Alerter.getAlert(myTitle: .ops, myMessage: .didntCompleteAPICall, button: .ok)
+                present(alert, animated: true, completion: nil)
+        }
     }
     
-    func didNotCompleteAPICall() {
-        let alert = Alerter.getAlert(myTitle: .ops, myMessage: .didntCompleteAPICall, button: .shame)
-        present(alert, animated: true, completion: nil)
-    }
+}
+
+//MARK: - Private extensions -
+
+private extension WelcomeViewController {
     
     private func handleSignIn() {
-        let tabBarController = UIViewController.MyViewControllers.mainViewController
+        let tabBarController = UIStoryboard.Storyboard.main.viewController
         tabBarController.modalPresentationStyle = .fullScreen
         present(tabBarController, animated: true, completion: nil)
     }

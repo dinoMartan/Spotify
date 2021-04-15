@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Artist-->
+        <scene sceneID="gO4-Or-R7O">
+            <objects>
+                <viewController storyboardIdentifier="artist" title="Artist" automaticallyAdjustsScrollViewInsets="NO" id="Bjh-Vr-LED" customClass="ArtistViewController" customModule="Spotify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TuP-Xf-LHP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="280" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iYM-E4-5ec">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="AZM-eF-n42">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotifyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="S8M-PB-dz6">
+                                            <rect key="frame" x="70" y="25" width="274" height="200"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBm-TR-C2w">
+                                            <rect key="frame" x="25" y="245" width="364" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="S8M-PB-dz6" firstAttribute="leading" secondItem="AZM-eF-n42" secondAttribute="leading" constant="70" id="38p-2S-frF"/>
+                                        <constraint firstAttribute="bottom" secondItem="S8M-PB-dz6" secondAttribute="bottom" constant="75" id="7ui-uH-wiZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="WBm-TR-C2w" secondAttribute="bottom" constant="20" id="C83-Qk-Cix"/>
+                                        <constraint firstAttribute="trailing" secondItem="WBm-TR-C2w" secondAttribute="trailing" constant="25" id="P85-Wk-Bw7"/>
+                                        <constraint firstItem="WBm-TR-C2w" firstAttribute="top" secondItem="S8M-PB-dz6" secondAttribute="bottom" constant="20" id="R4K-Fa-F6K"/>
+                                        <constraint firstItem="S8M-PB-dz6" firstAttribute="top" secondItem="AZM-eF-n42" secondAttribute="top" constant="25" id="orm-hk-L5Z"/>
+                                        <constraint firstItem="WBm-TR-C2w" firstAttribute="leading" secondItem="AZM-eF-n42" secondAttribute="leading" constant="25" id="taG-gW-2IW"/>
+                                        <constraint firstAttribute="trailing" secondItem="S8M-PB-dz6" secondAttribute="trailing" constant="70" id="yVv-CN-4P5"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistAlbumsTableViewCell" rowHeight="250" id="wtD-Bg-X8P" customClass="ArtistAlbumsTableViewCell" customModule="Spotify" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="328" width="414" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wtD-Bg-X8P" id="UtR-pa-Cc8">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TmN-U3-gUp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hHS-zB-EBI">
+                                                        <size key="itemSize" width="200" height="230"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistAlbumsCollectionViewCell" id="jXA-fy-Ad6" customClass="ArtistAlbumsCollectionViewCell" customModule="Spotify" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="10" width="200" height="230"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="W4o-a5-Pig">
+                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="230"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QWh-db-mhL">
+                                                                        <rect key="frame" x="15" y="165" width="170" height="60"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uQU-09-4Lw">
+                                                                        <rect key="frame" x="10" y="10" width="180" height="150"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="180" id="4lj-Nm-79d"/>
+                                                                            <constraint firstAttribute="height" constant="150" id="LAt-78-CM8"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="uQU-09-4Lw" secondAttribute="trailing" constant="10" id="EXn-g7-ekz"/>
+                                                                    <constraint firstItem="QWh-db-mhL" firstAttribute="leading" secondItem="W4o-a5-Pig" secondAttribute="leading" constant="15" id="KvK-PP-8e1"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="QWh-db-mhL" secondAttribute="trailing" constant="15" id="ROA-tC-82P"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="QWh-db-mhL" secondAttribute="bottom" constant="5" id="U8R-Fc-WI4"/>
+                                                                    <constraint firstItem="QWh-db-mhL" firstAttribute="top" secondItem="uQU-09-4Lw" secondAttribute="bottom" constant="5" id="UOb-6h-Otm"/>
+                                                                    <constraint firstItem="uQU-09-4Lw" firstAttribute="leading" secondItem="W4o-a5-Pig" secondAttribute="leading" constant="10" id="WqD-IM-55S"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="uQU-09-4Lw" secondAttribute="bottom" constant="70" id="kTn-Tm-h97"/>
+                                                                    <constraint firstItem="uQU-09-4Lw" firstAttribute="top" secondItem="W4o-a5-Pig" secondAttribute="top" constant="10" id="og6-Ws-Tlc"/>
+                                                                </constraints>
+                                                            </collectionViewCellContentView>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <size key="customSize" width="200" height="230"/>
+                                                            <connections>
+                                                                <outlet property="albumImageView" destination="uQU-09-4Lw" id="6Pu-WR-HPH"/>
+                                                                <outlet property="albumNameLabel" destination="QWh-db-mhL" id="JXo-F7-sNu"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="TmN-U3-gUp" secondAttribute="bottom" id="HDj-IZ-yTM"/>
+                                                <constraint firstItem="TmN-U3-gUp" firstAttribute="top" secondItem="UtR-pa-Cc8" secondAttribute="top" id="OkJ-R0-EHT"/>
+                                                <constraint firstAttribute="trailing" secondItem="TmN-U3-gUp" secondAttribute="trailing" id="Rgd-jo-D6O"/>
+                                                <constraint firstItem="TmN-U3-gUp" firstAttribute="leading" secondItem="UtR-pa-Cc8" secondAttribute="leading" id="b6I-Lm-fMm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="collectionView" destination="TmN-U3-gUp" id="MVl-WX-z0x"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistTracksTableViewCell" rowHeight="250" id="ndr-QM-MfM" customClass="ArtistTracksTableViewCell" customModule="Spotify" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="578" width="414" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ndr-QM-MfM" id="6UM-8P-3ZS">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qsm-ab-tby">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="250"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="km1-UN-kB7">
+                                                        <size key="itemSize" width="200" height="230"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ArtistTracksCollectionViewCell" id="w9l-TM-4lH" customClass="ArtistTracksCollectionViewCell" customModule="Spotify" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="10" width="200" height="230"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="gHF-Lv-WGB">
+                                                                <rect key="frame" x="0.0" y="0.0" width="200" height="230"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="b4N-Yy-RkX">
+                                                                        <rect key="frame" x="10" y="10" width="180" height="150"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="150" id="BNT-CV-7km"/>
+                                                                            <constraint firstAttribute="width" constant="180" id="T8V-Wt-te9"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5d-Ey-snb">
+                                                                        <rect key="frame" x="15" y="165" width="170" height="60"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="p5d-Ey-snb" firstAttribute="top" secondItem="b4N-Yy-RkX" secondAttribute="bottom" constant="5" id="09C-bh-4cy"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="b4N-Yy-RkX" secondAttribute="bottom" constant="70" id="23E-mJ-6DM"/>
+                                                                    <constraint firstItem="b4N-Yy-RkX" firstAttribute="leading" secondItem="gHF-Lv-WGB" secondAttribute="leading" constant="10" id="PGZ-Jq-x4g"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="b4N-Yy-RkX" secondAttribute="trailing" constant="10" id="SEJ-2t-86V"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="p5d-Ey-snb" secondAttribute="bottom" constant="5" id="VCv-Gr-4Sw"/>
+                                                                    <constraint firstItem="p5d-Ey-snb" firstAttribute="leading" secondItem="gHF-Lv-WGB" secondAttribute="leading" constant="15" id="dkW-ZB-AOR"/>
+                                                                    <constraint firstItem="b4N-Yy-RkX" firstAttribute="top" secondItem="gHF-Lv-WGB" secondAttribute="top" constant="10" id="jTJ-fu-ldB"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="p5d-Ey-snb" secondAttribute="trailing" constant="15" id="uqA-ai-XsZ"/>
+                                                                </constraints>
+                                                            </collectionViewCellContentView>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            <size key="customSize" width="200" height="230"/>
+                                                            <connections>
+                                                                <outlet property="trackImageView" destination="b4N-Yy-RkX" id="iWu-48-q2F"/>
+                                                                <outlet property="trackNameLabel" destination="p5d-Ey-snb" id="n4n-SX-TjS"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                </collectionView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qsm-ab-tby" firstAttribute="leading" secondItem="6UM-8P-3ZS" secondAttribute="leading" id="0cv-GA-bG1"/>
+                                                <constraint firstItem="qsm-ab-tby" firstAttribute="top" secondItem="6UM-8P-3ZS" secondAttribute="top" id="DW4-PD-lBx"/>
+                                                <constraint firstAttribute="bottom" secondItem="qsm-ab-tby" secondAttribute="bottom" id="mIF-R1-bZa"/>
+                                                <constraint firstAttribute="trailing" secondItem="qsm-ab-tby" secondAttribute="trailing" id="p6D-Db-rjz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <connections>
+                                            <outlet property="collectionView" destination="qsm-ab-tby" id="Rgb-4P-zxz"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UOt-6O-211"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iYM-E4-5ec" secondAttribute="bottom" id="aOY-Tx-dFH"/>
+                            <constraint firstItem="iYM-E4-5ec" firstAttribute="leading" secondItem="UOt-6O-211" secondAttribute="leading" id="gX1-sU-Kor"/>
+                            <constraint firstItem="iYM-E4-5ec" firstAttribute="top" secondItem="TuP-Xf-LHP" secondAttribute="top" id="mnf-zP-p6Q"/>
+                            <constraint firstItem="UOt-6O-211" firstAttribute="trailing" secondItem="iYM-E4-5ec" secondAttribute="trailing" id="rLM-t3-Xcr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="artistImageView" destination="S8M-PB-dz6" id="PuS-JN-Xni"/>
+                        <outlet property="artistNameLabel" destination="WBm-TR-C2w" id="Xtz-8G-jwM"/>
+                        <outlet property="tableView" destination="iYM-E4-5ec" id="MZT-TU-utb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gly-qE-kv5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="286.95652173913044" y="43.526785714285715"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="spotifyLogo" width="1200" height="630"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

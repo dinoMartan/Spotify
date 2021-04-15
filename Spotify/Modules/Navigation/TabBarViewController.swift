@@ -9,11 +9,7 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
-    
-    //MARK: - Typealias
-    
-    typealias myUIViewControllers = UIViewController.MyViewControllers
-    
+        
     //MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -23,25 +19,41 @@ class TabBarViewController: UITabBarController {
     }
     
     func setupView() {
-        let viewControllerHome = myUIViewControllers.homeViewController
-        let viewControllerSearch = myUIViewControllers.searchViewController
-        let viewControllerLibrary = myUIViewControllers.libraryViewController
-        
-        viewControllerHome.title = "Home"
-        viewControllerSearch.title = "Search"
-        viewControllerLibrary.title = "Library"
-        
-        let navigationControllerHome = UINavigationController(rootViewController: viewControllerHome)
-        let navigationControllerSearch = UINavigationController(rootViewController: viewControllerSearch)
-        let navigationControllerLibrary = UINavigationController(rootViewController: viewControllerLibrary)
-        
-        navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: ConstantsImages.Images.house, tag: 1)
-        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: ConstantsImages.Images.magnifyingGlass, tag: 2)
-        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: ConstantsImages.Images.musicNote, tag: 3)
-        
-        let viewControllers = [navigationControllerSearch, navigationControllerHome, navigationControllerLibrary]
-        
+        tabBar.tintColor = .systemGreen
+        tabBar.isTranslucent = true
+        let viewControllers = [setupSearch(), setupHome(), setupLibrary()]
         setViewControllers(viewControllers, animated: true)
         selectedIndex = 1
     }
+}
+
+//MARK: - Private extensions -
+
+private extension TabBarViewController {
+    
+    private func setupHome() -> UIViewController {
+        let viewControllerHome = UIStoryboard.Storyboard.home.viewController
+        viewControllerHome.title = "Home"
+        let navigationControllerHome = UINavigationController(rootViewController: viewControllerHome)
+        navigationControllerHome.tabBarItem = UITabBarItem(title: "Home", image: ConstantsImages.Images.house, tag: 1)
+        return navigationControllerHome
+    }
+    
+    private func setupSearch() -> UIViewController{
+        let viewControllerSearch = UIStoryboard.Storyboard.search.viewController
+        viewControllerSearch.title = "Search"
+        let navigationControllerSearch = UINavigationController(rootViewController: viewControllerSearch)
+        navigationControllerSearch.tabBarItem = UITabBarItem(title: "Search", image: ConstantsImages.Images.magnifyingGlass, tag: 2)
+        return navigationControllerSearch
+    }
+    
+    private func setupLibrary() -> UIViewController {
+        //let viewControllerLibrary = UIStoryboard.Storyboard.library.viewController
+        let viewControllerLibrary = UIStoryboard.Storyboard.libraryPage.viewController
+        viewControllerLibrary.title = "Library"
+        let navigationControllerLibrary = UINavigationController(rootViewController: viewControllerLibrary)
+        navigationControllerLibrary.tabBarItem = UITabBarItem(title: "Library", image: ConstantsImages.Images.musicNote, tag: 3)
+        return navigationControllerLibrary
+    }
+    
 }
