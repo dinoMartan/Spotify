@@ -53,6 +53,42 @@ final class APICaller {
         }
     }
     
+    //MARK: - Artists
+    
+    func getArtistsAlbums(on viewController: UIViewController, for artistId: String, success: @escaping (SearchAlbums) -> Void, failure: @escaping (Error) -> Void) {
+        checkIfSignedIn(on: viewController)
+        let url = APIConstants.artistsUrl + "/\(artistId)/albums"
+        alamofire.request(url, method: .get, headers: headers)
+            .responseDecodable(of: SearchAlbums.self) { response in
+                switch(response.result) {
+                case .success(let albums):
+                    success(albums)
+                case .failure(let error):
+                    failure(error)
+                }
+            }
+    }
+    
+    func getArtistsTopTracks(on viewController: UIViewController, for artistId: String, success: @escaping (ArtistsTracksResponse) -> Void, failure: @escaping (Error?) -> Void) {
+        checkIfSignedIn(on: viewController)
+        // get user profile for user region
+        getCurrentUserProfile(on: viewController) { [unowned self] userProfile in
+            let parameter = ["market": userProfile?.country]
+            let url = APIConstants.artistsUrl + "/\(artistId)/top-tracks"
+            alamofire.request(url, method: .get, parameters: parameter, headers: headers)
+                .responseDecodable(of: ArtistsTracksResponse.self) { response in
+                    switch(response.result) {
+                    case .success(let tracks):
+                        success(tracks)
+                    case .failure(let error):
+                        failure(error)
+                    }
+                }
+        } failure: { error in
+            failure(error)
+        }
+    }
+    
     //MARK: - Profile
      
     func getCurrentUserProfile(on viewController: UIViewController, success: @escaping (UserProfile?) -> Void, failure: @escaping (Error?) -> Void) {

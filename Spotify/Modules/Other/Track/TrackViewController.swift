@@ -94,7 +94,6 @@ extension TrackViewController {
         case .playlistTrackItem(let track):
             PlaybackPresenter.shared.songPlayer(modelType: .playlistTrackItem(viewController: self, data: [track]))
         }
-        
     }
     
 }

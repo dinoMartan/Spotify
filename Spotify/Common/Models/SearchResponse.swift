@@ -39,7 +39,7 @@ struct SearchAlbumElement: Codable {
     
     let albumType: String
     let artists: [SearchOwner]
-    let availableMarkets: [String]
+    let availableMarkets: [String]?
     let externalUrls: SearchExternalUrls
     let href: String
     let id: String
@@ -209,7 +209,9 @@ struct SearchPlaylistsItem: Codable {
         case primaryColor = "primary_color"
         case itemPublic = "public"
         case snapshotID = "snapshot_id"
-        case tracks, type, uri
+        case tracks
+        case type
+        case uri
         
     }
     
@@ -235,7 +237,7 @@ struct SearchTracksItem: Codable {
     
     let album: SearchAlbumElement
     let artists: [SearchOwner]
-    let availableMarkets: [String]
+    let availableMarkets: [String]?
     let discNumber, durationMS: Int
     let explicit: Bool
     let externalIDS: SearchExternalIDS
@@ -247,7 +249,8 @@ struct SearchTracksItem: Codable {
     let popularity: Int
     let previewURL: String?
     let trackNumber: Int
-    let type, uri: String
+    let type: String
+    let uri: String
 
     enum CodingKeys: String, CodingKey {
         

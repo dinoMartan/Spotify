@@ -14,8 +14,10 @@ class LibraryPageViewController: UIPageViewController {
     
     private var myViewControllers: [UIViewController]? = {
         guard let libraryViewController = UIStoryboard.Storyboard.library.viewController as? LibraryMyPlaylistsViewController else { return nil }
-        guard let profileViewController = UIStoryboard.Storyboard.profile.viewController as? ProfileViewController else { return nil }
-        return [libraryViewController, profileViewController]
+        //guard let profileViewController = UIStoryboard.Storyboard.profile.viewController as? ProfileViewController else { return nil }
+        guard let artistViewController = UIStoryboard.Storyboard.artist.viewController as? ArtistViewController else { return nil }
+        
+        return [libraryViewController, artistViewController]
     }()
     
     //MARK: - Lifecycle

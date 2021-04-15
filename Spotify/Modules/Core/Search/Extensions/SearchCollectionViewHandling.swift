@@ -89,9 +89,10 @@ extension SearchViewController: UICollectionViewDelegate, UICollectionViewDataSo
             navigationController?.pushViewController(albumViewController, animated: true)
         case .artists:
             let artist = artists[indexPath.row]
-            guard let url = URL(string: artist.externalUrls?.spotify ?? "") else { return }
-            let safariViewController = SFSafariViewController(url: url)
-            present(safariViewController, animated: true, completion: nil)
+            guard let artistViewController = UIStoryboard.Storyboard.artist.viewController as? ArtistViewController else { return }
+            artistViewController.setArtist(artist: artist)
+            navigationController?.pushViewController(artistViewController, animated: true)
+            
         case .tracks:
             // setting current track as the first one in array of tracks and playing the whole list
             let track = tracks[indexPath.row]

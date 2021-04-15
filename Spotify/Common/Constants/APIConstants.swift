@@ -24,6 +24,7 @@ enum APIConstants {
     static let searchUrl = "\(apiUrl)/search"
     static let currentUserPlaylists = "\(apiUrl)/me/playlists"
     static let createPlaylistUrl = "\(apiUrl)/users/"
+    static let artistsUrl = "\(apiUrl)/artists"
     
 }
 
